@@ -84,6 +84,14 @@ body {
     gap: 12px;
 }
 
+.brand-logo-mark {
+    height: 38px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
+}
+
 .brand-logo-text {
     font-size: 1.35rem;
     font-weight: 800;

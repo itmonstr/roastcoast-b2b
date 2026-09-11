@@ -7,8 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260911_v3">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260911_v4">
     <style>
+        .brand-logo-mark {
+            height: 38px;
+            width: auto;
+            display: block;
+            flex-shrink: 0;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
+        }
         /* Embedded guaranteed mobile styles */
         @media (max-width: 992px) {
             .mobile-order-bar {
@@ -24,6 +31,7 @@
         }
         @media (max-width: 768px) {
             .b2b-header { padding: 10px 14px !important; }
+            .brand-logo-mark { height: 28px !important; }
             .header-phone span { display: none !important; }
             .conditions-banner {
                 display: grid !important;
@@ -109,6 +117,7 @@
     <header class="b2b-header">
         <div class="b2b-header-container">
             <div class="brand-badge">
+                <img src="assets/roastcoast-mark-light.svg" class="brand-logo-mark" alt="RoastCoast">
                 <span class="brand-logo-text">Roast<span>Coast</span></span>
                 <span class="b2b-pill">B2B Portal</span>
             </div>
@@ -275,9 +284,12 @@
             <button class="modal-close" id="closeModalBtn">&times;</button>
             
             <div class="invoice-header">
-                <div>
-                    <div class="invoice-title">СЧЁТ НА ОПЛАТУ</div>
-                    <div style="font-weight:700; color:var(--color-primary); font-size:1.1rem; margin-top:4px;">№ <span id="invoiceNumber">RC-94812</span> от <span id="invoiceDate">11.09.2026</span></div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <img src="assets/roastcoast-mark.svg" style="height:44px; width:auto;" alt="RoastCoast">
+                    <div>
+                        <div class="invoice-title">СЧЁТ НА ОПЛАТУ</div>
+                        <div style="font-weight:700; color:var(--color-primary); font-size:1.1rem; margin-top:2px;">№ <span id="invoiceNumber">RC-94812</span> от <span id="invoiceDate">11.09.2026</span></div>
+                    </div>
                 </div>
                 <div class="invoice-details">
                     <strong>Поставщик:</strong> ООО «РоастКоуст»<br>
@@ -344,6 +356,6 @@
         </button>
     </div>
 
-    <script src="assets/b2b.js?v=20260911_v3"></script>
+    <script src="assets/b2b.js?v=20260911_v4"></script>
 </body>
 </html>
