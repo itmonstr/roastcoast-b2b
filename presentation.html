@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoastCoast — Логика работы сайта и структура</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #F1F5F9;
+            --bg-slide: #FFFFFF;
+            --border-color: #E2E8F0;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --accent-amber: #D97706;
+            --accent-blue: #2563EB;
+            --accent-emerald: #059669;
+            --accent-purple: #7C3AED;
+            --radius-card: 14px;
+            --shadow-slide: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+            --transition-smooth: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Slide Container */
+        .presentation-deck {
+            position: relative;
+            width: 92vw;
+            height: 88vh;
+            max-width: 1600px;
+            max-height: 900px;
+            background: var(--bg-slide);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--shadow-slide);
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+            padding: 44px 60px 76px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--bg-slide);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        /* Header Components */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .brand-logo {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--accent-amber);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-logo span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-amber);
+            border-radius: 50%;
+        }
+
+        .slide-tag {
+            background: #FEF3C7;
+            color: #92400E;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-top: 10px;
+            margin-bottom: 4px;
+        }
+
+        .slide-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 900px;
+            line-height: 1.5;
+        }
+
+        /* Slide Body Area */
+        .slide-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- LAYOUT 1: COVER SLIDE --- */
+        .slide-cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 70px 80px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: #FEF3C7;
+            color: #92400E;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .cover-title {
+            font-size: 3.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .cover-title span {
+            color: var(--accent-amber);
+        }
+
+        .cover-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 850px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .cover-meta {
+            display: flex;
+            gap: 32px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 2px;
+        }
+
+        /* --- LAYOUT 2: SYSTEM CONNECTIONS SCHEMA --- */
+        .grid-system-schema {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .schema-box-main {
+            background: #FFFBEB;
+            border: 2px solid #FCD34D;
+            border-radius: var(--radius-card);
+            padding: 20px 24px;
+        }
+
+        .schema-box-main-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #78350F;
+            margin-bottom: 6px;
+        }
+
+        .schema-box-main-desc {
+            font-size: 0.95rem;
+            color: #92400E;
+            line-height: 1.55;
+        }
+
+        .schema-grid-flows {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .schema-flow-item {
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .schema-flow-head {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+        }
+
+        .schema-flow-text {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .schema-arrow {
+            color: var(--accent-amber);
+            font-weight: bold;
+        }
+
+        /* --- LAYOUT 3: NATIVE HTML/CSS/SVG MINDMAP LAYOUT --- */
+        .native-mm-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 190px 1fr;
+            gap: 24px;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .mm-lines-layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .mm-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .mm-card {
+            background: #FFFFFF;
+            border: 2px solid var(--card-border-color, #E2E8F0);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: var(--transition-smooth);
+        }
+
+        .mm-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .mm-card-head {
+            background: var(--card-head-bg, #1E293B);
+            color: #FFFFFF;
+            font-size: 0.88rem;
+            font-weight: 700;
+            padding: 6px 14px;
+        }
+
+        .mm-card-body {
+            padding: 8px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .mm-item {
+            font-size: 0.78rem;
+            color: #334155;
+            line-height: 1.35;
+            font-weight: 500;
+        }
+
+        .mm-hub {
+            background: #1E293B;
+            border: 3px solid #D97706;
+            border-radius: 16px;
+            padding: 16px 10px;
+            text-align: center;
+            color: #FFF;
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.2);
+            z-index: 5;
+            margin: 0 auto;
+            width: 180px;
+        }
+
+        .mm-hub-title {
+            color: #FBBF24;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .mm-hub-sub {
+            color: #F1F5F9;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+
+        /* --- LAYOUT 4 & 5: STEP JOURNEY LAYOUTS (7-STEP & B2B 4-STEP) --- */
+        .journey-grid-7 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            width: 100%;
+        }
+
+        .journey-card {
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .journey-step-badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--accent-amber);
+            color: #FFF;
+            font-size: 0.8rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .journey-step-title {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .journey-step-desc {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        /* --- LAYOUT 6: SITE MAP STRUCTURE GRID --- */
+        .sitemap-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            width: 100%;
+        }
+
+        .sitemap-card {
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sitemap-head {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent-amber);
+        }
+
+        .sitemap-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sitemap-list li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            position: relative;
+            padding-left: 14px;
+        }
+
+        .sitemap-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent-amber);
+            font-weight: bold;
+        }
+
+        /* --- LAYOUT 7: 3 GOLDEN RULES OF SITE MANAGEMENT --- */
+        .rules-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .rule-card {
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-card);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            border-top: 4px solid var(--accent-amber);
+        }
+
+        .rule-num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent-amber);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .rule-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .rule-desc {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* --- LAYOUT 8: QUESTIONS FOR CLIENT MEETING --- */
+        .questions-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .q-card {
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            border-radius: var(--radius-card);
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .q-tag {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #1E40AF;
+            background: #DBEAFE;
+            padding: 3px 8px;
+            border-radius: 4px;
+            align-self: flex-start;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .q-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1E3A8A;
+            margin-bottom: 10px;
+        }
+
+        .q-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .q-list li {
+            font-size: 0.88rem;
+            color: #1E40AF;
+            line-height: 1.45;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .q-list li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #2563EB;
+            font-weight: bold;
+        }
+
+        /* Footer Controls */
+        .controls-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 56px;
+            background: #FFFFFF;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 100;
+        }
+
+        .progress-bar-container {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #E2E8F0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 12.5%;
+            background: var(--accent-amber);
+            transition: width 0.3s ease;
+        }
+
+        .nav-btn {
+            background: #F1F5F9;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 7px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-btn:hover {
+            background: #E2E8F0;
+            color: #000;
+        }
+
+        .slide-counter {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Overview Modal */
+        .overview-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overview-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .overview-content {
+            background: #FFFFFF;
+            width: 90vw;
+            max-width: 1200px;
+            max-height: 85vh;
+            border-radius: 16px;
+            padding: 32px;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .overview-card {
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .overview-card:hover {
+            border-color: var(--accent-amber);
+            background: #FFFBEB;
+        }
+
+        .overview-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-amber);
+            margin-bottom: 4px;
+        }
+
+        .overview-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-deck">
+        
+        <!-- SLIDE 1: COVER SLIDE -->
+        <div class="slide slide-cover active">
+            <div>
+                <div class="cover-badge">Документ от 09.09.2026</div>
+                <h1 class="cover-title">RoastCoast <span>— Как будет работать новый сайт</span></h1>
+                <p class="cover-subtitle">Предварительная логика и структура: покупатель проходит весь путь сам (выбрал, оформил, оплатил, отследил), а вы работаете как обычно — в МойСклад.</p>
+            </div>
+            
+            <div class="cover-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Дата подготовки</span>
+                    <span class="meta-value">09.09.2026</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Текущий сайт</span>
+                    <span class="meta-value">roastcoast.ru</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Сердце системы</span>
+                    <span class="meta-value">МойСклад (Единый учет)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: ОБЩАЯ ЛОГИКА: ЧТО С ЧЕМ СВЯЗАНО -->
+        <div class="slide">
+            <div>
+                <div class="slide-header">
+                    <div class="brand-logo"><span></span> RoastCoast</div>
+                    <div class="slide-tag">Раздел 1</div>
+                </div>
+                <h2 class="slide-title">Общая логика: что с чем связано</h2>
+                <p class="slide-subtitle">Сайт и бот — это лишь витрины и приёмники заказов. Все управление происходит внутри МойСклад.</p>
+            </div>
+
+            <div class="slide-body">
+                <div class="grid-system-schema">
+                    <div class="schema-box-main">
+                        <div class="schema-box-main-title">💡 Главное правило: МойСклад — это «сердце» системы</div>
+                        <div class="schema-box-main-desc">
+                            Всё, что вы меняете там (добавили новый кофе, поменяли цену, обновили остаток, перевели заказ в «отгружен»), автоматически появляется на сайте и в боте. Вести отдельную «админку сайта» с товарами не нужно.
+                        </div>
+                    </div>
+
+                    <div class="schema-grid-flows">
+                        <div class="schema-flow-item">
+                            <div class="schema-flow-head">Заказы</div>
+                            <div class="schema-flow-text">
+                                Сайт + Бот (Telegram / MAX) <span class="schema-arrow">→</span> МойСклад
+                            </div>
+                        </div>
+
+                        <div class="schema-flow-item">
+                            <div class="schema-flow-head">Товары и остатки</div>
+                            <div class="schema-flow-text">
+                                МойСклад <span class="schema-arrow">→</span> Товары, остатки, цены <span class="schema-arrow">→</span> Витрина
+                            </div>
+                        </div>
+
+                        <div class="schema-flow-item">
+                            <div class="schema-flow-head">Статусы заказов</div>
+                            <div class="schema-flow-text">
+                                МойСклад <span class="schema-arrow">→</span> Статус <span class="schema-arrow">→</span> ЛК + Уведомление клиенту
+                            </div>
+                        </div>
+
+                        <div class="schema-flow-item">
+                            <div class="schema-flow-head">Оформление и Доставка</div>
+                            <div class="schema-flow-text">
+                                Заказ <span class="schema-arrow">↔</span> СДЭК (ПВЗ, цена, трек) <span class="schema-arrow">↔</span> Онлайн-оплата
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: NATIVE HTML/CSS/SVG MINDMAP LAYOUT -->
+        <div class="slide">
+            <div>
+                <div class="slide-header">
+                    <div class="brand-logo"><span></span> RoastCoast</div>
+                    <div class="slide-tag">Карта проекта</div>
+                </div>
+                <h2 class="slide-title">Общая карта проекта и логики</h2>
+                <p class="slide-subtitle">Наглядная визуализация взаимодействия покупателей, системы МойСклад, СДЭК и личных кабинетов.</p>
+            </div>
+
+            <div class="slide-body">
+                <div class="native-mm-wrapper">
+                    <svg class="mm-lines-layer" viewBox="0 0 1000 480" preserveAspectRatio="none">
+                        <path d="M 380 55 H 440 V 240 H 490" stroke="#CBD5E1" stroke-width="2.5" fill="none" />
+                        <path d="M 380 175 H 440 V 240 H 490" stroke="#CBD5E1" stroke-width="2.5" fill="none" />
+                        <path d="M 380 305 H 440 V 240 H 490" stroke="#CBD5E1" stroke-width="2.5" fill="none" />
+                        <path d="M 380 425 H 440 V 240 H 490" stroke="#CBD5E1" stroke-width="2.5" fill="none" />
+
+                        <path d="M 510 240 H 560 V 55 H 620" stroke="#CBD5E1" stroke-width="2.5" fill="none" />
+                        <path d="M 510 240 H 560 V 175 H 620" stroke="#CBD5E1" stroke-width="2.5" fill="none" />
+                        <path d="M 510 240 H 560 V 305 H 620" stroke="#CBD5E1" stroke-width="2.5" fill="none" />
+                        <path d="M 510 240 H 560 V 425 H 620" stroke="#CBD5E1" stroke-width="2.5" fill="none" />
+                    </svg>
+
+                    <!-- LEFT COLUMN -->
+                    <div class="mm-column">
+                        <div class="mm-card" style="--card-border-color:#D97706; --card-head-bg:#D97706;">
+                            <div class="mm-card-head">1. МойСклад — Сердце системы</div>
+                            <div class="mm-card-body">
+                                <div class="mm-item">• Товары, остатки и цены только в МойСклад</div>
+                                <div class="mm-item">• Заказы автоматически попадают на склад</div>
+                                <div class="mm-item">• Статусы заказов транслируются клиенту</div>
+                                <div class="mm-item">• Нет двойной работы с админкой</div>
+                            </div>
+                        </div>
+
+                        <div class="mm-card" style="--card-border-color:#2563EB; --card-head-bg:#2563EB;">
+                            <div class="mm-card-head">2. Путь розничного покупателя</div>
+                            <div class="mm-card-body">
+                                <div class="mm-item">• Каталог с 5 фильтрами (обжарка, помол)</div>
+                                <div class="mm-item">• Корзина с расчётом скидок и доставки</div>
+                                <div class="mm-item">• Оформление на 1 стр. с картой ПВЗ СДЭК</div>
+                                <div class="mm-item">• Онлайн-оплата и статус «Принят»</div>
+                            </div>
+                        </div>
+
+                        <div class="mm-card" style="--card-border-color:#10B981; --card-head-bg:#10B981;">
+                            <div class="mm-card-head">3. Личный кабинет розницы</div>
+                            <div class="mm-card-body">
+                                <div class="mm-item">• Отслеживание трек-номера СДЭК</div>
+                                <div class="mm-item">• Прозрачная смена статусов отгрузки</div>
+                                <div class="mm-item">• Кнопка «Повторить заказ» в 2 клика</div>
+                                <div class="mm-item">• Сохранённые адреса и профиль</div>
+                            </div>
+                        </div>
+
+                        <div class="mm-card" style="--card-border-color:#8B5CF6; --card-head-bg:#8B5CF6;">
+                            <div class="mm-card-head">4. Продажи в Telegram / MAX</div>
+                            <div class="mm-card-body">
+                                <div class="mm-item">• Каталог и корзина внутри мессенджера</div>
+                                <div class="mm-item">• Оформление и оплата без перехода на сайт</div>
+                                <div class="mm-item">• Заказы идут в тот же МойСклад</div>
+                                <div class="mm-item">• PUSH-уведомления о готовности</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CENTER HUB -->
+                    <div class="mm-hub">
+                        <div class="mm-hub-title">RoastCoast</div>
+                        <div class="mm-hub-sub">ЛОГИКА РАБОТЫ И СТРУКТУРА</div>
+                    </div>
+
+                    <!-- RIGHT COLUMN -->
+                    <div class="mm-column">
+                        <div class="mm-card" style="--card-border-color:#E11D48; --card-head-bg:#E11D48;">
+                            <div class="mm-card-head">5. Путь оптового покупателя (B2B)</div>
+                            <div class="mm-card-body">
+                                <div class="mm-item">• Отдельная страница «Оптом» (цены скрыты)</div>
+                                <div class="mm-item">• Заявка с ИНН и подтверждение доступа</div>
+                                <div class="mm-item">• Вход в кабинет со своим прайс-листом</div>
+                                <div class="mm-item">• Учет минимальной суммы заказа</div>
+                            </div>
+                        </div>
+
+                        <div class="mm-card" style="--card-border-color:#059669; --card-head-bg:#059669;">
+                            <div class="mm-card-head">6. B2B Документы без переписки</div>
+                            <div class="mm-card-body">
+                                <div class="mm-item">• Самостоятельное скачивание Счетов и УПД</div>
+                                <div class="mm-item">• История отгрузок и закрывающие акты</div>
+                                <div class="mm-item">• Условия отсрочки для постоянных B2B</div>
+                                <div class="mm-item">• Авто-попадание заказа в МойСклад</div>
+                            </div>
+                        </div>
+
+                        <div class="mm-card" style="--card-border-color:#0284C7; --card-head-bg:#0284C7;">
+                            <div class="mm-card-head">7. Карта страниц сайта</div>
+                            <div class="mm-card-body">
+                                <div class="mm-item">• Главная, Каталог, Оптом, О компании, Блог</div>
+                                <div class="mm-item">• Корзина, Оформление СДЭК, Успешная оплата</div>
+                                <div class="mm-item">• Личные кабинеты (Розница и Опт)</div>
+                                <div class="mm-item">• Служебные: Оферта, 404, Поиск</div>
+                            </div>
+                        </div>
+
+                        <div class="mm-card" style="--card-border-color:#DB2777; --card-head-bg:#DB2777;">
+                            <div class="mm-card-head">8. Вопросы для встречи</div>
+                            <div class="mm-card-body">
+                                <div class="mm-item">• СДЭК: текущий договор и схема накладных</div>
+                                <div class="mm-item">• МойСклад: готовность каталога и фото</div>
+                                <div class="mm-item">• Опт: градация цен, отсрочка и документы</div>
+                                <div class="mm-item">• Разбор 1-2 реальных B2B сделок</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: ПУТЬ ОБЫЧНОГО ПОКУПАТЕЛЯ (РОЗНИЦА — 7 ШАГОВ) -->
+        <div class="slide">
+            <div>
+                <div class="slide-header">
+                    <div class="brand-logo"><span></span> RoastCoast</div>
+                    <div class="slide-tag">Раздел 2</div>
+                </div>
+                <h2 class="slide-title">Путь обычного покупателя (Розница)</h2>
+                <p class="slide-subtitle">7 шагов от первого визита до повторной покупки без единого звонка менеджера.</p>
+            </div>
+
+            <div class="slide-body">
+                <div class="journey-grid-7">
+                    <div class="journey-card">
+                        <div class="journey-step-badge">1</div>
+                        <div class="journey-step-title">Выбрал кофе</div>
+                        <div class="journey-step-desc">Каталог с 5 фильтрами (обжарка, страна, вкус, объём, помол). Честно видно наличие из МойСклад.</div>
+                    </div>
+
+                    <div class="journey-card">
+                        <div class="journey-step-badge">2</div>
+                        <div class="journey-step-title">Корзина</div>
+                        <div class="journey-step-desc">Считает сумму и скидку, показывает сколько не хватает до бесплатной доставки.</div>
+                    </div>
+
+                    <div class="journey-card">
+                        <div class="journey-step-badge">3</div>
+                        <div class="journey-step-title">Заказ на 1 странице</div>
+                        <div class="journey-step-desc">Контакты → доставка → оплата. Открывается карта СДЭК с ПВЗ, сразу считаются цена и срок.</div>
+                    </div>
+
+                    <div class="journey-card">
+                        <div class="journey-step-badge">4</div>
+                        <div class="journey-step-title">Онлайн-оплата</div>
+                        <div class="journey-step-desc">Карта или СБП. Страница «Заказ принят» + письмо и сообщение в мессенджер.</div>
+                    </div>
+
+                    <div class="journey-card">
+                        <div class="journey-step-badge">5</div>
+                        <div class="journey-step-title">Заказ в МойСклад</div>
+                        <div class="journey-step-desc">Заказ мгновенно появляется на складе со всеми позициями, покупателем, адресом и оплатой.</div>
+                    </div>
+
+                    <div class="journey-card">
+                        <div class="journey-step-badge">6</div>
+                        <div class="journey-step-title">Смена статуса</div>
+                        <div class="journey-step-desc">Принят → Собирается → Передан в доставку (трек-номер) → Доставлен. Клиент всё видит сам.</div>
+                    </div>
+
+                    <div class="journey-card" style="grid-column: span 2; background:#EFF6FF; border-color:#BFDBFE;">
+                        <div class="journey-step-badge" style="background:#2563EB;">7</div>
+                        <div class="journey-step-title" style="color:#1E40AF;">Заказ снова в 2 клика (Главный источник повторных продаж)</div>
+                        <div class="journey-step-desc" style="color:#1E3A8A;">В кабинете — кнопка «Повторить заказ»: тот же кофе, тот же адрес доставки.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: ПУТЬ ОПТОВОГО ПОКУПАТЕЛЯ (ЮРЛИЦА B2B) -->
+        <div class="slide">
+            <div>
+                <div class="slide-header">
+                    <div class="brand-logo"><span></span> RoastCoast</div>
+                    <div class="slide-tag">Раздел 3</div>
+                </div>
+                <h2 class="slide-title">Путь оптового покупателя (Юрлица)</h2>
+                <p class="slide-subtitle">Удобная работа с кофейнями и B2B клиентами без ручной переписки и выставления счетов.</p>
+            </div>
+
+            <div class="slide-body">
+                <div class="journey-grid-7" style="grid-template-columns: repeat(4, 1fr);">
+                    <div class="journey-card">
+                        <div class="journey-step-badge">1</div>
+                        <div class="journey-step-title">Страница «Оптом»</div>
+                        <div class="journey-step-desc">Условия, преимущества и форма заявки (ИНН, город, объём). Оптовые цены публично скрыты.</div>
+                    </div>
+
+                    <div class="journey-card">
+                        <div class="journey-step-badge">2</div>
+                        <div class="journey-step-title">Подтверждение</div>
+                        <div class="journey-step-desc">Вы проверили компанию — открыли доступ. Клиент получает вход в личный кабинет.</div>
+                    </div>
+
+                    <div class="journey-card">
+                        <div class="journey-step-badge">3</div>
+                        <div class="journey-step-title">Оптовый прайс</div>
+                        <div class="journey-step-desc">Клиент заходит под логином и видит свой прайс (общий или индивидуальный) и мин. сумму заказа.</div>
+                    </div>
+
+                    <div class="journey-card" style="background:#FFFBEB; border-color:#FDE68A;">
+                        <div class="journey-step-badge" style="background:#D97706;">4</div>
+                        <div class="journey-step-title" style="color:#78350F;">Заказ и документы</div>
+                        <div class="journey-step-desc" style="color:#92400E;">Оптовик сам наберает заказ, скачивает счёт/УПД и акты. Заказ уходит в МойСклад.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: КАРТА САЙТА (СТРУКТУРА СТРАНИЦ) -->
+        <div class="slide">
+            <div>
+                <div class="slide-header">
+                    <div class="brand-logo"><span></span> RoastCoast</div>
+                    <div class="slide-tag">Раздел 4</div>
+                </div>
+                <h2 class="slide-title">Карта сайта (Структура страниц)</h2>
+                <p class="slide-subtitle">Полная древовидная структура разделов публичной части, оформления заказа и личных кабинетов.</p>
+            </div>
+
+            <div class="slide-body">
+                <div class="sitemap-grid-4">
+                    <div class="sitemap-card">
+                        <div class="sitemap-head">Публичная часть</div>
+                        <ul class="sitemap-list">
+                            <li>Главная (обжарка, отзывы, подписка)</li>
+                            <li>Каталог с 5 фильтрами</li>
+                            <li>Зёрна / молотый, дрипы, чай, аксессуары</li>
+                            <li>Карточка товара (фото, вкус, помол)</li>
+                            <li>Оптом (условия & заявка)</li>
+                            <li>О компании, Доставка, Блог</li>
+                        </ul>
+                    </div>
+
+                    <div class="sitemap-card">
+                        <div class="sitemap-head">Покупка</div>
+                        <ul class="sitemap-list">
+                            <li>Корзина (расчет скидки)</li>
+                            <li>Оформление заказа (СДЭК + Оплата)</li>
+                            <li>«Заказ принят» (номер & детали)</li>
+                            <li>«Оплата не прошла» (повтор)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sitemap-card">
+                        <div class="sitemap-head">ЛК — Розница</div>
+                        <ul class="sitemap-list">
+                            <li>Мои заказы (со статусами)</li>
+                            <li>Карточка заказа (состав & трек)</li>
+                            <li>Кнопка «Повторить заказ»</li>
+                            <li>Профиль и адреса доставки</li>
+                        </ul>
+                    </div>
+
+                    <div class="sitemap-card" style="background:#FFFBEB; border-color:#FDE68A;">
+                        <div class="sitemap-head" style="border-bottom-color:#D97706; color:#78350F;">ЛК — Опт (B2B)</div>
+                        <ul class="sitemap-list">
+                            <li style="color:#92400E;">Мой прайс (оптовые цены)</li>
+                            <li style="color:#92400E;">Документы (счета, УПД, акты)</li>
+                            <li style="color:#92400E;">Реквизиты компании</li>
+                            <li style="color:#92400E;">Мои условия (мин. заказ, отсрочка)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: ЧТО ВАЖНО ПОНЯТЬ ПРО УПРАВЛЕНИЕ САЙТОМ -->
+        <div class="slide">
+            <div>
+                <div class="slide-header">
+                    <div class="brand-logo"><span></span> RoastCoast</div>
+                    <div class="slide-tag">Раздел 5</div>
+                </div>
+                <h2 class="slide-title">Что важно понять про управление сайтом</h2>
+                <p class="slide-subtitle">3 главных правила простой работы без лишней ручной рутины.</p>
+            </div>
+
+            <div class="slide-body">
+                <div class="rules-grid-3">
+                    <div class="rule-card">
+                        <div class="rule-num">01</div>
+                        <h3 class="rule-title">Товары, цены и остатки — только в МойСклад</h3>
+                        <p class="rule-desc">Сайт подтягивает их автоматически в режиме реального времени. Двойной работы нет.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-num">02</div>
+                        <h3 class="rule-title">Заказы обрабатываете тоже в МойСклад</h3>
+                        <p class="rule-desc">Сайт — это витрина и приёмник заказов, а не второе рабочее место. Все отгрузки делаются там, где привыкли.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-num">03</div>
+                        <h3 class="rule-title">Тексты и баннеры — в простой панели</h3>
+                        <p class="rule-desc">Редактирование статей, отзывов и баннеров происходит в удобной панели сайта без программиста и верстки.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: ВОПРОСЫ ДЛЯ ВСТРЕЧИ С КЛИЕНТОМ -->
+        <div class="slide">
+            <div>
+                <div class="slide-header">
+                    <div class="brand-logo"><span></span> RoastCoast</div>
+                    <div class="slide-tag">Раздел 6</div>
+                </div>
+                <h2 class="slide-title">Вопросы для разбора на встрече</h2>
+                <p class="slide-subtitle">Детали, которые необходимо уточнить у заказчика для финальной фиксации логики.</p>
+            </div>
+
+            <div class="slide-body">
+                <div class="questions-grid-3">
+                    <div class="q-card">
+                        <span class="q-tag">1. Доставка СДЭК</span>
+                        <h3 class="q-title">Процесс отправки</h3>
+                        <ul class="q-list">
+                            <li>Как сейчас оформляется отправка (вручную в СДЭК, из МойСклад)?</li>
+                            <li>Кто и на каком этапе определяет стоимость доставки?</li>
+                            <li>Есть ли действующий договор и доступ к API СДЭК?</li>
+                        </ul>
+                    </div>
+
+                    <div class="q-card">
+                        <span class="q-tag">2. МойСклад</span>
+                        <h3 class="q-title">Заполнение каталога</h3>
+                        <ul class="q-list">
+                            <li>Аккаунт МойСклад уже заведён и используется?</li>
+                            <li>Насколько полно заполнен каталог (фото, описания, характеристики, цены)?</li>
+                            <li>Кто ведёт учёт и какой тариф подключён?</li>
+                        </ul>
+                    </div>
+
+                    <div class="q-card" style="background:#FFFBEB; border-color:#FDE68A;">
+                        <span class="q-tag" style="background:#FEF3C7; color:#92400E;">3. Опт и юрлица</span>
+                        <h3 class="q-title" style="color:#78350F;">Работа с B2B</h3>
+                        <ul class="q-list">
+                            <li style="color:#92400E;">Кто ваши оптовики (кофейни, HoReCa, магазины)?</li>
+                            <li style="color:#92400E;">Цены: единый оптовый прайс или индивидуальный под клиента?</li>
+                            <li style="color:#92400E;">Разбор 1-2 реальных сделок от обращения до отгрузки.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CONTROLS FOOTER -->
+    <div class="controls-footer">
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <button class="nav-btn" id="btnPrev">← Назад</button>
+
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <span class="slide-counter" id="slideCounter">Слайд 1 из 8</span>
+            <button class="nav-btn" id="btnOverview">Обзор (O)</button>
+        </div>
+
+        <button class="nav-btn" id="btnNext">Вперёд →</button>
+    </div>
+
+    <!-- OVERVIEW MODAL -->
+    <div class="overview-modal" id="overviewModal">
+        <div class="overview-content">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-primary);">Обзор слайдов</h3>
+                <button class="nav-btn" id="btnCloseOverview">Закрыть ✕</button>
+            </div>
+            <div class="overview-grid" id="overviewGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        const progressBar = document.getElementById('progressBar');
+        const slideCounter = document.getElementById('slideCounter');
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        const btnOverview = document.getElementById('btnOverview');
+        const btnCloseOverview = document.getElementById('btnCloseOverview');
+        const overviewModal = document.getElementById('overviewModal');
+        const overviewGrid = document.getElementById('overviewGrid');
+
+        // Render Overview Grid
+        slides.forEach((slide, idx) => {
+            const titleEl = slide.querySelector('.slide-title') || slide.querySelector('.cover-title');
+            const titleText = titleEl ? titleEl.innerText.replace('\n', ' ') : `Слайд ${idx + 1}`;
+
+            const card = document.createElement('div');
+            card.className = 'overview-card';
+            card.innerHTML = `
+                <div class="overview-num">Слайд 0${idx + 1}</div>
+                <div class="overview-title">${titleText}</div>
+            `;
+            card.addEventListener('click', () => {
+                goToSlide(idx);
+                toggleOverview(false);
+            });
+            overviewGrid.appendChild(card);
+        });
+
+        function updateSlide() {
+            slides.forEach((slide, idx) => {
+                if (idx === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            const progressPct = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = `${progressPct}%`;
+            slideCounter.innerText = `Слайд ${currentSlide + 1} из ${totalSlides}`;
+        }
+
+        function goToSlide(idx) {
+            if (idx >= 0 && idx < totalSlides) {
+                currentSlide = idx;
+                updateSlide();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleOverview(show) {
+            if (show !== undefined) {
+                overviewModal.classList.toggle('active', show);
+            } else {
+                overviewModal.classList.toggle('active');
+            }
+        }
+
+        // Event Listeners
+        btnNext.addEventListener('click', nextSlide);
+        btnPrev.addEventListener('click', prevSlide);
+        btnOverview.addEventListener('click', () => toggleOverview(true));
+        btnCloseOverview.addEventListener('click', () => toggleOverview(false));
+
+        // Keyboard Controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'o' || e.key === 'O' || e.key === 'о' || e.key === 'О') {
+                toggleOverview();
+            } else if (e.key === 'Escape') {
+                toggleOverview(false);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Local scripts & temp files
+CNAME
+export_products.py
+embed_b2b_js.py
+__pycache__/
+*.pyc
