@@ -487,10 +487,12 @@ function setupEventListeners() {
 
     // Invoice Modal
     const checkoutBtn = document.getElementById('checkoutBtn');
+    const mobileCheckoutBtn = document.getElementById('mobileCheckoutBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const printInvoiceBtn = document.getElementById('printInvoiceBtn');
 
     if (checkoutBtn) checkoutBtn.addEventListener('click', openInvoiceModal);
+    if (mobileCheckoutBtn) mobileCheckoutBtn.addEventListener('click', openInvoiceModal);
     if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
     if (printInvoiceBtn) printInvoiceBtn.addEventListener('click', () => window.print());
 }
@@ -726,6 +728,20 @@ function updateCartUI() {
             checkoutBtn.disabled = false;
             checkoutBtn.style.opacity = '1';
             checkoutBtn.style.cursor = 'pointer';
+        }
+    }
+
+    // Mobile floating order bar
+    const mobileOrderBar = document.getElementById('mobileOrderBar');
+    const mobileOrderWeight = document.getElementById('mobileOrderWeight');
+    const mobileOrderSum = document.getElementById('mobileOrderSum');
+    if (mobileOrderBar && mobileOrderWeight && mobileOrderSum) {
+        if (totalCount > 0) {
+            mobileOrderBar.classList.add('visible');
+            mobileOrderWeight.textContent = `${totalWeight.toFixed(1)} кг (${totalCount} шт.)`;
+            mobileOrderSum.textContent = `${totalB2B.toLocaleString('ru-RU')} ₽`;
+        } else {
+            mobileOrderBar.classList.remove('visible');
         }
     }
 }

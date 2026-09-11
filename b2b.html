@@ -227,7 +227,7 @@
                 Всего к оплате: <span id="modalTotalSum">0 ₽</span>
             </div>
 
-            <div style="margin-top:32px; display:flex; justify-content:flex-end; gap:12px;">
+            <div style="margin-top:32px; display:flex; justify-content:flex-end; gap:12px;" class="modal-actions-row">
                 <button onclick="alert('Заказ успешно отправлен в МойСклад! Менеджер свяжется с вами для подтверждения.')" style="background:var(--color-primary); color:var(--color-surface); border:none; padding:12px 24px; border-radius:8px; font-weight:700; cursor:pointer;">
                     ✓ Подтвердить и отправить в МойСклад
                 </button>
@@ -236,6 +236,18 @@
                 </button>
             </div>
         </div>
+    </div>
+
+    <!-- Mobile Floating Order Bar (Sticky at bottom on phones) -->
+    <div class="mobile-order-bar" id="mobileOrderBar">
+        <div class="mobile-order-info">
+            <div class="mobile-order-weight" id="mobileOrderWeight">0.0 кг кофе</div>
+            <div class="mobile-order-sum" id="mobileOrderSum">0 ₽</div>
+        </div>
+        <button class="mobile-order-btn" id="mobileCheckoutBtn">
+            <span>Счёт на оплату</span>
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
     </div>
 
     <script src="assets/b2b.js"></script>
