@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoastCoast — Интерактивная схема автоматизации и клиентского пути</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-body: #F5EEE3;
+            --bg-card: #FCF9F3;
+            --bg-card-alt: #EBE1D1;
+            --color-primary: #A9541E;
+            --color-primary-hover: #8D4416;
+            --color-amber: #E7B65C;
+            --color-dark: #201A15;
+            --color-fg: #201A15;
+            --color-fg-muted: #6B5E52;
+            --color-border: #DDCFBC;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --shadow-card: 0 4px 20px rgba(32, 26, 21, 0.08);
+            --font-family: 'Manrope', 'Inter', -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-body);
+            color: var(--color-fg);
+            line-height: 1.5;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .topbar {
+            background: var(--color-dark);
+            color: #F5EEE3;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-logo-mark {
+            height: 36px;
+            width: auto;
+        }
+
+        .brand-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-title span {
+            color: var(--color-amber);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: rgba(231, 182, 92, 0.15);
+            border: 1px solid rgba(231, 182, 92, 0.35);
+            color: var(--color-amber);
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn:hover {
+            background: var(--color-amber);
+            color: var(--color-dark);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 28px auto;
+            padding: 0 20px 80px 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--color-dark);
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .page-subtitle {
+            color: var(--color-fg-muted);
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Tab Controls */
+        .tab-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            border: 2px solid var(--color-border);
+            color: var(--color-fg);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-family);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--color-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--color-primary);
+            color: #FFFFFF;
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 14px rgba(169, 84, 30, 0.35);
+        }
+
+        /* Diagram Card */
+        .diagram-card {
+            background: var(--bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-card);
+            display: none;
+            overflow-x: auto;
+        }
+
+        .diagram-card.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header-box {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .card-header-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-dark);
+        }
+
+        .card-header-desc {
+            color: var(--color-fg-muted);
+            font-size: 0.92rem;
+            margin-top: 4px;
+        }
+
+        .badge-zero {
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            background: #FFFFFF;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            min-height: 400px;
+            overflow-x: auto;
+        }
+
+        /* Bottom helper blocks */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .info-item {
+            background: var(--bg-card-alt);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            border: 1px solid var(--color-border);
+        }
+
+        .info-item-title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--color-primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-item-text {
+            font-size: 0.88rem;
+            color: var(--color-fg);
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title { font-size: 1.6rem; }
+            .topbar { padding: 10px 14px; }
+            .container { padding: 0 12px 60px 12px; margin: 16px auto; }
+            .diagram-card { padding: 16px 12px; }
+            .mermaid-container { padding: 12px 6px; }
+            .tab-btn { font-size: 0.82rem; padding: 8px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="topbar">
+        <a href="b2b.html" class="brand-box">
+            <img src="assets/roastcoast-mark-light.svg" class="brand-logo-mark" alt="RoastCoast">
+            <div class="brand-title">Roast<span>Coast</span></div>
+        </a>
+        <div class="nav-links">
+            <a href="b2b.html" class="nav-btn">🛒 B2B Портал</a>
+            <a href="index.html" class="nav-btn">📊 Презентация</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="page-header">
+            <h1 class="page-title">Схема автоматизации и клиентского пути</h1>
+            <p class="page-subtitle">Полный цикл экосистемы RoastCoast: от выбора сорта кофе до автоматической отгрузки через СДЭК и закрытия в ЭДО без участия менеджеров.</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tab-switcher">
+            <button class="tab-btn active" onclick="switchTab('tab-cjm')">
+                🗺 1. Клиентский путь на сайте
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab-noops')">
+                ⚙️ 2. Автоматизация под капотом (No-Ops)
+            </button>
+            <button class="tab-btn" onclick="switchTab('tab-arch')">
+                🌐 3. Генеральная экосистема
+            </button>
+        </div>
+
+        <!-- TAB 1: CJM -->
+        <div class="diagram-card active" id="tab-cjm">
+            <div class="card-header-box">
+                <div>
+                    <h2 class="card-header-title">1. Клиентский путь на сайте (глазами оптовика)</h2>
+                    <p class="card-header-desc">Пошаговый сценарий покупателя от захода в каталог до отслеживания статуса в личном кабинете.</p>
+                </div>
+                <div class="badge-zero">⚡ Без обязательных звонков</div>
+            </div>
+
+            <div class="mermaid-container">
+                <pre class="mermaid">
+flowchart TD
+    classDef step fill:#FFF8F0,stroke:#A9541E,stroke-width:2px,color:#201A15;
+    classDef action fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#78350F;
+    classDef success fill:#ECFDF5,stroke:#059669,stroke-width:2px,color:#065F46;
+
+    subgraph S1[" 1. ВЫБОР СОРТА И ФАСОВКИ "]
+        A1["Заход в B2B-портал RoastCoast"]:::step
+        A2["Переключение режима: Карточки или Матрица"]:::step
+        A3["Выбор фасовки: 200 г или 1 000 г (1 кг)"]:::action
+    end
+
+    subgraph S2[" 2. УМНАЯ КОРЗИНА И ВЫГОДА "]
+        B1["Контроль порога 10 кг"]:::step
+        B2{"Вес заказа < 10 кг?"}:::step
+        B3["Подсказка: 'Добавьте 2.5 кг,<br>чтобы получить оптовую скидку -30%'"]:::action
+        B4["Вес >= 10 кг: Активируется оптовая цена<br>Шкала прогресса горит зеленым"]:::success
+    end
+
+    subgraph S3[" 3. ДОСТАВКА И ОФОРМЛЕНИЕ "]
+        C1["Интерактивный виджет СДЭК:<br>Выбор ПВЗ на карте или доставка курьером"]:::step
+        C2["Автоматический расчёт:<br>Срок 2-3 дня, точная стоимость доставки"]:::step
+        C3["Ввод ИНН покупателя:<br>Название ООО, КПП и адрес подтягиваются сами"]:::success
+    end
+
+    subgraph S4[" 4. ВЫБОР СПОСОБА ОПЛАТЫ "]
+        D1{"Способ оплаты"}:::step
+        D2["Безнал: Электронный счёт в Диадок / СБИС"]:::action
+        D3["Мгновенная оплата B2B QR / Бизнес-банк"]:::action
+        D4["Постоянный клиент: Отсрочка 14 дней по договору"]:::success
+    end
+
+    subgraph S5[" 5. ПРОЗРАЧНЫЙ ЛИЧНЫЙ КАБИНЕТ "]
+        E1["Клиент видит живой статус заказа в ЛК:"]:::step
+        E2["🟡 Счёт выставлен ➔ 🟢 Оплачено ➔ 🔥 В обжарке ➔ 🚚 В пути"]:::success
+        E3["Прямая кнопка 'Отследить посылку в СДЭК'<br>+ электронный УПД в Диадок"]:::step
+    end
+
+    A1 --> A2 --> A3 --> B1 --> B2
+    B2 -- "Меньше 10 кг" --> B3 --> B4
+    B2 -- "От 10 кг" --> B4
+    B4 --> C1 --> C2 --> C3 --> D1
+    D1 --> D2 --> E1
+    D1 --> D3 --> E1
+    D1 --> D4 --> E1
+    E1 --> E2 --> E3
+                </pre>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-item-title">🎯 Мотивация добора до 10 кг</div>
+                    <div class="info-item-text">Прогресс-бар в режиме реального времени наглядно показывает, сколько кг осталось до оптовой цены. Это поднимает средний чек на 35%.</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title">⚡ Автозаполнение по ИНН</div>
+                    <div class="info-item-text">Покупателю не нужно вручную вбивать БИК, КПП, коррсчёт и юрадрес. Ввод 10 цифр ИНН заполняет всю карточку контрагента за полсекунды.</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title">📦 Встроенный СДЭК</div>
+                    <div class="info-item-text">Клиент выбирает нужный пункт выдачи прямо на интерактивной карте на этапе чекаута, сразу видя срок доставки и тариф.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: NO-OPS -->
+        <div class="diagram-card" id="tab-noops">
+            <div class="card-header-box">
+                <div>
+                    <h2 class="card-header-title">2. Автоматизация под капотом (No-Ops Конвейер)</h2>
+                    <p class="card-header-desc">Что происходит на бэкенде между Сайтом, МойСклад, ЭДО, Банком, Ростером и СДЭК.</p>
+                </div>
+                <div class="badge-zero">🤖 Роботы вместо менеджеров</div>
+            </div>
+
+            <div class="mermaid-container">
+                <pre class="mermaid">
+flowchart TD
+    classDef system fill:#EBF3FE,stroke:#2563EB,stroke-width:2px,color:#0F172A;
+    classDef erp fill:#ECFDF5,stroke:#059669,stroke-width:3px,color:#065F46;
+    classDef external fill:#F3E8FF,stroke:#7C3AED,stroke-width:2px,color:#4C1D95;
+    classDef warehouse fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#78350F;
+
+    subgraph SYS_ORDER[" 💻 ЭТАП 1: СОЗДАНИЕ ЗАКАЗА (САЙТ ➔ МОЙСКЛАД) "]
+        S1["Клиент нажал кнопку 'Оформить заказ'"]:::system
+        S2["DaData API по ИНН за 0.5 сек подтягивает реквизиты из ФНС"]:::external
+        S3["Заказ по API создаётся в МойСклад:<br>• Позиции и граммовки<br>• Выбранный ПВЗ СДЭК<br>• Авто-резерв зелёного зерна"]:::erp
+    end
+
+    subgraph SYS_FINANCE[" 🏦 ЭТАП 2: ВЫСТАВЛЕНИЕ СЧЁТА И ФИКСАЦИЯ ОПЛАТЫ "]
+        F1["МойСклад через модуль Диадок/СБИС<br>шлёт электронный Счёт с КЭП покупателю"]:::external
+        F2["Клиент оплачивает счёт в своём банк-клиенте"]:::system
+        F3["Банк (Точка / Т-Банк / Сбер) шлёт Webhook в МойСклад:<br>Зачислено 18 450 ₽ по счёту RC-94812"]:::external
+        F4["МойСклад САМ переводит статус заказа в 'ОПЛАЧЕНО'"]:::erp
+    end
+
+    subgraph SYS_PROD[" 🔥 ЭТАП 3: ЦЕХ ОБЖАРКИ (ул. Правды, 28) "]
+        P1["МойСклад создаёт 'Заказ на производство':<br>Списывает 10 кг зелёного зерна + пакеты + клапаны"]:::erp
+        P2["На планшет роаст-мастера падает тикет на обжарку"]:::warehouse
+        P3["Обжарщик обжарил партию, расфасовал<br>и нажал кнопку 'Собрано' на планшете"]:::warehouse
+    end
+
+    subgraph SYS_CDEK[" 🚚 ЭТАП 4: АВТОМАТИЗАЦИЯ СДЭК И ЗАКРЫТИЕ "]
+        L1["Статус 'Собрано' триггерит API СДЭК v2.0"]:::erp
+        L2["В ЛК СДЭК автоматически регистрируется накладная,<br>вызывается курьер в цех Севастополя"]:::external
+        L3["Складской термопринтер САМ печатает наклейку со штрихкодом"]:::warehouse
+        L4["Курьер СДЭК забирает коробку по штрихкоду"]:::external
+        L5["В Диадок/СБИС клиенту летит подписанный УПД (акт)"]:::external
+        L6["Клиент получает трек-номер в Личный кабинет и Telegram"]:::system
+    end
+
+    S1 --> S2 --> S3 --> F1 --> F2 --> F3 --> F4
+    F4 --> P1 --> P2 --> P3 --> L1 --> L2 --> L3 --> L4
+    L4 --> L5
+    L4 --> L6
+                </pre>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-item-title">⚡ Автоматический счёт за 3 сек</div>
+                    <div class="info-item-text">Никакого ожидания «сейчас бухгалтер освободится и пришлёт счёт». Система генерирует документ и отправляет в ЭДО мгновенно.</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title">🏦 Банковский Webhook</div>
+                    <div class="info-item-text">Интеграция с Точкой, Т-Банком или Сбером исключает ручную сверку платёжек. Поступление денег сразу меняет статус заказа.</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title">🏷 Автопечать наклеек СДЭК</div>
+                    <div class="info-item-text">Складской принтер печатает готовые наклейки СДЭК сразу после нажатия кнопки «Готово» на ростовом планшете обжарщика.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: ECOSYSTEM ARCHITECTURE -->
+        <div class="diagram-card" id="tab-arch">
+            <div class="card-header-box">
+                <div>
+                    <h2 class="card-header-title">3. Генеральная архитектура будущей экосистемы</h2>
+                    <p class="card-header-desc">Полная карта связи всех каналов: Розница + Опт B2B + Telegram-бот + МойСклад + Сервисы.</p>
+                </div>
+                <div class="badge-zero">🌐 Единый бэкенд МойСклад</div>
+            </div>
+
+            <div class="mermaid-container">
+                <pre class="mermaid">
+flowchart TD
+    classDef client fill:#FFF8F0,stroke:#A9541E,stroke-width:2px,color:#201A15;
+    classDef frontend fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#78350F;
+    classDef middleware fill:#EBF3FE,stroke:#2563EB,stroke-width:2px,color:#0F172A;
+    classDef erp fill:#ECFDF5,stroke:#059669,stroke-width:3px,color:#065F46;
+    classDef external fill:#F3E8FF,stroke:#7C3AED,stroke-width:2px,color:#4C1D95;
+    classDef factory fill:#F1F5F9,stroke:#475569,stroke-width:2px,color:#0F172A;
+
+    subgraph CHANNELS[" ВХОДНЫЕ КАНАЛЫ ЗАКАЗОВ "]
+        CH_B2C["🛒 Розничный клиент<br>1-3 пачки / дрипы"]:::client
+        CH_B2B["🏢 Оптовик (ООО / ИП)<br>Кофейни от 10 кг"]:::client
+        CH_BOT["🤖 Telegram-бот<br>Быстрый заказ бариста"]:::client
+    end
+
+    subgraph FRONTEND[" ЦИФРОВЫЕ ВИТРИНЫ (WHITE CODE) "]
+        UI_RETAIL["Витрина Розницы:<br>Розница, карточки"]:::frontend
+        UI_B2B["B2B-Кабинет Оптовика:<br>Скидка -30%, матрица 200г/1кг"]:::frontend
+        UI_BOT["Mini App в Боте:<br>Каталог, баланс"]:::frontend
+        UI_CDEK["Виджет СДЭК:<br>Выбор ПВЗ на карте"]:::frontend
+    end
+
+    subgraph MIDDLEWARE[" ТОНКАЯ ПРОСЛОЙКА (MIDDLEWARE API) "]
+        API_GW["API Gateway Router<br>Единая точка входа"]:::middleware
+        AUTH_SVC["Авторизация & ИНН<br>Договоры, условия"]:::middleware
+        DISPATCHER["Диспетчер заказов<br>Маршрутизация статусов"]:::middleware
+    end
+
+    subgraph ERP[" СЕРДЦЕ СИСТЕМЫ: МОЙСКЛАД "]
+        MS_STOCK["Единые остатки и цены<br>в реальном времени"]:::erp
+        MS_ORDER["Управление заказами<br>Авто-смена статусов"]:::erp
+        MS_PROD["Заказ на производство<br>Списание сырья"]:::erp
+    end
+
+    subgraph EXTERNALS[" ВНЕШНИЕ СЕРВИСЫ "]
+        BANK["🏦 Банк-Эквайринг<br>Т-Банк / Сбер / СБП"]:::external
+        EDO["📑 ЭДО (Диадок / СБИС)<br>Счета и УПД с КЭП"]:::external
+        CDEK["🚚 СДЭК API v2.0<br>Накладные и трекинг"]:::external
+    end
+
+    CH_B2C --> UI_RETAIL
+    CH_B2B --> UI_B2B
+    CH_BOT --> UI_BOT
+
+    UI_RETAIL --> UI_CDEK
+    UI_B2B --> UI_CDEK
+    UI_BOT --> UI_CDEK
+
+    UI_RETAIL --> API_GW
+    UI_B2B --> API_GW
+    UI_BOT --> API_GW
+
+    API_GW --> AUTH_SVC
+    API_GW --> DISPATCHER
+    DISPATCHER <--> MS_ORDER
+    MS_STOCK --> API_GW
+
+    DISPATCHER --> BANK
+    DISPATCHER --> EDO
+    BANK -->|Webhook: Оплачено| MS_ORDER
+    EDO -->|Подписано КЭП| MS_ORDER
+
+    MS_ORDER --> MS_PROD
+    MS_PROD --> CDEK
+    CDEK -->|Трек-номер| MS_ORDER
+                </pre>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-item-title">🔄 Единая база МойСклад</div>
+                    <div class="info-item-text">И розничный интернет-магазин, и оптовый B2B-кабинет, и Telegram-бот черпают остатки из одного источника. Пересортица исключена.</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title">💼 Юридическая чистота</div>
+                    <div class="info-item-text">Все закрывающие документы (УПД, накладные) формируются автоматически и подписываются директором через КЭП в Диадок/СБИС без бумажной почты.</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-title">📈 Масштабируемость</div>
+                    <div class="info-item-text">Команда обжарщиков может обрабатывать в 10 раз больше заказов при том же составе сотрудников цеха.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            themeVariables: {
+                primaryColor: '#A9541E',
+                primaryTextColor: '#FFFFFF',
+                primaryBorderColor: '#A9541E',
+                lineColor: '#A9541E',
+                secondaryColor: '#E7B65C',
+                tertiaryColor: '#FCF9F3'
+            }
+        });
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.diagram-card').forEach(card => card.classList.remove('active'));
+
+            event.currentTarget.classList.add('active');
+            const targetCard = document.getElementById(tabId);
+            if (targetCard) {
+                targetCard.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
