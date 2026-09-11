@@ -7,7 +7,101 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260911_v3">
+    <style>
+        /* Embedded guaranteed mobile styles */
+        @media (max-width: 992px) {
+            .mobile-order-bar {
+                display: flex !important;
+            }
+            .b2b-container {
+                grid-template-columns: 1fr !important;
+                padding: 0 16px 110px 16px !important;
+            }
+            .sidebar-cart {
+                position: static !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .b2b-header { padding: 10px 14px !important; }
+            .header-phone span { display: none !important; }
+            .conditions-banner {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 10px 14px !important;
+                padding: 12px 14px !important;
+            }
+            .progress-tier { grid-column: 1 / -1 !important; width: 100% !important; }
+            .toolbar { flex-direction: column !important; align-items: stretch !important; }
+            .search-box { width: 100% !important; min-width: 100% !important; }
+            .category-tabs {
+                width: 100% !important;
+                display: flex !important;
+                overflow-x: auto !important;
+                white-space: nowrap !important;
+                gap: 6px !important;
+                padding-bottom: 6px !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+            }
+            .category-tabs::-webkit-scrollbar { display: none !important; }
+            .tab-btn { flex-shrink: 0 !important; }
+            .view-toggle { width: 100% !important; display: flex !important; }
+            .view-btn { flex: 1 !important; justify-content: center !important; }
+
+            /* Matrix Table Mobile Transform */
+            .product-table-wrapper {
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                overflow: visible !important;
+            }
+            .product-table, .product-table tbody, .product-table tr, .product-table td {
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .product-table thead { display: none !important; }
+            .product-table tr {
+                background: var(--color-surface) !important;
+                border: 1px solid var(--color-border) !important;
+                border-radius: var(--radius-lg) !important;
+                margin-bottom: 14px !important;
+                padding: 14px !important;
+                box-shadow: var(--shadow-sm) !important;
+            }
+            .product-table td { padding: 0 !important; border: none !important; text-align: left !important; }
+            .product-table td:nth-child(1) { margin-bottom: 8px !important; }
+            .product-table td:nth-child(2) { display: inline-block !important; font-size: 0.82rem !important; margin-right: 8px !important; }
+            .product-table td:nth-child(3) { display: inline-block !important; font-size: 1.15rem !important; font-weight: 800 !important; color: var(--color-primary) !important; margin-bottom: 10px !important; }
+            .product-table td:nth-child(4) { border-top: 1px solid var(--color-border) !important; padding-top: 10px !important; }
+            .table-options-stack { display: flex !important; flex-direction: column !important; gap: 8px !important; width: 100% !important; }
+            .table-option-row {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                width: 100% !important;
+                background: var(--color-surface-2) !important;
+                padding: 8px 12px !important;
+                border-radius: 8px !important;
+                border: 1px solid var(--color-border) !important;
+                box-sizing: border-box !important;
+            }
+            .table-opt-label { width: auto !important; font-weight: 800 !important; font-size: 0.9rem !important; }
+            .table-option-row .qty-btn { width: 28px !important; height: 28px !important; min-width: 28px !important; min-height: 28px !important; }
+            .table-option-row .qty-input { width: 34px !important; font-size: 0.95rem !important; }
+
+            /* Grid cards on mobile */
+            .product-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+            .product-card { display: grid !important; grid-template-columns: 110px 1fr !important; padding: 0 !important; }
+            .card-img-wrapper { height: 100% !important; min-height: 150px !important; border-right: 1px solid var(--color-border) !important; border-bottom: none !important; padding: 8px !important; }
+            .card-descr { display: none !important; }
+            .modal-content { padding: 18px 14px !important; width: 95vw !important; max-height: 92vh !important; }
+            .invoice-parties { grid-template-columns: 1fr !important; }
+            .modal-actions-row { flex-direction: column !important; }
+            .modal-actions-row button { width: 100% !important; }
+        }
+    </style>
 </head>
 <body>
 
@@ -250,6 +344,6 @@
         </button>
     </div>
 
-    <script src="assets/b2b.js"></script>
+    <script src="assets/b2b.js?v=20260911_v3"></script>
 </body>
 </html>

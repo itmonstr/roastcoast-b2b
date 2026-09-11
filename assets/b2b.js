@@ -735,13 +735,26 @@ function updateCartUI() {
     const mobileOrderBar = document.getElementById('mobileOrderBar');
     const mobileOrderWeight = document.getElementById('mobileOrderWeight');
     const mobileOrderSum = document.getElementById('mobileOrderSum');
+    const mobileCheckoutBtn = document.getElementById('mobileCheckoutBtn');
     if (mobileOrderBar && mobileOrderWeight && mobileOrderSum) {
         if (totalCount > 0) {
-            mobileOrderBar.classList.add('visible');
-            mobileOrderWeight.textContent = `${totalWeight.toFixed(1)} кг (${totalCount} шт.)`;
-            mobileOrderSum.textContent = `${totalB2B.toLocaleString('ru-RU')} ₽`;
+            mobileOrderBar.classList.add('has-items');
+            mobileOrderWeight.textContent = `${totalWeight.toFixed(1)} / ${MIN_ORDER_KG} кг (${totalCount} шт.)`;
+            mobileOrderSum.textContent = `${totalB2B.toLocaleString('ru-RU')} ₽ (Опт)`;
+            if (mobileCheckoutBtn) {
+                mobileCheckoutBtn.style.opacity = '1';
+                mobileCheckoutBtn.disabled = false;
+                mobileCheckoutBtn.innerHTML = '<span>Счёт на оплату</span><svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>';
+            }
         } else {
-            mobileOrderBar.classList.remove('visible');
+            mobileOrderBar.classList.remove('has-items');
+            mobileOrderWeight.textContent = `Мин. заказ: ${MIN_ORDER_KG} кг`;
+            mobileOrderSum.textContent = `Корзина пуста`;
+            if (mobileCheckoutBtn) {
+                mobileCheckoutBtn.style.opacity = '0.6';
+                mobileCheckoutBtn.disabled = true;
+                mobileCheckoutBtn.innerHTML = '<span>Выберите кофе</span>';
+            }
         }
     }
 }
