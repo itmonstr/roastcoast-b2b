@@ -798,3 +798,87 @@ function closeModal() {
     const modal = document.getElementById('invoiceModal');
     if (modal) modal.classList.remove('active');
 }
+
+// Cup Cost & Margin Calculator Logic
+function initCalcModal() {
+    const openBtn = document.getElementById('openCalcModalBtn');
+    const closeBtn = document.getElementById('closeCalcModalBtn');
+    const modal = document.getElementById('calcModal');
+    if (!modal) return;
+
+    if (openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
+    if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+
+    const inputs = ['calcCoffeePrice', 'calcDose', 'calcEspressoSell', 'calcCapSell'];
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', recalcMargin);
+    });
+
+    recalcMargin();
+}
+
+function recalcMargin() {
+    const coffeePrice = parseFloat(document.getElementById('calcCoffeePrice')?.value || 1400);
+    const dose = parseFloat(document.getElementById('calcDose')?.value || 18);
+    const espressoSell = parseFloat(document.getElementById('calcEspressoSell')?.value || 150);
+    const capSell = parseFloat(document.getElementById('calcCapSell')?.value || 220);
+
+    const costPerGram = coffeePrice / 1000;
+    const espressoCost = costPerGram * dose;
+    const espressoMargin = espressoSell > 0 ? ((espressoSell - espressoCost) / espressoSell) * 100 : 0;
+
+    const milkCost = 12; // ~150ml milk = 12 RUB
+    const capCost = espressoCost + milkCost;
+
+    const cupsPerKg = 1000 / dose;
+    const profitPerCup = espressoSell - espressoCost;
+    const profitPerKg = profitPerCup * cupsPerKg;
+
+    const costEspressoEl = document.getElementById('calcCostEspressoText');
+    const marginEspressoEl = document.getElementById('calcMarginEspressoText');
+    const costCapEl = document.getElementById('calcCostCapText');
+    const profitPerKgEl = document.getElementById('calcProfitPerKgText');
+
+    if (costEspressoEl) costEspressoEl.textContent = `${espressoCost.toFixed(2)} ₽`;
+    if (marginEspressoEl) marginEspressoEl.textContent = `${espressoMargin.toFixed(1)}%`;
+    if (costCapEl) costCapEl.textContent = `${capCost.toFixed(2)} ₽`;
+    if (profitPerKgEl) profitPerKgEl.textContent = `${Math.round(profitPerKg).toLocaleString('ru-RU')} ₽`;
+}
+
+// Sample Pack Modal
+function initSampleModal() {
+    const openBtn = document.getElementById('openSamplePackModalBtn');
+    const closeBtn = document.getElementById('closeSampleModalBtn');
+    const modal = document.getElementById('samplePackModal');
+    if (!modal) return;
+
+    if (openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
+    if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+}
+
+// Quick 25 kg Order Preset for Coffee Shop
+function initQuickPreset() {
+    const presetBtn = document.getElementById('quickPresetBtn');
+    if (!presetBtn) return;
+
+    presetBtn.addEventListener('click', () => {
+        cart = {}; // Reset cart
+
+        // Add 15kg El Classico 1000g
+        updateCartQty('El Classico/Эль Классико', '1 000 г', 15);
+        // Add 5kg Minas Gerais 1000g
+        updateCartQty('Бразилия Минас Жерайс', '1 000 г', 5);
+        // Add 5kg Filter Guatemala 1000g
+        updateCartQty('Гватемала Финка Сан Антонио', '1 000 г', 5);
+
+        renderCart();
+        alert('⚡ Типовой заказ кофейни (25 кг) успешно добавлен в корзину!\nПрогресс-бар заполнен, оптовая скидка -30% рассчитана.');
+    });
+}
+
+// Initialize extra B2B features on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    initCalcModal();
+});
+

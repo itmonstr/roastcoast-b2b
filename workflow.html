@@ -301,13 +301,13 @@
 
         <!-- Navigation Tabs -->
         <div class="tab-switcher">
-            <button class="tab-btn active" onclick="switchTab('tab-cjm')">
+            <button class="tab-btn active" onclick="switchTab(this, 'tab-cjm')">
                 🗺 1. Клиентский путь на сайте
             </button>
-            <button class="tab-btn" onclick="switchTab('tab-noops')">
+            <button class="tab-btn" onclick="switchTab(this, 'tab-noops')">
                 ⚙️ 2. Автоматизация под капотом (No-Ops)
             </button>
-            <button class="tab-btn" onclick="switchTab('tab-arch')">
+            <button class="tab-btn" onclick="switchTab(this, 'tab-arch')">
                 🌐 3. Генеральная экосистема
             </button>
         </div>
@@ -393,7 +393,7 @@ flowchart TD
             <div class="card-header-box">
                 <div>
                     <h2 class="card-header-title">2. Автоматизация под капотом (No-Ops Конвейер)</h2>
-                    <p class="card-header-desc">Что происходит на бэкенде между Сайтом, МойСклад, ЭДО, Банком, Ростером и СДЭК.</p>
+                    <p class="card-header-desc">Что происходит на бэкенде между Сайтом, МойСклад, ЭДО, Банком, Ростером и СДЭК без участия менеджеров.</p>
                 </div>
                 <div class="badge-zero">🤖 Роботы вместо менеджеров</div>
             </div>
@@ -406,38 +406,37 @@ flowchart TD
     classDef external fill:#F3E8FF,stroke:#7C3AED,stroke-width:2px,color:#4C1D95;
     classDef warehouse fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#78350F;
 
-    subgraph SYS_ORDER[" 💻 ЭТАП 1: СОЗДАНИЕ ЗАКАЗА (САЙТ ➔ МОЙСКЛАД) "]
-        S1["Клиент нажал кнопку 'Оформить заказ'"]:::system
-        S2["DaData API по ИНН за 0.5 сек подтягивает реквизиты из ФНС"]:::external
-        S3["Заказ по API создаётся в МойСклад:<br>• Позиции и граммовки<br>• Выбранный ПВЗ СДЭК<br>• Авто-резерв зелёного зерна"]:::erp
+    subgraph ST1[" 1. САЙТ И ОФОРМЛЕНИЕ "]
+        S1["Клиент нажал Оформить заказ"]:::system
+        S2["DaData API по ИНН подтягивает реквизиты"]:::external
+        S3["МойСклад API: создание заказа и авторезерв"]:::erp
     end
 
-    subgraph SYS_FINANCE[" 🏦 ЭТАП 2: ВЫСТАВЛЕНИЕ СЧЁТА И ФИКСАЦИЯ ОПЛАТЫ "]
-        F1["МойСклад через модуль Диадок/СБИС<br>шлёт электронный Счёт с КЭП покупателю"]:::external
-        F2["Клиент оплачивает счёт в своём банк-клиенте"]:::system
-        F3["Банк (Точка / Т-Банк / Сбер) шлёт Webhook в МойСклад:<br>Зачислено 18 450 ₽ по счёту RC-94812"]:::external
-        F4["МойСклад САМ переводит статус заказа в 'ОПЛАЧЕНО'"]:::erp
+    subgraph ST2[" 2. ЭДО И БАНКОВСКИЙ СЧЕТ "]
+        F1["МойСклад + Диадок/СБИС: Электронный счет с КЭП"]:::external
+        F2["Клиент оплачивает счет в банк-клиенте"]:::system
+        F3["Банк шлет Webhook в МойСклад об оплате"]:::external
+        F4["МойСклад автоматически меняет статус на ОПЛАЧЕНО"]:::erp
     end
 
-    subgraph SYS_PROD[" 🔥 ЭТАП 3: ЦЕХ ОБЖАРКИ (ул. Правды, 28) "]
-        P1["МойСклад создаёт 'Заказ на производство':<br>Списывает 10 кг зелёного зерна + пакеты + клапаны"]:::erp
-        P2["На планшет роаст-мастера падает тикет на обжарку"]:::warehouse
-        P3["Обжарщик обжарил партию, расфасовал<br>и нажал кнопку 'Собрано' на планшете"]:::warehouse
+    subgraph ST3[" 3. ЦЕХ ОБЖАРКИ (ул. Правды, 28) "]
+        P1["МойСклад создает Заказ на производство сырья"]:::erp
+        P2["Планшет обжарщика: тикет на свежую обжарку"]:::warehouse
+        P3["Обжарщик фасует и нажимает на планшете ГОТОВО"]:::warehouse
     end
 
-    subgraph SYS_CDEK[" 🚚 ЭТАП 4: АВТОМАТИЗАЦИЯ СДЭК И ЗАКРЫТИЕ "]
-        L1["Статус 'Собрано' триггерит API СДЭК v2.0"]:::erp
-        L2["В ЛК СДЭК автоматически регистрируется накладная,<br>вызывается курьер в цех Севастополя"]:::external
-        L3["Складской термопринтер САМ печатает наклейку со штрихкодом"]:::warehouse
-        L4["Курьер СДЭК забирает коробку по штрихкоду"]:::external
-        L5["В Диадок/СБИС клиенту летит подписанный УПД (акт)"]:::external
-        L6["Клиент получает трек-номер в Личный кабинет и Telegram"]:::system
+    subgraph ST4[" 4. СДЭК ЛОГИСТИКА И ЗАКРЫТИЕ "]
+        L1["API СДЭК v2.0 регистрирует накладную и курьера"]:::external
+        L2["Термопринтер на складе печатает этикетку"]:::warehouse
+        L3["Курьер забирает коробку по штрихкоду"]:::external
+        L4["В Диадок/СБИС покупателю летит закрывающий УПД"]:::external
+        L5["Трек-номер СДЭК отправлен в ЛК и Telegram"]:::system
     end
 
     S1 --> S2 --> S3 --> F1 --> F2 --> F3 --> F4
-    F4 --> P1 --> P2 --> P3 --> L1 --> L2 --> L3 --> L4
-    L4 --> L5
-    L4 --> L6
+    F4 --> P1 --> P2 --> P3 --> L1 --> L2 --> L3
+    L3 --> L4
+    L3 --> L5
                 </pre>
             </div>
 
@@ -473,39 +472,37 @@ flowchart TD
     classDef client fill:#FFF8F0,stroke:#A9541E,stroke-width:2px,color:#201A15;
     classDef frontend fill:#FEF3C7,stroke:#D97706,stroke-width:2px,color:#78350F;
     classDef middleware fill:#EBF3FE,stroke:#2563EB,stroke-width:2px,color:#0F172A;
-    classDef erp fill:#ECFDF5,stroke:#059669,stroke-width:3px,color:#065F46;
+    classDef erp fill:#ECFDF5,stroke:#059669,stroke-width:2px,color:#065F46;
     classDef external fill:#F3E8FF,stroke:#7C3AED,stroke-width:2px,color:#4C1D95;
-    classDef factory fill:#F1F5F9,stroke:#475569,stroke-width:2px,color:#0F172A;
 
-    subgraph CHANNELS[" ВХОДНЫЕ КАНАЛЫ ЗАКАЗОВ "]
-        CH_B2C["🛒 Розничный клиент<br>1-3 пачки / дрипы"]:::client
-        CH_B2B["🏢 Оптовик (ООО / ИП)<br>Кофейни от 10 кг"]:::client
-        CH_BOT["🤖 Telegram-бот<br>Быстрый заказ бариста"]:::client
+    subgraph CHANNELS[" ВХОДНЫЕ КАНАЛЫ "]
+        CH_B2C["🛒 Розничный интернет-магазин"]:::client
+        CH_B2B["🏢 Оптовый B2B-портал (от 10 кг)"]:::client
+        CH_BOT["🤖 Telegram-бот бариста"]:::client
     end
 
-    subgraph FRONTEND[" ЦИФРОВЫЕ ВИТРИНЫ (WHITE CODE) "]
-        UI_RETAIL["Витрина Розницы:<br>Розница, карточки"]:::frontend
-        UI_B2B["B2B-Кабинет Оптовика:<br>Скидка -30%, матрица 200г/1кг"]:::frontend
-        UI_BOT["Mini App в Боте:<br>Каталог, баланс"]:::frontend
-        UI_CDEK["Виджет СДЭК:<br>Выбор ПВЗ на карте"]:::frontend
+    subgraph FRONTEND[" ЦИФРОВЫЕ ВИТРИНЫ "]
+        UI_RETAIL["Каталог розницы + СБП"]:::frontend
+        UI_B2B["B2B-Кабинет + оптовые цены"]:::frontend
+        UI_BOT["Telegram Mini App"]:::frontend
+        UI_CDEK["Интерактивная карта ПВЗ СДЭК"]:::frontend
     end
 
-    subgraph MIDDLEWARE[" ТОНКАЯ ПРОСЛОЙКА (MIDDLEWARE API) "]
-        API_GW["API Gateway Router<br>Единая точка входа"]:::middleware
-        AUTH_SVC["Авторизация & ИНН<br>Договоры, условия"]:::middleware
-        DISPATCHER["Диспетчер заказов<br>Маршрутизация статусов"]:::middleware
+    subgraph MIDDLEWARE[" ИНТЕГРАЦИОННЫЙ СЛОЙ "]
+        API_GW["API Gateway / Роутер заказов"]:::middleware
+        AUTH_SVC["Модуль DaData (автозаполнение ИНН)"]:::middleware
     end
 
-    subgraph ERP[" СЕРДЦЕ СИСТЕМЫ: МОЙСКЛАД "]
-        MS_STOCK["Единые остатки и цены<br>в реальном времени"]:::erp
-        MS_ORDER["Управление заказами<br>Авто-смена статусов"]:::erp
-        MS_PROD["Заказ на производство<br>Списание сырья"]:::erp
+    subgraph ERP[" ЦЕНТР УПРАВЛЕНИЯ: МОЙСКЛАД "]
+        MS_STOCK["Единые складские остатки"]:::erp
+        MS_ORDER["Автоматический менеджер заказов"]:::erp
+        MS_PROD["Учет производства и списание сырья"]:::erp
     end
 
     subgraph EXTERNALS[" ВНЕШНИЕ СЕРВИСЫ "]
-        BANK["🏦 Банк-Эквайринг<br>Т-Банк / Сбер / СБП"]:::external
-        EDO["📑 ЭДО (Диадок / СБИС)<br>Счета и УПД с КЭП"]:::external
-        CDEK["🚚 СДЭК API v2.0<br>Накладные и трекинг"]:::external
+        BANK["🏦 Банк (Webhook оплаты)"]:::external
+        EDO["📑 Диадок / СБИС (Счета и УПД)"]:::external
+        CDEK["🚚 СДЭК API v2.0 (Доставка)"]:::external
     end
 
     CH_B2C --> UI_RETAIL
@@ -521,18 +518,17 @@ flowchart TD
     UI_BOT --> API_GW
 
     API_GW --> AUTH_SVC
-    API_GW --> DISPATCHER
-    DISPATCHER <--> MS_ORDER
+    API_GW --> MS_ORDER
     MS_STOCK --> API_GW
 
-    DISPATCHER --> BANK
-    DISPATCHER --> EDO
-    BANK -->|Webhook: Оплачено| MS_ORDER
-    EDO -->|Подписано КЭП| MS_ORDER
+    MS_ORDER --> BANK
+    MS_ORDER --> EDO
+    BANK --> MS_ORDER
+    EDO --> MS_ORDER
 
     MS_ORDER --> MS_PROD
     MS_PROD --> CDEK
-    CDEK -->|Трек-номер| MS_ORDER
+    CDEK --> MS_ORDER
                 </pre>
             </div>
 
@@ -555,9 +551,9 @@ flowchart TD
     </div>
 
     <script>
-        // Initialize Mermaid
+        // Configure Mermaid
         mermaid.initialize({
-            startOnLoad: true,
+            startOnLoad: false,
             theme: 'default',
             flowchart: {
                 useMaxWidth: true,
@@ -574,14 +570,36 @@ flowchart TD
             }
         });
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.diagram-card').forEach(card => card.classList.remove('active'));
+        async function renderCardDiagram(card) {
+            if (!card) return;
+            const unrendered = card.querySelectorAll('pre.mermaid');
+            if (unrendered.length > 0) {
+                try {
+                    await mermaid.run({ nodes: unrendered });
+                } catch (e) {
+                    console.error('Mermaid render error:', e);
+                }
+            }
+        }
 
-            event.currentTarget.classList.add('active');
+        document.addEventListener('DOMContentLoaded', async () => {
+            const activeCard = document.querySelector('.diagram-card.active');
+            if (activeCard) {
+                await renderCardDiagram(activeCard);
+            }
+        });
+
+        async function switchTab(btn, tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.diagram-card').forEach(c => c.classList.remove('active'));
+
+            if (btn) {
+                btn.classList.add('active');
+            }
             const targetCard = document.getElementById(tabId);
             if (targetCard) {
                 targetCard.classList.add('active');
+                await renderCardDiagram(targetCard);
             }
         }
     </script>
