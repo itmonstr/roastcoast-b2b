@@ -561,25 +561,19 @@ function parsePriceNum(priceStr) {
     return parseInt(clean, 10) || 0;
 }
 
-// Initially all category sections are closed/collapsed
-let userToggledCategories = false;
-const collapsedCategories = new Set([
-    'cat-card-milk_blends',
-    'cat-card-decaf_lots',
-    'cat-card-filter_lots',
-    'cat-card-other_items'
-]);
+// By default, ALL category sections are closed/collapsed.
+// Only categories explicitly opened by the user are tracked in expandedCategories.
+const expandedCategories = new Set();
 
 function toggleCategorySection(cardId) {
-    userToggledCategories = true;
     const card = document.getElementById(cardId);
-    if (card) {
-        card.classList.toggle('collapsed');
-        if (card.classList.contains('collapsed')) {
-            collapsedCategories.add(cardId);
-        } else {
-            collapsedCategories.delete(cardId);
-        }
+    if (!card) return;
+    if (expandedCategories.has(cardId)) {
+        expandedCategories.delete(cardId);
+        card.classList.add('collapsed');
+    } else {
+        expandedCategories.add(cardId);
+        card.classList.remove('collapsed');
     }
 }
 
@@ -663,8 +657,8 @@ function renderCatalog() {
             }
 
             hasAnyRendered = true;
-            const sectionCard = document.createElement('div');
-            sectionCard.className = 'category-section-card' + (collapsedCategories.has(`cat-card-${cat.id}`) ? ' collapsed' : '');
+            const isExpanded = expandedCategories.has(`cat-card-${cat.id}`);
+            sectionCard.className = 'category-section-card' + (isExpanded ? '' : ' collapsed');
             sectionCard.id = `cat-card-${cat.id}`;
 
             // Category Header
