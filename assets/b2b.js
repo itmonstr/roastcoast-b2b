@@ -1068,5 +1068,34 @@ function initQuickPreset() {
 // Initialize extra B2B features on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
     initCalcModal();
+    initTheme();
 });
+
+// Atmospheric Dark Steam Background (Вариант 5)
+function toggleAtmosphericTheme() {
+    const isDark = document.body.classList.toggle('theme-dark-steam');
+    localStorage.setItem('roastcoast_theme', isDark ? 'dark-steam' : 'light');
+    updateThemeBtn(isDark);
+}
+
+function updateThemeBtn(isDark) {
+    const btn = document.getElementById('themeToggleBtn');
+    if (btn) {
+        btn.innerHTML = isDark 
+            ? '<span class="theme-icon">☕</span><span>Пар: Вкл</span>' 
+            : '<span class="theme-icon">☀️</span><span>Светлая</span>';
+    }
+}
+
+function initTheme() {
+    const saved = localStorage.getItem('roastcoast_theme');
+    // Default to dark-steam as requested
+    const isDark = saved !== 'light';
+    if (isDark) {
+        document.body.classList.add('theme-dark-steam');
+    } else {
+        document.body.classList.remove('theme-dark-steam');
+    }
+    updateThemeBtn(isDark);
+}
 

@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v15">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v16">
     <style>
         .brand-logo-mark {
             height: 38px;
@@ -633,9 +633,357 @@
                 background: #F4F0E8 !important;
             }
         }
+
+        /* ============================================================
+           ВАРИАНТ 5: Атмосферный тёмный фон с плавающим паром
+           ============================================================ */
+        body.theme-dark-steam {
+            background-color: #120E0C !important;
+            background-image: 
+                radial-gradient(ellipse at 15% 15%, rgba(196, 90, 53, 0.16) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 85%, rgba(212, 165, 116, 0.10) 0%, transparent 60%),
+                radial-gradient(circle at 50% 40%, #181310 0%, #0C0908 100%) !important;
+            background-attachment: fixed !important;
+            color: #EDE8E1 !important;
+        }
+
+        /* Steam Wisps & Floating Particles */
+        .steam-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        body:not(.theme-dark-steam) .steam-container {
+            display: none;
+        }
+        .steam {
+            position: absolute;
+            bottom: -180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(235, 215, 195, 0.16) 0%, rgba(212, 165, 116, 0.08) 45%, transparent 70%);
+            filter: blur(32px);
+            opacity: 0;
+            animation: riseAndFade 14s infinite ease-in-out;
+            will-change: transform, opacity;
+        }
+        .steam-1 { left: 8%; width: 280px; height: 280px; animation-duration: 15s; animation-delay: 0s; }
+        .steam-2 { left: 28%; width: 340px; height: 340px; animation-duration: 19s; animation-delay: 3.5s; }
+        .steam-3 { left: 52%; width: 240px; height: 240px; animation-duration: 13s; animation-delay: 7s; }
+        .steam-4 { left: 74%; width: 360px; height: 360px; animation-duration: 21s; animation-delay: 1.5s; }
+        .steam-5 { left: 42%; width: 300px; height: 300px; animation-duration: 17s; animation-delay: 9s; }
+        .steam-6 { left: 88%; width: 220px; height: 220px; animation-duration: 16s; animation-delay: 5s; }
+
+        @keyframes riseAndFade {
+            0% {
+                transform: translateY(0) scale(0.8) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.65;
+            }
+            55% {
+                transform: translateY(-55vh) scale(1.3) translateX(30px) rotate(12deg);
+                opacity: 0.4;
+            }
+            85% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-120vh) scale(1.7) translateX(-35px) rotate(-15deg);
+                opacity: 0;
+            }
+        }
+
+        /* Dark Theme Adaptations */
+        body.theme-dark-steam .b2b-header {
+            background: rgba(16, 12, 10, 0.88) !important;
+            backdrop-filter: blur(14px) !important;
+            -webkit-backdrop-filter: blur(14px) !important;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.18) !important;
+            position: relative;
+            z-index: 100;
+        }
+        body.theme-dark-steam .brand-logo-text {
+            color: #F5F2EB !important;
+        }
+        body.theme-dark-steam .brand-logo-text span {
+            color: #D4A574 !important;
+        }
+        body.theme-dark-steam .header-phone {
+            color: #EDE8E1 !important;
+        }
+        body.theme-dark-steam .header-phone:hover {
+            color: #D4A574 !important;
+        }
+        body.theme-dark-steam #openCalcModalBtn {
+            background: rgba(36, 28, 24, 0.8) !important;
+            color: #EDE8E1 !important;
+            border-color: rgba(212, 165, 116, 0.25) !important;
+        }
+        body.theme-dark-steam .b2b-account-btn {
+            background: rgba(36, 28, 24, 0.8) !important;
+            color: #EDE8E1 !important;
+            border-color: rgba(212, 165, 116, 0.25) !important;
+        }
+        body.theme-dark-steam .b2b-container {
+            position: relative;
+            z-index: 1;
+        }
+        body.theme-dark-steam .search-box input {
+            background: rgba(26, 20, 17, 0.85) !important;
+            color: #EDE8E1 !important;
+            border: 1px solid rgba(212, 165, 116, 0.22) !important;
+        }
+        body.theme-dark-steam .search-box input:focus {
+            border-color: #D4A574 !important;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15) !important;
+        }
+        body.theme-dark-steam .search-box input::placeholder {
+            color: #8C7B6D !important;
+        }
+        body.theme-dark-steam .search-icon {
+            color: #8C7B6D !important;
+        }
+        body.theme-dark-steam .tab-btn {
+            background: rgba(26, 20, 17, 0.7) !important;
+            color: #A8988A !important;
+            border: 1px solid rgba(212, 165, 116, 0.18) !important;
+        }
+        body.theme-dark-steam .tab-btn:hover {
+            color: #EDE8E1 !important;
+            border-color: rgba(212, 165, 116, 0.35) !important;
+        }
+        body.theme-dark-steam .tab-btn.active {
+            background: rgba(196, 90, 53, 0.28) !important;
+            color: #F5D3B3 !important;
+            border-color: rgba(196, 90, 53, 0.55) !important;
+        }
+        body.theme-dark-steam .view-btn {
+            background: rgba(26, 20, 17, 0.7) !important;
+            color: #A8988A !important;
+            border-color: rgba(212, 165, 116, 0.18) !important;
+        }
+        body.theme-dark-steam .view-btn.active {
+            background: #C45A35 !important;
+            color: #FFFFFF !important;
+            border-color: #C45A35 !important;
+        }
+        body.theme-dark-steam .category-section-card {
+            background: rgba(28, 22, 19, 0.88) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border: 1px solid rgba(212, 165, 116, 0.14) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
+        }
+        body.theme-dark-steam .category-section-header {
+            background: rgba(28, 22, 19, 0.95) !important;
+            border: none !important;
+        }
+        body.theme-dark-steam .category-section-card:not(.collapsed) .category-section-header {
+            border-bottom: 1px solid rgba(212, 165, 116, 0.12) !important;
+        }
+        body.theme-dark-steam .category-section-header:hover {
+            background: rgba(40, 32, 27, 0.95) !important;
+        }
+        body.theme-dark-steam .cat-tag-info {
+            color: #D4A574 !important;
+        }
+        body.theme-dark-steam .cat-h2-title {
+            color: #F7F4EF !important;
+        }
+        body.theme-dark-steam .cat-chevron-icon {
+            color: #A8988A !important;
+        }
+        body.theme-dark-steam .category-products-container {
+            background: transparent !important;
+        }
+        body.theme-dark-steam .b2b-list-item {
+            border-bottom: 1px solid rgba(212, 165, 116, 0.08) !important;
+        }
+        body.theme-dark-steam .b2b-list-item:hover {
+            background: rgba(45, 36, 31, 0.45) !important;
+        }
+        body.theme-dark-steam .prod-item-pack-img {
+            background: rgba(18, 14, 12, 0.8) !important;
+            border: 1px solid rgba(212, 165, 116, 0.18) !important;
+        }
+        body.theme-dark-steam .prod-item-title {
+            color: #F7F4EF !important;
+        }
+        body.theme-dark-steam .prod-item-sub {
+            color: #A8988A !important;
+        }
+        body.theme-dark-steam .prod-fav-btn {
+            color: #8C7B6D !important;
+        }
+        body.theme-dark-steam .opt-weight {
+            color: #EDE8E1 !important;
+        }
+        body.theme-dark-steam .opt-grind {
+            color: #A8988A !important;
+        }
+        body.theme-dark-steam .opt-price {
+            color: #F7F4EF !important;
+        }
+        body.theme-dark-steam .opt-btn-add {
+            background: rgba(212, 165, 116, 0.12) !important;
+            color: #F5D3B3 !important;
+            border: 1px solid rgba(212, 165, 116, 0.24) !important;
+        }
+        body.theme-dark-steam .opt-btn-add:hover {
+            background: rgba(212, 165, 116, 0.24) !important;
+            color: #FFFFFF !important;
+        }
+        body.theme-dark-steam .ring-divider::before,
+        body.theme-dark-steam .ring-divider::after {
+            background: linear-gradient(90deg, transparent 0%, rgba(212, 165, 116, 0.35) 50%, transparent 100%) !important;
+        }
+        body.theme-dark-steam .ring {
+            border: 2px solid rgba(212, 165, 116, 0.45) !important;
+        }
+        body.theme-dark-steam .ring::before {
+            background: #D4A574 !important;
+        }
+        body.theme-dark-steam .ring.small {
+            border-color: rgba(212, 165, 116, 0.3) !important;
+        }
+        body.theme-dark-steam .sidebar-cart {
+            background: rgba(26, 20, 17, 0.90) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(212, 165, 116, 0.22) !important;
+            box-shadow: 0 10px 36px rgba(0, 0, 0, 0.55) !important;
+            color: #EDE8E1 !important;
+        }
+        body.theme-dark-steam .cart-header {
+            border-bottom: 1px solid rgba(212, 165, 116, 0.15) !important;
+        }
+        body.theme-dark-steam .cart-title {
+            color: #F7F4EF !important;
+        }
+        body.theme-dark-steam .cart-summary {
+            background: rgba(16, 12, 10, 0.6) !important;
+            border: 1px solid rgba(212, 165, 116, 0.15) !important;
+        }
+        body.theme-dark-steam .summary-row {
+            color: #A8988A !important;
+        }
+        body.theme-dark-steam .summary-row.total {
+            color: #F7F4EF !important;
+            border-top: 1px solid rgba(212, 165, 116, 0.18) !important;
+        }
+        body.theme-dark-steam .summary-row.total .total-price {
+            color: #E7A97A !important;
+        }
+        body.theme-dark-steam .sidebar-conditions {
+            background: rgba(16, 12, 10, 0.65) !important;
+            border: 1px solid rgba(212, 165, 116, 0.18) !important;
+        }
+        body.theme-dark-steam .side-cond-badge {
+            background: rgba(30, 24, 20, 0.9) !important;
+            border: 1px solid rgba(212, 165, 116, 0.18) !important;
+        }
+        body.theme-dark-steam .side-cond-title {
+            color: #A8988A !important;
+        }
+        body.theme-dark-steam .side-cond-val {
+            color: #E7A97A !important;
+        }
+        body.theme-dark-steam .side-progress-header {
+            color: #A8988A !important;
+        }
+        body.theme-dark-steam .side-progress-header strong {
+            color: #F7F4EF !important;
+        }
+        body.theme-dark-steam .progress-bar-bg {
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
+        body.theme-dark-steam .progress-bar-fill {
+            background: linear-gradient(90deg, #C45A35 0%, #D4A574 100%) !important;
+        }
+        body.theme-dark-steam .btn-secondary-action {
+            background: rgba(212, 165, 116, 0.08) !important;
+            border: 1px solid rgba(212, 165, 116, 0.28) !important;
+            color: #D4A574 !important;
+        }
+        body.theme-dark-steam .btn-secondary-action:hover {
+            background: rgba(212, 165, 116, 0.16) !important;
+            color: #F5D3B3 !important;
+        }
+        body.theme-dark-steam .mobile-order-bar {
+            background: rgba(18, 14, 12, 0.95) !important;
+            border-top: 1px solid rgba(212, 165, 116, 0.2) !important;
+        }
+        body.theme-dark-steam .mobile-btn-pricelist {
+            background: rgba(30, 24, 20, 0.9) !important;
+            border: 1px solid rgba(212, 165, 116, 0.25) !important;
+            color: #EDE8E1 !important;
+        }
+        body.theme-dark-steam .modal-content {
+            background: #1C1613 !important;
+            color: #EDE8E1 !important;
+            border: 1px solid rgba(212, 165, 116, 0.25) !important;
+        }
+        body.theme-dark-steam .invoice-meta-box {
+            background: rgba(16, 12, 10, 0.6) !important;
+            border: 1px solid rgba(212, 165, 116, 0.15) !important;
+        }
+        body.theme-dark-steam .invoice-table th {
+            background: rgba(28, 22, 18, 0.9) !important;
+            color: #D4A574 !important;
+            border-color: rgba(212, 165, 116, 0.15) !important;
+        }
+        body.theme-dark-steam .invoice-table td {
+            border-color: rgba(212, 165, 116, 0.1) !important;
+            color: #EDE8E1 !important;
+        }
+
+        /* Theme Switcher Button */
+        .theme-toggle-btn {
+            background: rgba(212, 165, 116, 0.14);
+            color: #D4A574;
+            border: 1px solid rgba(212, 165, 116, 0.35);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .theme-toggle-btn:hover {
+            background: rgba(212, 165, 116, 0.24);
+            border-color: #D4A574;
+        }
+        body:not(.theme-dark-steam) .theme-toggle-btn {
+            background: var(--color-surface-2);
+            color: var(--color-fg);
+            border-color: var(--color-border);
+        }
+        .theme-toggle-btn .theme-icon {
+            font-size: 0.95rem;
+            line-height: 1;
+        }
     </style>
 </head>
-<body>
+<body class="theme-dark-steam">
+
+    <!-- ВАРИАНТ 5: Атмосферный фон с паром -->
+    <div class="steam-container" id="steamContainer" aria-hidden="true">
+        <div class="steam steam-1"></div>
+        <div class="steam steam-2"></div>
+        <div class="steam steam-3"></div>
+        <div class="steam steam-4"></div>
+        <div class="steam steam-5"></div>
+        <div class="steam steam-6"></div>
+    </div>
 
     <!-- Header / B2B Topbar -->
     <header class="b2b-header">
@@ -647,6 +995,10 @@
             </div>
 
             <div class="header-right-nav">
+                <button id="themeToggleBtn" class="theme-toggle-btn" title="Переключить тему фона" onclick="toggleAtmosphericTheme()">
+                    <span class="theme-icon">☕</span>
+                    <span>Пар: Вкл</span>
+                </button>
                 <button id="openCalcModalBtn" style="background:var(--color-surface-2); color:var(--color-fg); border:1px solid var(--color-border); padding:6px 12px; border-radius:6px; font-weight:700; font-size:0.82rem; cursor:pointer; display:flex; align-items:center; gap:5px;">
                     <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                     <span>🧮 Калькулятор чашки</span>
@@ -2000,6 +2352,6 @@
         </a>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v15"></script>
+    <script src="assets/b2b.js?v=20260912_v16"></script>
 </body>
 </html>
