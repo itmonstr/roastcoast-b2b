@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v26">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v27">
     <style>
         html, body {
             overflow-x: hidden !important;
@@ -822,6 +822,10 @@
         body.theme-dark-steam .b2b-container {
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 340px;
+            gap: 24px;
+            align-items: start;
         }
         /* High-Contrast & Clear Highlighting in Atmospheric Dark Theme */
         body.theme-dark-steam ::selection {
@@ -2934,14 +2938,9 @@
                     </div>
                 </div>
             </div>
-        
-                </div>
-            </div>
-        
-            </div>
         </div>
-    
-            </div>
+    </div>
+</div>
 
             <!-- Products View: Cards Grid (Alternative view) -->
             <div class="product-grid" id="productGrid" style="display:none;">
@@ -3275,6 +3274,6 @@
         </a>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v26"></script>
+    <script src="assets/b2b.js?v=20260912_v27"></script>
 </body>
 </html>
