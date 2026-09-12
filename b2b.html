@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v24">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v25">
     <style>
         html, body {
             overflow-x: hidden !important;
@@ -199,36 +199,44 @@
             }
             .prod-opt-row {
                 padding: 6px 10px !important;
+                gap: 4px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
             }
             .opt-weight {
-                width: 48px !important;
-                min-width: 48px !important;
-                max-width: 48px !important;
-                font-size: 0.84rem !important;
+                width: 44px !important;
+                min-width: 44px !important;
+                max-width: 44px !important;
+                font-size: 0.82rem !important;
+                flex-shrink: 0 !important;
             }
             .opt-grind {
-                width: 90px !important;
-                min-width: 90px !important;
-                max-width: 90px !important;
-                font-size: 0.78rem !important;
+                width: 72px !important;
+                min-width: 72px !important;
+                max-width: 72px !important;
+                font-size: 0.76rem !important;
+                flex-shrink: 0 !important;
             }
             .opt-price {
-                width: 85px !important;
-                min-width: 85px !important;
-                max-width: 85px !important;
-                font-size: 0.95rem !important;
+                flex: 1 !important;
+                text-align: right !important;
+                margin-left: auto !important;
                 margin-right: 8px !important;
+                font-size: 0.94rem !important;
+                font-variant-numeric: tabular-nums !important;
+                flex-shrink: 0 !important;
             }
             .opt-btn-wrap,
             .opt-btn-add,
             body.theme-dark-steam .opt-qty-control {
-                width: 60px !important;
-                min-width: 60px !important;
-                max-width: 60px !important;
+                width: 70px !important;
+                min-width: 70px !important;
+                max-width: 70px !important;
                 height: 30px !important;
+                flex-shrink: 0 !important;
             }
             .opt-btn-add {
-                font-size: 1.15rem !important;
+                font-size: 1.25rem !important;
             }
         }
 
@@ -599,29 +607,50 @@
             }
             .opt-weight {
                 font-size: 0.82rem !important;
-                width: 40px !important;
-                min-width: 40px !important;
+                width: 44px !important;
+                min-width: 44px !important;
+                max-width: 44px !important;
+                flex-shrink: 0 !important;
             }
             .opt-grind {
-                font-size: 0.78rem !important;
+                width: 72px !important;
+                min-width: 72px !important;
+                max-width: 72px !important;
+                font-size: 0.76rem !important;
+                flex-shrink: 0 !important;
             }
             .opt-price {
-                font-size: 0.88rem !important;
+                flex: 1 !important;
+                text-align: right !important;
+                margin-left: auto !important;
                 margin-right: 8px !important;
+                font-size: 0.94rem !important;
+                font-variant-numeric: tabular-nums !important;
+                flex-shrink: 0 !important;
             }
             .opt-btn-wrap {
-                width: 68px !important;
-                min-width: 68px !important;
+                width: 70px !important;
+                min-width: 70px !important;
+                max-width: 70px !important;
                 height: 30px !important;
+                flex-shrink: 0 !important;
             }
             .opt-btn-add {
-                width: 68px !important;
+                width: 70px !important;
+                min-width: 70px !important;
+                max-width: 70px !important;
                 height: 30px !important;
-                font-size: 1.15rem !important;
+                font-size: 1.25rem !important;
+                border-radius: 8px !important;
             }
             .opt-qty-control {
-                width: 68px !important;
+                width: 70px !important;
+                min-width: 70px !important;
+                max-width: 70px !important;
                 height: 30px !important;
+                border-radius: 8px !important;
+                padding: 0 4px !important;
+                box-sizing: border-box !important;
             }
             .category-section-header {
                 padding: 10px 12px !important;
@@ -1603,39 +1632,63 @@
                 flex-shrink: 0 !important;
             }
             .opt-grind {
-                width: 76px !important;
-                min-width: 76px !important;
-                max-width: 76px !important;
+                width: 72px !important;
+                min-width: 72px !important;
+                max-width: 72px !important;
                 font-size: 0.76rem !important;
                 flex-shrink: 0 !important;
-                padding-left: 4px !important;
+                padding-left: 2px !important;
             }
             .opt-price {
-                margin-left: auto !important;
-                width: 78px !important;
-                min-width: 78px !important;
-                max-width: 78px !important;
-                font-size: 0.94rem !important;
-                margin-right: 6px !important;
-                flex-shrink: 0 !important;
+                flex: 1 !important;
                 text-align: right !important;
+                margin-left: auto !important;
+                margin-right: 8px !important;
+                font-size: 0.94rem !important;
+                font-variant-numeric: tabular-nums !important;
+                flex-shrink: 0 !important;
             }
             .opt-btn-wrap {
-                width: 58px !important;
-                min-width: 58px !important;
-                max-width: 58px !important;
+                width: 70px !important;
+                min-width: 70px !important;
+                max-width: 70px !important;
+                height: 30px !important;
                 flex-shrink: 0 !important;
             }
             .opt-btn-add,
             body.theme-dark-steam .opt-qty-control {
-                width: 58px !important;
-                min-width: 58px !important;
-                max-width: 58px !important;
+                width: 70px !important;
+                min-width: 70px !important;
+                max-width: 70px !important;
                 height: 30px !important;
-                border-radius: 6px !important;
+                border-radius: 8px !important;
             }
             .opt-btn-add {
+                font-size: 1.25rem !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            body.theme-dark-steam .opt-qty-control {
+                padding: 0 4px !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+            }
+            body.theme-dark-steam .opt-qty-btn {
+                width: 20px !important;
+                min-width: 20px !important;
+                max-width: 20px !important;
+                padding: 0 !important;
                 font-size: 1.15rem !important;
+            }
+            body.theme-dark-steam .opt-qty-num {
+                width: 22px !important;
+                min-width: 22px !important;
+                max-width: 22px !important;
+                text-align: center !important;
+                font-size: 0.88rem !important;
             }
             .category-tabs {
                 display: flex !important;
@@ -2806,33 +2859,20 @@
                         <div class="prod-item-sub">IRCA • Италия</div>
                     </div>
                     <div class="prod-item-badges">
-                        
                         <button type="button" class="prod-fav-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                         </button>
                     </div>
                 </div>
                 <div class="prod-options-stack">
-                    
-            <div class="prod-opt-row">
-                <span class="opt-weight">1 кг</span>
-                <span class="opt-grind">В зернах</span>
-                <span class="opt-price">5 712 ₽</span>
-                <div class="opt-btn-wrap">
-                    <button type="button" class="opt-btn-add" onclick="updateQty('Какао порошок - Cacao 22/24 1кг, IRCA, Италия', '1 000 г', 8160, 5712, 1)">+</button>
-                </div>
-            </div>
-        
-                    
-            <div class="prod-opt-row">
-                <span class="opt-weight">200 г</span>
-                <span class="opt-grind">В зернах</span>
-                <span class="opt-price">1 680 ₽</span>
-                <div class="opt-btn-wrap">
-                    <button type="button" class="opt-btn-add" onclick="updateQty('Какао порошок - Cacao 22/24 1кг, IRCA, Италия', '200 г', 2400, 1680, 1)">+</button>
-                </div>
-            </div>
-        
+                    <div class="prod-opt-row">
+                        <span class="opt-weight">1 кг</span>
+                        <span class="opt-grind">Порошок</span>
+                        <span class="opt-price">1 680 ₽</span>
+                        <div class="opt-btn-wrap">
+                            <button type="button" class="opt-btn-add" onclick="updateQty('Какао порошок - Cacao 22/24 1кг, IRCA, Италия', '1 000 г', 2400, 1680, 1, this)">+</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         
@@ -2844,33 +2884,20 @@
                         <div class="prod-item-sub">Himteam • Проф. химия</div>
                     </div>
                     <div class="prod-item-badges">
-                        
                         <button type="button" class="prod-fav-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                         </button>
                     </div>
                 </div>
                 <div class="prod-options-stack">
-                    
-            <div class="prod-opt-row">
-                <span class="opt-weight">1 кг</span>
-                <span class="opt-grind">В зернах</span>
-                <span class="opt-price">2 737 ₽</span>
-                <div class="opt-btn-wrap">
-                    <button type="button" class="opt-btn-add" onclick="updateQty('Средство для очистки кофемашин от кофейных масел himteam 1000г', '1 000 г', 3910, 2737, 1)">+</button>
-                </div>
-            </div>
-        
-                    
-            <div class="prod-opt-row">
-                <span class="opt-weight">200 г</span>
-                <span class="opt-grind">В зернах</span>
-                <span class="opt-price">805 ₽</span>
-                <div class="opt-btn-wrap">
-                    <button type="button" class="opt-btn-add" onclick="updateQty('Средство для очистки кофемашин от кофейных масел himteam 1000г', '200 г', 1150, 805, 1)">+</button>
-                </div>
-            </div>
-        
+                    <div class="prod-opt-row">
+                        <span class="opt-weight">1 кг</span>
+                        <span class="opt-grind">Порошок</span>
+                        <span class="opt-price">805 ₽</span>
+                        <div class="opt-btn-wrap">
+                            <button type="button" class="opt-btn-add" onclick="updateQty('Средство для очистки кофемашин от кофейных масел himteam 1000г', '1 000 г', 1150, 805, 1, this)">+</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         
@@ -2882,30 +2909,20 @@
                         <div class="prod-item-sub">Himteam • Проф. химия</div>
                     </div>
                     <div class="prod-item-badges">
-                        
                         <button type="button" class="prod-fav-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                         </button>
                     </div>
                 </div>
                 <div class="prod-options-stack">
-                    
-            <div class="prod-opt-row">
-                <span class="opt-weight">1 кг</span>
-                <span class="opt-grind">В зернах</span>
-                <span class="opt-price">2 356 ₽</span>
-                <div class="opt-btn-wrap">
-                    <button type="button" class="opt-btn-add" onclick="updateQty('Средство для очистки молочных систем и капучинатора himteam 1000мл', '1 000 г', 3366, 2356, 1)">+</button>
-                </div>
-            </div>
-        
-                    
-            <div class="prod-opt-row">
-                <span class="opt-weight">200 г</span>
-                <span class="opt-grind">В зернах</span>
-                <span class="opt-price">693 ₽</span>
-                <div class="opt-btn-wrap">
-                    <button type="button" class="opt-btn-add" onclick="updateQty('Средство для очистки молочных систем и капучинатора himteam 1000мл', '200 г', 990, 693, 1)">+</button>
+                    <div class="prod-opt-row">
+                        <span class="opt-weight">1 л</span>
+                        <span class="opt-grind">Жидкость</span>
+                        <span class="opt-price">693 ₽</span>
+                        <div class="opt-btn-wrap">
+                            <button type="button" class="opt-btn-add" onclick="updateQty('Средство для очистки молочных систем и капучинатора himteam 1000мл', '1 000 мл', 990, 693, 1, this)">+</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         
@@ -3249,6 +3266,6 @@
         </a>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v24"></script>
+    <script src="assets/b2b.js?v=20260912_v25"></script>
 </body>
 </html>
