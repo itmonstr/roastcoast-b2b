@@ -651,19 +651,16 @@ function renderCatalog() {
                     <div>
                         <div class="cat-tag-info">
                             <span>${cat.subtitle}</span>
-                            <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
                         </div>
                         <h2 class="cat-h2-title">${cat.title}</h2>
                     </div>
-                    <div class="cat-toggle-action">
-                        <span>Развернуть все</span>
-                        <svg class="cat-chevron-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-                    </div>
+                    <svg class="cat-chevron-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                 </div>
             `;
 
-            // Category Rows
-            const rowsHtml = catProducts.map(p => {
+            // Category Items
+            const productsHtml = catProducts.map(p => {
                 const retail200 = parsePriceNum(p.price);
                 const b2b200 = Math.round(retail200 * (1 - B2B_DISCOUNT_PERCENT / 100));
                 const retail1000 = Math.round(retail200 * 3.4);
@@ -676,82 +673,82 @@ function renderCatalog() {
                 const key200 = `${p.title}-200 г`;
                 const qty200 = cart[key200] ? cart[key200].qty : 0;
 
-                const isPopular = p.title.includes('Classico') || p.title.includes('Sweet Hills') || p.title.includes('Минас') || p.title.includes('Кения');
-
                 const has1000 = p.options ? p.options.some(o => o.includes('1 000') || o.includes('1000')) : true;
+                const isHot = p.title.includes('Classico') || p.title.includes('Sweet Hills') || p.title.includes('Минас');
+                const isNew = p.title.includes('Кения') || p.title.includes('Антонио') || p.title.includes('Сиган');
 
-                const btn1000 = !has1000
-                    ? '<span style="color:#9CA3AF;">—</span>'
-                    : (qty1000 === 0 
-                        ? `<button type="button" class="pill-btn-add" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>`
-                        : `<div class="pill-qty-group">
-                             <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, -1)">–</button>
-                             <span class="pill-qty-val">${qty1000}</span>
-                             <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>
-                           </div>`);
+                let badgeHtml = '';
+                if (isHot) {
+                    badgeHtml = '<span class="item-badge-pct" title="Хит продаж">%</span>';
+                } else if (isNew) {
+                    badgeHtml = '<span class="item-badge-new" title="Новинка">NEW</span>';
+                }
 
-                const btn200 = qty200 === 0 
-                    ? `<button type="button" class="pill-btn-add" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">+</button>`
-                    : `<div class="pill-qty-group">
-                         <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, -1)">–</button>
-                         <span class="pill-qty-val">${qty200}</span>
-                         <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">+</button>
+                const btn1000 = qty1000 === 0 
+                    ? `<button type="button" class="opt-btn-add" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>`
+                    : `<div class="opt-qty-control">
+                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, -1)">–</button>
+                         <span class="opt-qty-num">${qty1000}</span>
+                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>
                        </div>`;
 
-                return `
-                    <tr>
-                        <td class="col-name">
-                            <div class="list-prod-info">
-                                <img src="${imgUrl}" class="list-prod-img" alt="${p.title}" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                                <div class="list-prod-text">
-                                    <div class="list-prod-title">${p.title}</div>
-                                    <div class="list-prod-sub">${p.subtitle || 'Свежая обжарка • Севастополь'}</div>
-                                </div>
-                                <div class="list-meta-icons">
-                                    ${isPopular ? '<span class="flame-tag" title="Хит продаж">🔥</span>' : ''}
-                                    <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="col-price-1000">
-                            ${has1000 && b2b1000 > 0 ? b2b1000.toLocaleString('ru-RU') : '—'}
-                        </td>
-                        <td class="col-btn-1000">
+                const btn200 = qty200 === 0 
+                    ? `<button type="button" class="opt-btn-add" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">+</button>`
+                    : `<div class="opt-qty-control">
+                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, -1)">–</button>
+                         <span class="opt-qty-num">${qty200}</span>
+                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">+</button>
+                       </div>`;
+
+                const row1000 = has1000 ? `
+                    <div class="prod-opt-row">
+                        <span class="opt-weight">1 кг</span>
+                        <span class="opt-grind">В зернах</span>
+                        <span class="opt-price">${b2b1000.toLocaleString('ru-RU')} ₽</span>
+                        <div class="opt-btn-wrap">
                             ${btn1000}
-                        </td>
-                        <td class="col-price-200">
-                            ${b2b200 > 0 ? b2b200.toLocaleString('ru-RU') : '—'}
-                        </td>
-                        <td class="col-btn-200">
+                        </div>
+                    </div>
+                ` : '';
+
+                const row200 = `
+                    <div class="prod-opt-row">
+                        <span class="opt-weight">200 г</span>
+                        <span class="opt-grind">В зернах</span>
+                        <span class="opt-price">${b2b200.toLocaleString('ru-RU')} ₽</span>
+                        <div class="opt-btn-wrap">
                             ${btn200}
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
+                `;
+
+                return `
+                    <div class="b2b-list-item">
+                        <div class="prod-item-top">
+                            <img src="${imgUrl}" class="prod-item-pack-img" alt="${p.title}" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
+                            <div class="prod-item-heading">
+                                <div class="prod-item-title">${p.title}</div>
+                                <div class="prod-item-sub">${p.subtitle || 'натуральный • Спешелти'}</div>
+                            </div>
+                            <div class="prod-item-badges">
+                                ${badgeHtml}
+                                <button type="button" class="prod-fav-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="prod-options-stack">
+                            ${row1000}
+                            ${row200}
+                        </div>
+                    </div>
                 `;
             }).join('');
 
             sectionCard.innerHTML = `
                 ${headerHtml}
-                <div class="category-table-content">
-                    <table class="b2b-group-table">
-                        <thead>
-                            <tr class="th-row-1">
-                                <th rowspan="2" class="col-name">Наименование</th>
-                                <th colspan="2" class="col-pack-1000">1 кг</th>
-                                <th colspan="2" class="col-pack-200">200 г</th>
-                            </tr>
-                            <tr class="th-row-2">
-                                <th class="col-price-1000">Цена, ₽</th>
-                                <th class="col-btn-1000">Зерно</th>
-                                <th class="col-price-200">Цена, ₽</th>
-                                <th class="col-btn-200">Зерно</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${rowsHtml}
-                        </tbody>
-                    </table>
+                <div class="category-products-container">
+                    ${productsHtml}
                 </div>
             `;
 
@@ -870,29 +867,22 @@ function updateCartUI() {
         }
     }
 
-    // Mobile floating order bar
+    // Mobile floating order bar (Styled like reference screenshot)
     const mobileOrderBar = document.getElementById('mobileOrderBar');
-    const mobileOrderWeight = document.getElementById('mobileOrderWeight');
-    const mobileOrderSum = document.getElementById('mobileOrderSum');
     const mobileCheckoutBtn = document.getElementById('mobileCheckoutBtn');
-    if (mobileOrderBar && mobileOrderWeight && mobileOrderSum) {
+    const mobileOrderBtnText = document.getElementById('mobileOrderBtnText');
+    if (mobileCheckoutBtn) {
         if (totalCount > 0) {
-            mobileOrderBar.classList.add('has-items');
-            mobileOrderWeight.textContent = `${totalWeight.toFixed(1)} / ${MIN_ORDER_KG} кг (${totalCount} шт.)`;
-            mobileOrderSum.textContent = `${totalB2B.toLocaleString('ru-RU')} ₽ (Опт)`;
-            if (mobileCheckoutBtn) {
-                mobileCheckoutBtn.style.opacity = '1';
-                mobileCheckoutBtn.disabled = false;
-                mobileCheckoutBtn.innerHTML = '<span>Счёт на оплату</span><svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>';
+            mobileCheckoutBtn.style.opacity = '1';
+            mobileCheckoutBtn.disabled = false;
+            if (mobileOrderBtnText) {
+                mobileOrderBtnText.textContent = `Оформить заказ на ${totalB2B.toLocaleString('ru-RU')} ₽`;
             }
         } else {
-            mobileOrderBar.classList.remove('has-items');
-            mobileOrderWeight.textContent = `Мин. заказ: ${MIN_ORDER_KG} кг`;
-            mobileOrderSum.textContent = `Корзина пуста`;
-            if (mobileCheckoutBtn) {
-                mobileCheckoutBtn.style.opacity = '0.6';
-                mobileCheckoutBtn.disabled = true;
-                mobileCheckoutBtn.innerHTML = '<span>Выберите кофе</span>';
+            mobileCheckoutBtn.style.opacity = '0.5';
+            mobileCheckoutBtn.disabled = true;
+            if (mobileOrderBtnText) {
+                mobileOrderBtnText.textContent = 'Оформить заказ (корзина пуста)';
             }
         }
     }
