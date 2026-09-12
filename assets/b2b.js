@@ -561,10 +561,16 @@ function parsePriceNum(priceStr) {
     return parseInt(clean, 10) || 0;
 }
 
+const collapsedCategories = new Set();
 function toggleCategorySection(cardId) {
     const card = document.getElementById(cardId);
     if (card) {
         card.classList.toggle('collapsed');
+        if (card.classList.contains('collapsed')) {
+            collapsedCategories.add(cardId);
+        } else {
+            collapsedCategories.delete(cardId);
+        }
     }
 }
 
@@ -640,9 +646,16 @@ function renderCatalog() {
             const catProducts = products.filter(cat.match);
             if (catProducts.length === 0) return;
 
+            if (hasAnyRendered) {
+                const divider = document.createElement('div');
+                divider.className = 'ring-divider';
+                divider.innerHTML = '<div class="ring small"></div><div class="ring"></div><div class="ring small"></div>';
+                listWrapperEl.appendChild(divider);
+            }
+
             hasAnyRendered = true;
             const sectionCard = document.createElement('div');
-            sectionCard.className = 'category-section-card';
+            sectionCard.className = 'category-section-card' + (collapsedCategories.has(`cat-card-${cat.id}`) ? ' collapsed' : '');
             sectionCard.id = `cat-card-${cat.id}`;
 
             // Category Header
@@ -685,19 +698,19 @@ function renderCatalog() {
                 }
 
                 const btn1000 = qty1000 === 0 
-                    ? `<button type="button" class="opt-btn-add" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>`
+                    ? `<button type="button" class="opt-btn-add" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1, this)">+</button>`
                     : `<div class="opt-qty-control">
-                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, -1)">–</button>
+                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, -1, this)">–</button>
                          <span class="opt-qty-num">${qty1000}</span>
-                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>
+                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1, this)">+</button>
                        </div>`;
 
                 const btn200 = qty200 === 0 
-                    ? `<button type="button" class="opt-btn-add" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">+</button>`
+                    ? `<button type="button" class="opt-btn-add" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1, this)">+</button>`
                     : `<div class="opt-qty-control">
-                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, -1)">–</button>
+                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, -1, this)">–</button>
                          <span class="opt-qty-num">${qty200}</span>
-                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">+</button>
+                         <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1, this)">+</button>
                        </div>`;
 
                 const row1000 = has1000 ? `
@@ -761,7 +774,51 @@ function renderCatalog() {
     }
 }
 
-function updateQty(title, opt, retailPrice, b2bPrice, delta) {
+function findOptWrap(title, opt) {
+    const listItems = document.querySelectorAll('.b2b-list-item');
+    const is1000 = opt.includes('1 000') || opt.includes('1000') || opt.includes('1k') || opt.includes('1 к') || opt.includes('1кг');
+    for (const item of listItems) {
+        const titleEl = item.querySelector('.prod-item-title');
+        if (titleEl && titleEl.textContent.trim().toLowerCase() === title.trim().toLowerCase()) {
+            const rows = item.querySelectorAll('.prod-opt-row');
+            for (const row of rows) {
+                const weightEl = row.querySelector('.opt-weight');
+                if (weightEl) {
+                    const txt = weightEl.textContent.trim();
+                    if ((is1000 && (txt.includes('1') || txt.includes('кг'))) || (!is1000 && txt.includes('200'))) {
+                        return row.querySelector('.opt-btn-wrap');
+                    }
+                }
+            }
+        }
+    }
+    return null;
+}
+
+function updateOptControlDOM(title, opt, retailPrice, b2bPrice, qty, triggerBtn) {
+    let wrap = triggerBtn ? triggerBtn.closest('.opt-btn-wrap') : null;
+    if (!wrap) {
+        wrap = findOptWrap(title, opt);
+    }
+    if (wrap) {
+        const escapedTitle = title.replace(/'/g, "\\'");
+        if (qty > 0) {
+            wrap.innerHTML = `
+                <div class="opt-qty-control">
+                    <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '${opt}', ${retailPrice}, ${b2bPrice}, -1, this)">–</button>
+                    <span class="opt-qty-num">${qty}</span>
+                    <button type="button" class="opt-qty-btn" onclick="updateQty('${escapedTitle}', '${opt}', ${retailPrice}, ${b2bPrice}, 1, this)">+</button>
+                </div>
+            `;
+        } else {
+            wrap.innerHTML = `
+                <button type="button" class="opt-btn-add" onclick="updateQty('${escapedTitle}', '${opt}', ${retailPrice}, ${b2bPrice}, 1, this)">+</button>
+            `;
+        }
+    }
+}
+
+function updateQty(title, opt, retailPrice, b2bPrice, delta, triggerBtn) {
     const itemKey = `${title}-${opt}`;
     
     let weightKg = 0.2;
@@ -786,8 +843,9 @@ function updateQty(title, opt, retailPrice, b2bPrice, delta) {
         delete cart[itemKey];
     }
 
+    const currentQty = cart[itemKey] ? cart[itemKey].qty : 0;
+    updateOptControlDOM(title, opt, retailPrice, b2bPrice, currentQty, triggerBtn);
     updateCartUI();
-    renderCatalog();
 }
 
 function updateCartUI() {
@@ -867,22 +925,23 @@ function updateCartUI() {
         }
     }
 
-    // Mobile floating order bar (Styled like reference screenshot)
-    const mobileOrderBar = document.getElementById('mobileOrderBar');
+    // Mobile action bar buttons (styled like reference, with invoice and price-list actions)
     const mobileCheckoutBtn = document.getElementById('mobileCheckoutBtn');
     const mobileOrderBtnText = document.getElementById('mobileOrderBtnText');
     if (mobileCheckoutBtn) {
         if (totalCount > 0) {
             mobileCheckoutBtn.style.opacity = '1';
             mobileCheckoutBtn.disabled = false;
+            mobileCheckoutBtn.style.cursor = 'pointer';
             if (mobileOrderBtnText) {
-                mobileOrderBtnText.textContent = `Оформить заказ на ${totalB2B.toLocaleString('ru-RU')} ₽`;
+                mobileOrderBtnText.textContent = `Счёт (${totalB2B.toLocaleString('ru-RU')} ₽)`;
             }
         } else {
             mobileCheckoutBtn.style.opacity = '0.5';
             mobileCheckoutBtn.disabled = true;
+            mobileCheckoutBtn.style.cursor = 'not-allowed';
             if (mobileOrderBtnText) {
-                mobileOrderBtnText.textContent = 'Оформить заказ (корзина пуста)';
+                mobileOrderBtnText.textContent = 'Сформировать счёт';
             }
         }
     }

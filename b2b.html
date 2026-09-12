@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v12">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v13">
     <style>
         .brand-logo-mark {
             height: 38px;
@@ -181,6 +181,57 @@
             display: none;
         }
 
+        /* Кольца-разделители RoastCoast между категориями */
+        .ring-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 36px;
+            padding: 16px 0;
+            margin: 6px 0 16px 0;
+            position: relative;
+            user-select: none;
+        }
+        .ring-divider::before,
+        .ring-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(196, 90, 53, 0.35) 50%, 
+                transparent 100%
+            );
+        }
+        .ring {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid rgba(196, 90, 53, 0.4);
+            position: relative;
+            opacity: 0.75;
+        }
+        .ring::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 28%;
+            width: 44%;
+            height: 3px;
+            background: var(--color-primary, #C45A35);
+            border-radius: 2px;
+        }
+        .ring.small {
+            width: 18px;
+            height: 18px;
+            border-width: 1.5px;
+            border-color: rgba(196, 90, 53, 0.3);
+            opacity: 0.5;
+        }
+        .ring.small::before {
+            display: none;
+        }
+
         /* Product List Items */
         .category-products-container {
             background: #FFFFFF;
@@ -296,12 +347,15 @@
             display: flex;
             align-items: center;
             padding: 6px 0;
+            width: 100%;
+            box-sizing: border-box;
         }
         .opt-weight {
             font-size: 0.88rem;
             font-weight: 700;
             color: #18181B;
-            width: 48px;
+            width: 46px;
+            min-width: 46px;
             flex-shrink: 0;
         }
         .opt-grind {
@@ -309,28 +363,36 @@
             color: #52525B;
             font-weight: 500;
             flex: 1;
+            min-width: 0;
             padding-left: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .opt-price {
             font-size: 0.95rem;
             font-weight: 800;
             color: #18181B;
-            margin-right: 14px;
+            margin-right: 12px;
             white-space: nowrap;
             text-align: right;
+            flex-shrink: 0;
         }
         .opt-btn-wrap {
             flex-shrink: 0;
-            width: 66px;
+            width: 70px;
+            min-width: 70px;
+            height: 32px;
             display: flex;
             justify-content: flex-end;
+            align-items: center;
         }
 
         /* Rounded Pill Add Button */
         .opt-btn-add {
             background: #F4F4F5;
             color: #18181B;
-            width: 64px;
+            width: 70px;
             height: 32px;
             border-radius: 8px;
             border: none;
@@ -341,6 +403,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            box-sizing: border-box;
             transition: background 0.15s, transform 0.1s;
         }
         .opt-btn-add:hover {
@@ -359,9 +422,10 @@
             display: inline-flex;
             align-items: center;
             justify-content: space-between;
-            width: 72px;
+            width: 70px;
             height: 32px;
             padding: 0 4px;
+            box-sizing: border-box;
             box-shadow: 0 2px 6px rgba(196, 90, 53, 0.3);
         }
         .opt-qty-btn {
@@ -409,17 +473,23 @@
             }
             .opt-weight {
                 font-size: 0.82rem !important;
-                width: 42px !important;
+                width: 40px !important;
+                min-width: 40px !important;
             }
             .opt-grind {
                 font-size: 0.78rem !important;
             }
             .opt-price {
                 font-size: 0.88rem !important;
-                margin-right: 10px !important;
+                margin-right: 8px !important;
+            }
+            .opt-btn-wrap {
+                width: 68px !important;
+                min-width: 68px !important;
+                height: 30px !important;
             }
             .opt-btn-add {
-                width: 58px !important;
+                width: 68px !important;
                 height: 30px !important;
                 font-size: 1.15rem !important;
             }
@@ -434,39 +504,67 @@
                 font-size: 0.95rem !important;
             }
 
-            /* Full Width Floating Order Bar */
+            /* Кольца-разделители на мобильных */
+            .ring-divider {
+                gap: 18px !important;
+                padding: 10px 0 !important;
+                margin: 4px 0 12px 0 !important;
+            }
+            .ring {
+                width: 24px !important;
+                height: 24px !important;
+            }
+            .ring.small {
+                width: 14px !important;
+                height: 14px !important;
+            }
+
+            /* Bottom Floating Action Bar */
             .mobile-order-bar {
                 position: fixed !important;
                 bottom: 0 !important;
                 left: 0 !important;
                 right: 0 !important;
-                background: rgba(255, 255, 255, 0.94) !important;
-                backdrop-filter: blur(8px) !important;
-                -webkit-backdrop-filter: blur(8px) !important;
+                background: rgba(255, 255, 255, 0.96) !important;
+                backdrop-filter: blur(10px) !important;
+                -webkit-backdrop-filter: blur(10px) !important;
                 border-top: 1px solid var(--color-border) !important;
-                padding: 10px 14px 14px 14px !important;
-                box-shadow: 0 -4px 16px rgba(0,0,0,0.08) !important;
+                padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px)) 14px !important;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.08) !important;
                 z-index: 1000 !important;
                 display: flex !important;
-                justify-content: center !important;
+                align-items: center !important;
+                gap: 10px !important;
             }
-            .mobile-order-btn-big {
-                background: #18181B !important;
-                color: #FFFFFF !important;
-                width: 100% !important;
-                height: 48px !important;
-                border: none !important;
+            .mobile-action-btn {
+                height: 44px !important;
                 border-radius: 10px !important;
-                font-weight: 800 !important;
-                font-size: 0.85rem !important;
-                text-transform: uppercase !important;
-                letter-spacing: 0.04em !important;
-                cursor: pointer !important;
+                font-weight: 700 !important;
+                font-size: 0.82rem !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
-                gap: 10px !important;
-                box-shadow: 0 4px 14px rgba(0,0,0,0.2) !important;
+                gap: 6px !important;
+                text-decoration: none !important;
+                cursor: pointer !important;
+                box-sizing: border-box !important;
+                transition: all 0.2s ease !important;
+            }
+            .mobile-btn-invoice {
+                flex: 1.4 !important;
+                background: var(--color-primary) !important;
+                color: #FFFFFF !important;
+                border: none !important;
+                box-shadow: 0 3px 12px rgba(196, 90, 53, 0.3) !important;
+            }
+            .mobile-btn-pricelist {
+                flex: 1 !important;
+                background: #FAF8F5 !important;
+                color: #18181B !important;
+                border: 1px solid #E5E7EB !important;
+            }
+            .mobile-btn-pricelist:active {
+                background: #F4F0E8 !important;
             }
         }
     </style>
@@ -847,6 +945,12 @@
             </div>
         </div>
     
+        <!-- Кольца-разделитель в стиле RoastCoast -->
+        <div class="ring-divider">
+            <div class="ring small"></div>
+            <div class="ring"></div>
+            <div class="ring small"></div>
+        </div>
 
         <div class="category-section-card" id="cat-card-decaf_lots">
             
@@ -904,6 +1008,12 @@
             </div>
         </div>
     
+        <!-- Кольца-разделитель в стиле RoastCoast -->
+        <div class="ring-divider">
+            <div class="ring small"></div>
+            <div class="ring"></div>
+            <div class="ring small"></div>
+        </div>
 
         <div class="category-section-card" id="cat-card-filter_lots">
             
@@ -1484,6 +1594,12 @@
             </div>
         </div>
     
+        <!-- Кольца-разделитель в стиле RoastCoast -->
+        <div class="ring-divider">
+            <div class="ring small"></div>
+            <div class="ring"></div>
+            <div class="ring small"></div>
+        </div>
 
         <div class="category-section-card" id="cat-card-other_items">
             
@@ -1806,14 +1922,18 @@
         </div>
     </div>
 
-    <!-- Mobile Floating Order Bar (Sticky at bottom on phones, styled like reference) -->
+    <!-- Mobile Floating Action Bar (Sticky at bottom on phones) -->
     <div class="mobile-order-bar" id="mobileOrderBar">
-        <button class="mobile-order-btn-big" id="mobileCheckoutBtn">
-            <span id="mobileOrderBtnText">Оформить заказ на 0 ₽</span>
-            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        <button class="mobile-action-btn mobile-btn-invoice" id="mobileCheckoutBtn" disabled>
+            <svg width="17" height="17" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span id="mobileOrderBtnText">Сформировать счёт</span>
         </button>
+        <a href="roastcoast_products.csv" download="Прайс_лист_RoastCoast_B2B.csv" class="mobile-action-btn mobile-btn-pricelist">
+            <svg width="17" height="17" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Прайс-лист</span>
+        </a>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v12"></script>
+    <script src="assets/b2b.js?v=20260912_v13"></script>
 </body>
 </html>
