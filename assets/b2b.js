@@ -700,31 +700,31 @@ function renderCatalog() {
 
                 return `
                     <tr>
-                        <td>
+                        <td class="col-name">
                             <div class="list-prod-info">
                                 <img src="${imgUrl}" class="list-prod-img" alt="${p.title}" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                                <div>
+                                <div class="list-prod-text">
                                     <div class="list-prod-title">${p.title}</div>
                                     <div class="list-prod-sub">${p.subtitle || 'Свежая обжарка • Севастополь'}</div>
                                 </div>
                                 <div class="list-meta-icons">
                                     ${isPopular ? '<span class="flame-tag" title="Хит продаж">🔥</span>' : ''}
                                     <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                        <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                                     </button>
                                 </div>
                             </div>
                         </td>
-                        <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                        <td class="col-price-1000">
                             ${has1000 && b2b1000 > 0 ? b2b1000.toLocaleString('ru-RU') : '—'}
                         </td>
-                        <td style="text-align:center; width:80px;">
+                        <td class="col-btn-1000">
                             ${btn1000}
                         </td>
-                        <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                        <td class="col-price-200">
                             ${b2b200 > 0 ? b2b200.toLocaleString('ru-RU') : '—'}
                         </td>
-                        <td style="text-align:center; width:80px;">
+                        <td class="col-btn-200">
                             ${btn200}
                         </td>
                     </tr>
@@ -737,15 +737,15 @@ function renderCatalog() {
                     <table class="b2b-group-table">
                         <thead>
                             <tr class="th-row-1">
-                                <th rowspan="2" style="width:46%;">Наименование</th>
-                                <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 1 кг</th>
-                                <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 200 г</th>
+                                <th rowspan="2" class="col-name">Наименование</th>
+                                <th colspan="2" class="col-pack-1000">1 кг</th>
+                                <th colspan="2" class="col-pack-200">200 г</th>
                             </tr>
                             <tr class="th-row-2">
-                                <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                                <th style="text-align:center;">В зернах</th>
-                                <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                                <th style="text-align:center;">В зернах</th>
+                                <th class="col-price-1000">Цена, ₽</th>
+                                <th class="col-btn-1000">Зерно</th>
+                                <th class="col-price-200">Цена, ₽</th>
+                                <th class="col-btn-200">Зерно</th>
                             </tr>
                         </thead>
                         <tbody>

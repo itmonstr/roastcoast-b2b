@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v8">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v9">
     <style>
         .brand-logo-mark {
             height: 38px;
@@ -45,60 +45,84 @@
             }
         }
         @media (max-width: 768px) {
-            .b2b-header { padding: 10px 14px !important; }
-            .brand-logo-mark { height: 28px !important; }
+            .b2b-header { padding: 8px 12px !important; }
+            .brand-logo-mark { height: 26px !important; }
+            .brand-logo-text { font-size: 1.15rem !important; }
+            .b2b-pill { font-size: 0.65rem !important; padding: 2px 6px !important; }
             .header-phone span { display: none !important; }
             .conditions-banner {
                 display: grid !important;
                 grid-template-columns: 1fr 1fr !important;
-                gap: 10px 14px !important;
-                padding: 12px 14px !important;
+                gap: 6px 10px !important;
+                padding: 8px 10px !important;
+                margin-bottom: 8px !important;
             }
+            .condition-label { font-size: 0.68rem !important; }
+            .condition-val { font-size: 0.95rem !important; }
             .progress-tier { grid-column: 1 / -1 !important; width: 100% !important; }
-            .toolbar { flex-direction: column !important; align-items: stretch !important; }
+            .toolbar {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 6px !important;
+                margin-bottom: 8px !important;
+            }
             .search-box { width: 100% !important; min-width: 100% !important; }
+            .search-input {
+                padding: 6px 10px 6px 32px !important;
+                font-size: 0.8rem !important;
+                height: 34px !important;
+            }
             .category-tabs {
                 width: 100% !important;
                 display: flex !important;
                 overflow-x: auto !important;
                 white-space: nowrap !important;
-                gap: 6px !important;
-                padding-bottom: 6px !important;
+                gap: 4px !important;
+                padding-bottom: 4px !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: none !important;
             }
             .category-tabs::-webkit-scrollbar { display: none !important; }
-            .tab-btn { flex-shrink: 0 !important; }
+            .tab-btn {
+                flex-shrink: 0 !important;
+                padding: 5px 10px !important;
+                font-size: 0.75rem !important;
+            }
             .view-toggle { width: 100% !important; display: flex !important; }
-            .view-btn { flex: 1 !important; justify-content: center !important; }
+            .view-btn {
+                flex: 1 !important;
+                justify-content: center !important;
+                padding: 5px 10px !important;
+                font-size: 0.75rem !important;
+            }
 
             /* Grid cards on mobile */
-            .product-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-            .product-card { display: grid !important; grid-template-columns: 110px 1fr !important; padding: 0 !important; }
-            .card-img-wrapper { height: 100% !important; min-height: 150px !important; border-right: 1px solid var(--color-border) !important; border-bottom: none !important; padding: 8px !important; }
+            .product-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
+            .product-card { display: grid !important; grid-template-columns: 100px 1fr !important; padding: 0 !important; }
+            .card-img-wrapper { height: 100% !important; min-height: 130px !important; border-right: 1px solid var(--color-border) !important; border-bottom: none !important; padding: 6px !important; }
             .card-descr { display: none !important; }
-            .modal-content { padding: 18px 14px !important; width: 95vw !important; max-height: 92vh !important; }
+            .modal-content { padding: 16px 12px !important; width: 96vw !important; max-height: 92vh !important; }
             .invoice-parties { grid-template-columns: 1fr !important; }
             .modal-actions-row { flex-direction: column !important; }
             .modal-actions-row button { width: 100% !important; }
         }
 
         /* =======================================================
-           Categorized B2B List View (Specialty Roaster Grouped Presentation)
+           Categorized B2B List View - Compact & Responsive
            ======================================================= */
         .category-section-card {
             background: #FFFFFF;
             border: 1px solid var(--color-border);
-            border-radius: var(--radius-lg);
-            margin-bottom: 20px;
+            border-radius: 10px;
+            margin-bottom: 12px;
             overflow: hidden;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
         .category-section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 20px;
+            padding: 10px 14px;
             cursor: pointer;
             background: #FFFFFF;
             border-bottom: 1px solid var(--color-border);
@@ -109,18 +133,18 @@
             background: #FAF8F5;
         }
         .cat-tag-info {
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 700;
             color: var(--color-fg-muted);
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 3px;
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
         .cat-h2-title {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 800;
             color: #18181B;
             text-transform: uppercase;
@@ -130,12 +154,12 @@
         .cat-toggle-action {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.75rem;
+            gap: 6px;
+            font-size: 0.72rem;
             font-weight: 700;
             color: #71717A;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.04em;
         }
         .cat-chevron-icon {
             transition: transform 0.25s ease;
@@ -147,6 +171,7 @@
             display: none;
         }
         .category-table-content {
+            width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -156,22 +181,22 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            min-width: 620px;
+            table-layout: fixed;
         }
         .b2b-group-table thead tr.th-row-1 th {
             background: #F9FAFB;
             color: #6B7280;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
-            padding: 10px 16px;
+            padding: 8px 10px;
             border-bottom: 1px solid #E5E7EB;
         }
         .b2b-group-table thead tr.th-row-2 th {
             background: #FCFDFD;
             color: #9CA3AF;
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 600;
-            padding: 6px 16px;
+            padding: 5px 10px;
             border-bottom: 1px solid #E5E7EB;
         }
         .b2b-group-table tbody tr {
@@ -182,41 +207,75 @@
             background: #FAF8F5;
         }
         .b2b-group-table td {
-            padding: 12px 16px;
+            padding: 7px 10px;
             vertical-align: middle;
+            font-size: 0.88rem;
         }
+
+        /* Column widths on Desktop */
+        .col-name {
+            width: 48%;
+        }
+        .col-pack-1000, .col-pack-200 {
+            text-align: center !important;
+            border-left: 1px solid #E5E7EB;
+        }
+        .col-price-1000, .col-price-200 {
+            width: 14%;
+            text-align: right !important;
+            font-weight: 800;
+            color: #18181B;
+            border-left: 1px solid #E5E7EB;
+        }
+        .col-btn-1000, .col-btn-200 {
+            width: 12%;
+            text-align: center !important;
+        }
+
         .list-prod-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            min-width: 0;
         }
         .list-prod-img {
-            width: 44px;
-            height: 44px;
+            width: 34px;
+            height: 34px;
             object-fit: contain;
             background: #F4F0E8;
-            border-radius: 8px;
-            padding: 3px;
+            border-radius: 6px;
+            padding: 2px;
             border: 1px solid #E5E7EB;
             flex-shrink: 0;
         }
+        .list-prod-text {
+            min-width: 0;
+            flex: 1;
+        }
         .list-prod-title {
             font-weight: 800;
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             color: #18181B;
-            line-height: 1.3;
+            line-height: 1.25;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .list-prod-sub {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             color: #71717A;
-            margin-top: 2px;
+            margin-top: 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .list-meta-icons {
             margin-left: auto;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: #9CA3AF;
+            flex-shrink: 0;
         }
         .fav-heart-btn {
             background: none;
@@ -224,7 +283,7 @@
             cursor: pointer;
             color: #D1D5DB;
             transition: color 0.15s;
-            padding: 4px;
+            padding: 2px;
             display: flex;
             align-items: center;
         }
@@ -232,18 +291,18 @@
             color: #EF4444;
         }
         .flame-tag {
-            font-size: 1rem;
+            font-size: 0.85rem;
             line-height: 1;
         }
 
-        /* Pill Buttons for 1kg and 200g */
+        /* Pill Buttons */
         .pill-btn-add {
             background: #F4F4F5;
             border: 1px solid #E4E4E7;
             border-radius: 6px;
-            width: 48px;
-            height: 32px;
-            font-size: 1.15rem;
+            width: 40px;
+            height: 28px;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #18181B;
             cursor: pointer;
@@ -251,6 +310,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            padding: 0;
         }
         .pill-btn-add:hover {
             background: #E4E4E7;
@@ -263,32 +323,150 @@
             background: #18181B;
             color: #FFFFFF;
             border-radius: 6px;
-            padding: 2px 4px;
-            gap: 2px;
+            padding: 2px 3px;
+            gap: 1px;
         }
         .pill-qty-btn {
             background: transparent;
             border: none;
             color: #FFFFFF;
-            width: 22px;
-            height: 26px;
+            width: 18px;
+            height: 24px;
             cursor: pointer;
             font-weight: 800;
-            font-size: 1rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: opacity 0.15s;
+            padding: 0;
         }
         .pill-qty-btn:hover {
             opacity: 0.7;
         }
         .pill-qty-val {
-            font-size: 0.88rem;
+            font-size: 0.8rem;
             font-weight: 800;
-            min-width: 20px;
+            min-width: 16px;
             text-align: center;
             color: #FFFFFF;
+        }
+
+        /* Mobile specific styling (<768px) to guarantee compact fit in phone screen */
+        @media (max-width: 768px) {
+            .b2b-container {
+                padding: 0 4px 85px 4px !important;
+            }
+            .category-section-card {
+                margin-bottom: 8px !important;
+                border-radius: 8px !important;
+            }
+            .category-section-header {
+                padding: 8px 10px !important;
+            }
+            .cat-h2-title {
+                font-size: 0.82rem !important;
+            }
+            .cat-tag-info {
+                font-size: 0.6rem !important;
+                margin-bottom: 1px !important;
+            }
+            .cat-toggle-action {
+                font-size: 0.65rem !important;
+            }
+
+            .b2b-group-table {
+                min-width: 100% !important;
+                width: 100% !important;
+                table-layout: fixed !important;
+            }
+            .b2b-group-table thead tr.th-row-1 th {
+                padding: 4px 2px !important;
+                font-size: 0.65rem !important;
+            }
+            .b2b-group-table thead tr.th-row-2 th {
+                padding: 3px 2px !important;
+                font-size: 0.6rem !important;
+            }
+            .b2b-group-table td {
+                padding: 4px 2px !important;
+                font-size: 0.78rem !important;
+                height: 38px !important;
+            }
+
+            /* Proportions precisely fitted to 100% of mobile screen */
+            .col-name {
+                width: 44% !important;
+            }
+            .col-price-1000 {
+                width: 17% !important;
+                font-size: 0.78rem !important;
+                padding-right: 2px !important;
+            }
+            .col-btn-1000 {
+                width: 11% !important;
+            }
+            .col-price-200 {
+                width: 17% !important;
+                font-size: 0.78rem !important;
+                padding-right: 2px !important;
+            }
+            .col-btn-200 {
+                width: 11% !important;
+            }
+
+            .list-prod-info {
+                gap: 5px !important;
+            }
+            .list-prod-img {
+                width: 26px !important;
+                height: 26px !important;
+                border-radius: 4px !important;
+                padding: 1px !important;
+            }
+            .list-prod-title {
+                font-size: 0.74rem !important;
+                line-height: 1.15 !important;
+            }
+            .list-prod-sub {
+                font-size: 0.62rem !important;
+                line-height: 1.1 !important;
+                max-width: 100px !important;
+            }
+            .list-meta-icons {
+                gap: 2px !important;
+            }
+            .flame-tag {
+                font-size: 0.7rem !important;
+            }
+            .fav-heart-btn {
+                padding: 1px !important;
+            }
+            .fav-heart-btn svg {
+                width: 13px !important;
+                height: 13px !important;
+            }
+
+            .pill-btn-add {
+                width: 26px !important;
+                height: 24px !important;
+                font-size: 0.95rem !important;
+                border-radius: 4px !important;
+            }
+            .pill-qty-group {
+                padding: 1px 2px !important;
+                border-radius: 4px !important;
+                gap: 1px !important;
+            }
+            .pill-qty-btn {
+                width: 13px !important;
+                height: 22px !important;
+                font-size: 0.72rem !important;
+            }
+            .pill-qty-val {
+                font-size: 0.72rem !important;
+                min-width: 12px !important;
+            }
         }
     </style>
 </head>
@@ -304,20 +482,20 @@
             </div>
 
             <div class="header-right-nav">
-                <button id="openCalcModalBtn" style="background:var(--color-surface-2); color:var(--color-fg); border:1px solid var(--color-border); padding:6px 14px; border-radius:6px; font-weight:700; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:6px;">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                <button id="openCalcModalBtn" style="background:var(--color-surface-2); color:var(--color-fg); border:1px solid var(--color-border); padding:6px 12px; border-radius:6px; font-weight:700; font-size:0.82rem; cursor:pointer; display:flex; align-items:center; gap:5px;">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                     <span>🧮 Калькулятор чашки</span>
                 </button>
                 <a href="workflow.html" class="header-phone" style="text-decoration:none; color:var(--color-amber); font-weight:700;">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
                     <span>Схема</span>
                 </a>
                 <a href="tel:+79782300080" class="header-phone">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     <span>+7 (978) 230-00-80</span>
                 </a>
                 <div class="b2b-account-btn" onclick="alert('Личный кабинет оптовика: Мои заказы, Персональный прайс, Документы и реквизиты.')">
-                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                     <span>Кабинет</span>
                 </div>
             </div>
@@ -343,7 +521,7 @@
                 </div>
 
                 <div class="condition-item progress-tier">
-                    <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--color-fg-muted); font-weight:600;">
+                    <div style="display:flex; justify-content:space-between; font-size:0.78rem; color:var(--color-fg-muted); font-weight:600;">
                         <span>Прогресс заказа</span>
                         <span id="progressWeightText">0.0 / 10 кг</span>
                     </div>
@@ -371,11 +549,11 @@
 
                 <div class="view-toggle">
                     <button class="view-btn active" id="viewTableBtn" title="Вид списком">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/></svg>
+                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/></svg>
                         Списком
                     </button>
                     <button class="view-btn" id="viewCardsBtn" title="Вид карточками">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"/></svg>
+                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"/></svg>
                         Карточки
                     </button>
                 </div>
@@ -390,13 +568,13 @@
             <div>
                 <div class="cat-tag-info">
                     <span>КОФЕ ДЛЯ МОЛОЧНЫХ НАПИТКОВ</span>
-                    <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
                 </div>
                 <h2 class="cat-h2-title">СМЕСИ ДЛЯ МОЛОЧНЫХ НАПИТКОВ</h2>
             </div>
             <div class="cat-toggle-action">
                 <span>Свернуть / Развернуть</span>
-                <svg class="cat-chevron-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                <svg class="cat-chevron-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
             </div>
         </div>
     
@@ -404,225 +582,225 @@
                 <table class="b2b-group-table">
                     <thead>
                         <tr class="th-row-1">
-                            <th rowspan="2" style="width:46%;">Наименование</th>
-                            <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 1 кг</th>
-                            <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 200 г</th>
+                            <th rowspan="2" class="col-name">Наименование</th>
+                            <th colspan="2" class="col-pack-1000">1 кг</th>
+                            <th colspan="2" class="col-pack-200">200 г</th>
                         </tr>
                         <tr class="th-row-2">
-                            <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                            <th style="text-align:center;">В зернах</th>
-                            <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                            <th style="text-align:center;">В зернах</th>
+                            <th class="col-price-1000">Цена, ₽</th>
+                            <th class="col-btn-1000">Зерно</th>
+                            <th class="col-price-200">Цена, ₽</th>
+                            <th class="col-btn-200">Зерно</th>
                         </tr>
                     </thead>
                     <tbody>
                         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new03/blekforest-517x540.jpg" class="list-prod-img" alt="Black Forest/Блэк Форест" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Black Forest/Блэк Форест</div>
                             <div class="list-prod-sub">Фирменный бленд</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 459
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Black Forest/Блэк Форест', '1 000 г', 2084, 1459, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     429
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Black Forest/Блэк Форест', '200 г', 613, 429, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new03/elklassiko-517x540.jpg" class="list-prod-img" alt="El Classico/Эль Классико" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">El Classico/Эль Классико</div>
                             <div class="list-prod-sub">Фирменный бленд</div>
                         </div>
                         <div class="list-meta-icons">
                             <span class="flame-tag" title="Хит продаж">🔥</span>
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 588
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('El Classico/Эль Классико', '1 000 г', 2268, 1588, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     467
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('El Classico/Эль Классико', '200 г', 667, 467, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new03/svithills-517x540.jpg" class="list-prod-img" alt="Sweet Hills/Свит Хилс" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Sweet Hills/Свит Хилс</div>
                             <div class="list-prod-sub">Фирменный бленд</div>
                         </div>
                         <div class="list-meta-icons">
                             <span class="flame-tag" title="Хит продаж">🔥</span>
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 476
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Sweet Hills/Свит Хилс', '1 000 г', 2108, 1476, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     434
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Sweet Hills/Свит Хилс', '200 г', 620, 434, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new03/brazilijaminas-517x540.jpg" class="list-prod-img" alt="Бразилия Минас Жерайс" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Бразилия Минас Жерайс</div>
                             <div class="list-prod-sub">Бразилия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             <span class="flame-tag" title="Хит продаж">🔥</span>
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 469
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Бразилия Минас Жерайс', '1 000 г', 2098, 1469, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     432
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Бразилия Минас Жерайс', '200 г', 617, 432, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/novajapachkakolumbijadzhimiachaacha-517x540.jpg" class="list-prod-img" alt="Колумбия Пачамама (мытый)" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Колумбия Пачамама (мытый)</div>
                             <div class="list-prod-sub">Колумбия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 938
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Пачамама (мытый)', '1 000 г', 2768, 1938, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     570
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Пачамама (мытый)', '200 г', 814, 570, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/novajapachkaugandavezi-517x540.jpg" class="list-prod-img" alt="Уганда Мвези" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Уганда Мвези</div>
                             <div class="list-prod-sub">Уганда • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 733
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Уганда Мвези', '1 000 г', 2475, 1733, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     510
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Уганда Мвези', '200 г', 728, 510, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new03/efiopijasidamo-517x540.jpg" class="list-prod-img" alt="Эфиопия Сидамо" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Эфиопия Сидамо</div>
                             <div class="list-prod-sub">Эфиопия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 492
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Эфиопия Сидамо', '1 000 г', 2132, 1492, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     439
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Эфиопия Сидамо', '200 г', 627, 439, 1)">+</button>
                 </td>
             </tr>
@@ -639,13 +817,13 @@
             <div>
                 <div class="cat-tag-info">
                     <span>ДЕКАФЫ И ЛОУКАФЫ</span>
-                    <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
                 </div>
                 <h2 class="cat-h2-title">ДЕКАФЫ И ЛОУКАФЫ</h2>
             </div>
             <div class="cat-toggle-action">
                 <span>Свернуть / Развернуть</span>
-                <svg class="cat-chevron-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                <svg class="cat-chevron-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
             </div>
         </div>
     
@@ -653,45 +831,45 @@
                 <table class="b2b-group-table">
                     <thead>
                         <tr class="th-row-1">
-                            <th rowspan="2" style="width:46%;">Наименование</th>
-                            <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 1 кг</th>
-                            <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 200 г</th>
+                            <th rowspan="2" class="col-name">Наименование</th>
+                            <th colspan="2" class="col-pack-1000">1 кг</th>
+                            <th colspan="2" class="col-pack-200">200 г</th>
                         </tr>
                         <tr class="th-row-2">
-                            <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                            <th style="text-align:center;">В зернах</th>
-                            <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                            <th style="text-align:center;">В зернах</th>
+                            <th class="col-price-1000">Цена, ₽</th>
+                            <th class="col-btn-1000">Зерно</th>
+                            <th class="col-price-200">Цена, ₽</th>
+                            <th class="col-btn-200">Зерно</th>
                         </tr>
                     </thead>
                     <tbody>
                         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/novajapachkagvatemaladekaf-517x540.jpg" class="list-prod-img" alt="Гватемала Декаф" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Гватемала Декаф</div>
                             <div class="list-prod-sub">Гватемала • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 797
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Гватемала Декаф', '1 000 г', 2567, 1797, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     529
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Гватемала Декаф', '200 г', 755, 529, 1)">+</button>
                 </td>
             </tr>
@@ -708,13 +886,13 @@
             <div>
                 <div class="cat-tag-info">
                     <span>КОФЕ СВЕЖЕГО УРОЖАЯ</span>
-                    <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
                 </div>
                 <h2 class="cat-h2-title">МОНОСОРТА И МИКРОЛОТЫ ДЛЯ ФИЛЬТРА</h2>
             </div>
             <div class="cat-toggle-action">
                 <span>Свернуть / Развернуть</span>
-                <svg class="cat-chevron-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                <svg class="cat-chevron-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
             </div>
         </div>
     
@@ -722,465 +900,465 @@
                 <table class="b2b-group-table">
                     <thead>
                         <tr class="th-row-1">
-                            <th rowspan="2" style="width:46%;">Наименование</th>
-                            <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 1 кг</th>
-                            <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 200 г</th>
+                            <th rowspan="2" class="col-name">Наименование</th>
+                            <th colspan="2" class="col-pack-1000">1 кг</th>
+                            <th colspan="2" class="col-pack-200">200 г</th>
                         </tr>
                         <tr class="th-row-2">
-                            <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                            <th style="text-align:center;">В зернах</th>
-                            <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                            <th style="text-align:center;">В зернах</th>
+                            <th class="col-price-1000">Цена, ₽</th>
+                            <th class="col-btn-1000">Зерно</th>
+                            <th class="col-price-200">Цена, ₽</th>
+                            <th class="col-btn-200">Зерно</th>
                         </tr>
                     </thead>
                     <tbody>
                         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/newfilter/gvatemaladajkafinku-517x540.jpg" class="list-prod-img" alt="Гватемала Финка Сан Антонио" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Гватемала Финка Сан Антонио</div>
                             <div class="list-prod-sub">Гватемала • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 947
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Гватемала Финка Сан Антонио', '1 000 г', 2781, 1947, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     573
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Гватемала Финка Сан Антонио', '200 г', 818, 573, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/newfilter/gvatemaladajkafinkuel-517x540.jpg" class="list-prod-img" alt="Гватемала Эль Сокорро" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Гватемала Эль Сокорро</div>
                             <div class="list-prod-sub">Гватемала • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 947
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Гватемала Эль Сокорро', '1 000 г', 2781, 1947, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     573
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Гватемала Эль Сокорро', '200 г', 818, 573, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/newfilter/indonezijasumatrajou-517x540.jpg" class="list-prod-img" alt="Индонезия Суматра Гайо" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Индонезия Суматра Гайо</div>
                             <div class="list-prod-sub">Индонезия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 880
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Индонезия Суматра Гайо', '1 000 г', 2686, 1880, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     553
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Индонезия Суматра Гайо', '200 г', 790, 553, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/newfilter/kenijakapibara-517x540.jpg" class="list-prod-img" alt="Кения Кабингара" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Кения Кабингара</div>
                             <div class="list-prod-sub">Кения • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             <span class="flame-tag" title="Хит продаж">🔥</span>
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 128
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Кения Кабингара', '1 000 г', 3040, 2128, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     626
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Кения Кабингара', '200 г', 894, 626, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/pachkakenijakaksimba-517x540.jpg" class="list-prod-img" alt="Кения Касинга" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Кения Касинга</div>
                             <div class="list-prod-sub">Кения • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             <span class="flame-tag" title="Хит продаж">🔥</span>
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 099
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Кения Касинга', '1 000 г', 2999, 2099, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     617
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Кения Касинга', '200 г', 882, 617, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/newfilter/kenijataro-517x540.jpg" class="list-prod-img" alt="Кения Мтаро" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Кения Мтаро</div>
                             <div class="list-prod-sub">Кения • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             <span class="flame-tag" title="Хит продаж">🔥</span>
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 433
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Кения Мтаро', '1 000 г', 3475, 2433, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     715
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Кения Мтаро', '200 г', 1022, 715, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/pachkagangamstajl-517x540.jpg" class="list-prod-img" alt="Китай Сиган" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Китай Сиган</div>
                             <div class="list-prod-sub">Китай • Юньнань</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     —
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <span style="color:#9CA3AF;">—</span>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     622
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Китай Сиган', '200 г', 888, 622, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/pachkakolumbijaetoselo-517x540.jpg" class="list-prod-img" alt="Колумбия Альто Сьело" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Колумбия Альто Сьело</div>
                             <div class="list-prod-sub">Колумбия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 321
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Альто Сьело', '1 000 г', 3315, 2321, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     683
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Альто Сьело', '200 г', 975, 683, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/pachkaanzhelasosasola-517x540.jpg" class="list-prod-img" alt="Колумбия Анджело Соса (Таби)" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Колумбия Анджело Соса (Таби)</div>
                             <div class="list-prod-sub">Колумбия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 406
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Анджело Соса (Таби)', '1 000 г', 3437, 2406, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     708
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Анджело Соса (Таби)', '200 г', 1011, 708, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/newfilter/kolguano2-517x540.jpg" class="list-prod-img" alt="Колумбия Гуамо" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Колумбия Гуамо</div>
                             <div class="list-prod-sub">Колумбия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 190
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Гуамо', '1 000 г', 3128, 2190, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     644
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Гуамо', '200 г', 920, 644, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/pachkakolumbijamamajja-517x540.jpg" class="list-prod-img" alt="Колумбия Папайо" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Колумбия Папайо</div>
                             <div class="list-prod-sub">Колумбия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 321
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Папайо', '1 000 г', 3315, 2321, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     683
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Папайо', '200 г', 975, 683, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/pachkapapamamafiltr-517x540.jpg" class="list-prod-img" alt="Колумбия Пачамама (мытый)" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Колумбия Пачамама (мытый)</div>
                             <div class="list-prod-sub">Колумбия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     1 938
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Пачамама (мытый)', '1 000 г', 2768, 1938, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     570
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Пачамама (мытый)', '200 г', 814, 570, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new07/pachkakolumbijajavertel-517x540.jpg" class="list-prod-img" alt="Колумбия Эль Вергел" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Колумбия Эль Вергел</div>
                             <div class="list-prod-sub">Колумбия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 299
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Эль Вергел', '1 000 г', 3284, 2299, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     676
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Колумбия Эль Вергел', '200 г', 966, 676, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/newfilter/ruandapumba-517x540.jpg" class="list-prod-img" alt="Руанда Симби" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Руанда Симби</div>
                             <div class="list-prod-sub">Руанда • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 680
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Руанда Симби', '1 000 г', 3828, 2680, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     788
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Руанда Симби', '200 г', 1126, 788, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/newfilter/efiopijakingkong2-517x540.jpg" class="list-prod-img" alt="Эфиопия Конга" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Эфиопия Конга</div>
                             <div class="list-prod-sub">Эфиопия • Спешелти</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 128
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Эфиопия Конга', '1 000 г', 3040, 2128, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     626
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Эфиопия Конга', '200 г', 894, 626, 1)">+</button>
                 </td>
             </tr>
@@ -1197,13 +1375,13 @@
             <div>
                 <div class="cat-tag-info">
                     <span>ДЛЯ БАРИСТА И КОФЕМАШИН</span>
-                    <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
                 </div>
                 <h2 class="cat-h2-title">КАКАО И СОПУТСТВУЮЩИЕ ТОВАРЫ</h2>
             </div>
             <div class="cat-toggle-action">
                 <span>Свернуть / Развернуть</span>
-                <svg class="cat-chevron-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                <svg class="cat-chevron-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
             </div>
         </div>
     
@@ -1211,105 +1389,105 @@
                 <table class="b2b-group-table">
                     <thead>
                         <tr class="th-row-1">
-                            <th rowspan="2" style="width:46%;">Наименование</th>
-                            <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 1 кг</th>
-                            <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 200 г</th>
+                            <th rowspan="2" class="col-name">Наименование</th>
+                            <th colspan="2" class="col-pack-1000">1 кг</th>
+                            <th colspan="2" class="col-pack-200">200 г</th>
                         </tr>
                         <tr class="th-row-2">
-                            <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                            <th style="text-align:center;">В зернах</th>
-                            <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
-                            <th style="text-align:center;">В зернах</th>
+                            <th class="col-price-1000">Цена, ₽</th>
+                            <th class="col-btn-1000">Зерно</th>
+                            <th class="col-price-200">Цена, ₽</th>
+                            <th class="col-btn-200">Зерно</th>
                         </tr>
                     </thead>
                     <tbody>
                         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new04/kakaoirka-517x540.jpg" class="list-prod-img" alt="Какао порошок - Cacao 22/24 1кг, IRCA, Италия" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Какао порошок - Cacao 22/24 1кг, IRCA, Италия</div>
                             <div class="list-prod-sub">IRCA • Италия</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     5 712
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Какао порошок - Cacao 22/24 1кг, IRCA, Италия', '1 000 г', 8160, 5712, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     1 680
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Какао порошок - Cacao 22/24 1кг, IRCA, Италия', '200 г', 2400, 1680, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new04/new06/masel2-517x540.jpg" class="list-prod-img" alt="Средство для очистки кофемашин от кофейных масел himteam 1000г" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Средство для очистки кофемашин от кофейных масел himteam 1000г</div>
                             <div class="list-prod-sub">Himteam • Проф. химия</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 737
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Средство для очистки кофемашин от кофейных масел himteam 1000г', '1 000 г', 3910, 2737, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     805
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Средство для очистки кофемашин от кофейных масел himteam 1000г', '200 г', 1150, 805, 1)">+</button>
                 </td>
             </tr>
         
             <tr>
-                <td>
+                <td class="col-name">
                     <div class="list-prod-info">
                         <img src="https://roastcoast.ru/image/cache/catalog/new04/new06/moloko2-517x540.jpg" class="list-prod-img" alt="Средство для очистки молочных систем и капучинатора himteam 1000мл" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
+                        <div class="list-prod-text">
                             <div class="list-prod-title">Средство для очистки молочных систем и капучинатора himteam 1000мл</div>
                             <div class="list-prod-sub">Himteam • Проф. химия</div>
                         </div>
                         <div class="list-meta-icons">
                             
                             <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
-                                <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             </button>
                         </div>
                     </div>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-1000">
                     2 356
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-1000">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Средство для очистки молочных систем и капучинатора himteam 1000мл', '1 000 г', 3366, 2356, 1)">+</button>
                 </td>
-                <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                <td class="col-price-200">
                     693
                 </td>
-                <td style="text-align:center; width:80px;">
+                <td class="col-btn-200">
                     <button type="button" class="pill-btn-add" onclick="updateQty('Средство для очистки молочных систем и капучинатора himteam 1000мл', '200 г', 990, 693, 1)">+</button>
                 </td>
             </tr>
@@ -1520,6 +1698,6 @@
         </button>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v8"></script>
+    <script src="assets/b2b.js?v=20260912_v9"></script>
 </body>
 </html>
