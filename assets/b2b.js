@@ -450,7 +450,7 @@ const B2B_CATEGORIES = [
     },
     {
         id: 'other_items',
-        title: 'КАКАО И СОПУТСТВУЮЩИЕ ТОВАРЫ',
+        title: 'КАКАО И ПРОЧЕЕ',
         subtitle: 'ДЛЯ БАРИСТА И КОФЕМАШИН',
         match: (p) => p.category === 'other' || p.badge === 'Какао' || p.badge === 'Уход'
     }

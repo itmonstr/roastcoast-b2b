@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v25">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v26">
     <style>
         html, body {
             overflow-x: hidden !important;
@@ -157,18 +157,23 @@
             .category-tabs {
                 width: 100% !important;
                 display: flex !important;
+                gap: 4px !important;
+                padding: 4px 2px !important;
                 overflow-x: auto !important;
                 white-space: nowrap !important;
-                gap: 4px !important;
-                padding-bottom: 4px !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: none !important;
+                box-sizing: border-box !important;
             }
             .category-tabs::-webkit-scrollbar { display: none !important; }
             .tab-btn {
-                flex-shrink: 0 !important;
-                padding: 5px 10px !important;
-                font-size: 0.75rem !important;
+                flex: 1 1 auto !important;
+                padding: 6px 5px !important;
+                font-size: 0.74rem !important;
+                text-align: center !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
             }
             .view-toggle { width: 100% !important; display: flex !important; }
             .view-btn {
@@ -1692,24 +1697,28 @@
             }
             .category-tabs {
                 display: flex !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                gap: 4px !important;
+                padding: 4px 2px !important;
                 overflow-x: auto !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: none !important;
                 white-space: nowrap !important;
-                gap: 6px !important;
-                padding: 4px !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                box-sizing: border-box !important;
             }
             .category-tabs::-webkit-scrollbar {
                 display: none !important;
             }
             .tab-btn {
-                flex-shrink: 0 !important;
+                flex: 1 1 auto !important;
                 white-space: nowrap !important;
-                padding: 6px 12px !important;
-                font-size: 0.8rem !important;
+                padding: 6px 5px !important;
+                font-size: 0.74rem !important;
+                text-align: center !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
             }
             .cat-h2-title {
                 font-size: 0.98rem !important;
@@ -1878,7 +1887,7 @@
                     <button class="tab-btn active" data-cat="all">Все товары</button>
                     <button class="tab-btn" data-cat="espresso">Для эспрессо</button>
                     <button class="tab-btn" data-cat="filter">Для фильтра</button>
-                    <button class="tab-btn" data-cat="other">Какао и сопутствующие</button>
+                    <button class="tab-btn" data-cat="other">Какао и прочее</button>
                 </div>
 
                 <div class="view-toggle">
@@ -2844,7 +2853,7 @@
                     <span>ДЛЯ БАРИСТА И КОФЕМАШИН</span>
                     <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
                 </div>
-                <h2 class="cat-h2-title">КАКАО И СОПУТСТВУЮЩИЕ ТОВАРЫ</h2>
+                <h2 class="cat-h2-title">КАКАО И ПРОЧЕЕ</h2>
             </div>
             <svg class="cat-chevron-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
         </div>
@@ -3266,6 +3275,6 @@
         </a>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v25"></script>
+    <script src="assets/b2b.js?v=20260912_v26"></script>
 </body>
 </html>
