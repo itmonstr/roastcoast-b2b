@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v13">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v14">
     <style>
         .brand-logo-mark {
             height: 38px;
@@ -35,6 +35,72 @@
         }
         body.view-cards #productGrid {
             display: grid !important;
+        }
+
+        /* Sidebar Wholesale Conditions */
+        .sidebar-conditions {
+            background: #FAF8F5;
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .side-cond-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .side-cond-badge {
+            background: #FFFFFF;
+            border: 1px solid rgba(196, 90, 53, 0.15);
+            border-radius: 8px;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .side-cond-title {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-fg-muted);
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        .side-cond-val {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            line-height: 1.2;
+        }
+        .side-cond-progress {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .side-progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.74rem;
+            color: var(--color-fg-muted);
+            font-weight: 600;
+        }
+        .side-progress-header strong {
+            color: var(--color-fg);
+            font-weight: 700;
+        }
+        .progress-bar-bg {
+            height: 6px;
+            background: #EAE6DF;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary) 0%, #D4A574 100%);
+            border-radius: 3px;
+            transition: width 0.3s ease;
         }
 
         /* Layout & Responsive Grid */
@@ -606,29 +672,6 @@
         
         <!-- Left Column: Catalog & Order Matrix -->
         <main class="main-catalog-section">
-            
-            <!-- Wholesale Conditions Banner -->
-            <div class="conditions-banner">
-                <div class="condition-item">
-                    <span class="condition-label">Базовая оптовая скидка</span>
-                    <span class="condition-val" style="color:var(--color-primary);">-30% от розницы</span>
-                </div>
-
-                <div class="condition-item">
-                    <span class="condition-label">Минимальный оптовый заказ</span>
-                    <span class="condition-val">10 кг</span>
-                </div>
-
-                <div class="condition-item progress-tier">
-                    <div style="display:flex; justify-content:space-between; font-size:0.78rem; color:var(--color-fg-muted); font-weight:600;">
-                        <span>Прогресс заказа</span>
-                        <span id="progressWeightText">0.0 / 10 кг</span>
-                    </div>
-                    <div class="progress-bar-bg">
-                        <div class="progress-bar-fill" id="progressFill" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Toolbar (Search, Tabs, View Switch) -->
             <div class="toolbar">
@@ -1752,6 +1795,29 @@
                 <button class="clear-cart-btn" id="clearCartBtn">Очистить</button>
             </div>
 
+            <!-- Wholesale Conditions (перенесено из верхней плашки) -->
+            <div class="sidebar-conditions">
+                <div class="side-cond-grid">
+                    <div class="side-cond-badge">
+                        <span class="side-cond-title">Оптовая скидка</span>
+                        <span class="side-cond-val">−30%</span>
+                    </div>
+                    <div class="side-cond-badge">
+                        <span class="side-cond-title">Минимум</span>
+                        <span class="side-cond-val">10 кг</span>
+                    </div>
+                </div>
+                <div class="side-cond-progress">
+                    <div class="side-progress-header">
+                        <span>Прогресс заказа:</span>
+                        <strong id="progressWeightText">0.0 / 10 кг</strong>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressFill" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Selected items list -->
             <div class="cart-items-list" id="cartItemsList">
                 <div style="color:var(--color-fg-muted); text-align:center; padding:32px 0; font-size:0.9rem;">
@@ -1934,6 +2000,6 @@
         </a>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v13"></script>
+    <script src="assets/b2b.js?v=20260912_v14"></script>
 </body>
 </html>
