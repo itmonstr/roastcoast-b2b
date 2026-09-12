@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v18">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v19">
     <style>
         .brand-logo-mark {
             height: 38px;
@@ -793,31 +793,31 @@
             box-shadow: 0 2px 10px rgba(196, 90, 53, 0.55) !important;
         }
 
-        /* Category Section Cards */
+        /* Category Section Cards (Matching site dark coffee colors) */
         body.theme-dark-steam .category-section-card {
-            background: rgba(34, 27, 23, 0.94) !important;
+            background: linear-gradient(145deg, rgba(22, 17, 14, 0.88) 0%, rgba(14, 11, 9, 0.92) 100%) !important;
             backdrop-filter: blur(16px) !important;
             -webkit-backdrop-filter: blur(16px) !important;
-            border: 1px solid rgba(212, 165, 116, 0.32) !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+            border: 1px solid rgba(212, 165, 116, 0.24) !important;
+            box-shadow: 0 10px 36px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(212, 165, 116, 0.1) !important;
             transition: all 0.25s ease !important;
         }
         body.theme-dark-steam .category-section-card:hover {
-            border-color: rgba(212, 165, 116, 0.6) !important;
-            box-shadow: 0 10px 36px rgba(0, 0, 0, 0.7), 0 0 20px rgba(196, 90, 53, 0.22) !important;
+            border-color: rgba(212, 165, 116, 0.5) !important;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75), 0 0 24px rgba(196, 90, 53, 0.18) !important;
         }
         body.theme-dark-steam .category-section-header {
-            background: rgba(34, 27, 23, 0.95) !important;
+            background: linear-gradient(90deg, rgba(26, 20, 16, 0.92) 0%, rgba(18, 14, 11, 0.94) 100%) !important;
             padding: 16px 20px !important;
             cursor: pointer !important;
             transition: background 0.2s ease !important;
             border: none !important;
         }
         body.theme-dark-steam .category-section-card:not(.collapsed) .category-section-header {
-            border-bottom: 1px solid rgba(212, 165, 116, 0.2) !important;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.18) !important;
         }
         body.theme-dark-steam .category-section-header:hover {
-            background: rgba(48, 38, 32, 0.98) !important;
+            background: linear-gradient(90deg, rgba(38, 29, 23, 0.96) 0%, rgba(26, 20, 16, 0.96) 100%) !important;
         }
         body.theme-dark-steam .cat-tag-info {
             color: #E7A97A !important;
@@ -838,18 +838,19 @@
             color: #FFFFFF !important;
         }
 
-        /* Products inside category */
+        /* Products inside category (List View) */
         body.theme-dark-steam .category-products-container {
-            background: rgba(24, 19, 16, 0.6) !important;
+            background: rgba(12, 9, 8, 0.75) !important;
         }
         body.theme-dark-steam .b2b-list-item {
-            border-bottom: 1px solid rgba(212, 165, 116, 0.12) !important;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.1) !important;
+            background: transparent !important;
         }
         body.theme-dark-steam .b2b-list-item:hover {
-            background: rgba(55, 43, 36, 0.5) !important;
+            background: rgba(212, 165, 116, 0.05) !important;
         }
         body.theme-dark-steam .prod-item-pack-img {
-            background: rgba(18, 14, 12, 0.9) !important;
+            background: rgba(16, 12, 10, 0.9) !important;
             border: 1px solid rgba(212, 165, 116, 0.25) !important;
         }
         body.theme-dark-steam .prod-item-title {
@@ -865,6 +866,11 @@
         body.theme-dark-steam .prod-fav-btn:hover,
         body.theme-dark-steam .prod-fav-btn.active {
             color: #E7A97A !important;
+        }
+        body.theme-dark-steam .prod-opt-row {
+            background: rgba(22, 17, 14, 0.65) !important;
+            border: 1px solid rgba(212, 165, 116, 0.15) !important;
+            border-radius: 6px !important;
         }
         body.theme-dark-steam .opt-weight {
             color: #FFFFFF !important;
@@ -904,6 +910,69 @@
         body.theme-dark-steam .opt-qty-btn:hover {
             background: rgba(212, 165, 116, 0.2) !important;
             color: #FFFFFF !important;
+        }
+
+        /* Grid Product Cards (Under "Карточки" View) matching site dark theme */
+        body.theme-dark-steam .product-card {
+            background: linear-gradient(145deg, rgba(22, 17, 14, 0.88) 0%, rgba(14, 11, 9, 0.92) 100%) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(212, 165, 116, 0.24) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(212, 165, 116, 0.1) !important;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s !important;
+        }
+        body.theme-dark-steam .product-card:hover {
+            transform: translateY(-3px) !important;
+            border-color: rgba(212, 165, 116, 0.5) !important;
+            box-shadow: 0 12px 38px rgba(0, 0, 0, 0.75), 0 0 20px rgba(196, 90, 53, 0.18) !important;
+        }
+        body.theme-dark-steam .card-img-wrapper {
+            background: rgba(12, 9, 8, 0.8) !important;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.15) !important;
+        }
+        body.theme-dark-steam .card-title {
+            color: #FFFFFF !important;
+        }
+        body.theme-dark-steam .card-subtitle {
+            color: #E7A97A !important;
+        }
+        body.theme-dark-steam .card-descr {
+            background: rgba(16, 12, 10, 0.7) !important;
+            border: 1px solid rgba(212, 165, 116, 0.15) !important;
+            color: #C8B9A6 !important;
+        }
+        body.theme-dark-steam .card-price-row {
+            border-top: 1px solid rgba(212, 165, 116, 0.16) !important;
+        }
+        body.theme-dark-steam .retail-price {
+            color: #8C7B6D !important;
+        }
+        body.theme-dark-steam .b2b-price {
+            color: #F5A663 !important;
+            font-weight: 800 !important;
+        }
+        body.theme-dark-steam .option-row {
+            background: rgba(26, 19, 15, 0.8) !important;
+            border: 1px solid rgba(212, 165, 116, 0.18) !important;
+        }
+        body.theme-dark-steam .option-name {
+            color: #EDE8E1 !important;
+            font-weight: 700 !important;
+        }
+        body.theme-dark-steam .qty-btn {
+            background: rgba(212, 165, 116, 0.12) !important;
+            color: #D4A574 !important;
+            border: 1px solid rgba(212, 165, 116, 0.28) !important;
+        }
+        body.theme-dark-steam .qty-btn:hover {
+            background: #C45A35 !important;
+            color: #FFFFFF !important;
+            border-color: #C45A35 !important;
+        }
+        body.theme-dark-steam .qty-input {
+            background: rgba(14, 10, 8, 0.9) !important;
+            color: #FFFFFF !important;
+            border: 1px solid rgba(212, 165, 116, 0.25) !important;
         }
 
         /* Ring Divider */
@@ -2988,6 +3057,6 @@
         </a>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v18"></script>
+    <script src="assets/b2b.js?v=20260912_v19"></script>
 </body>
 </html>
