@@ -1071,6 +1071,70 @@ document.addEventListener('DOMContentLoaded', () => {
     initTheme();
 });
 
+// Off-Canvas Navigation Drawer Controls
+function toggleNavDrawer(forceOpen) {
+    const drawer = document.getElementById('navDrawer');
+    const overlay = document.getElementById('drawerOverlay');
+    if (!drawer || !overlay) return;
+
+    const isOpen = drawer.classList.contains('active');
+    const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !isOpen;
+
+    if (shouldOpen) {
+        drawer.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    } else {
+        drawer.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close drawer on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        toggleNavDrawer(false);
+        const modals = document.querySelectorAll('.modal-overlay.active');
+        modals.forEach(m => m.classList.remove('active'));
+    }
+});
+
+// Modal open helpers
+function openCalcModal() {
+    const modal = document.getElementById('calcModal');
+    if (modal) modal.classList.add('active');
+}
+
+function openWholesaleTermsModal() {
+    const modal = document.getElementById('wholesaleTermsModal');
+    if (modal) modal.classList.add('active');
+}
+
+function openDeliveryModal() {
+    const modal = document.getElementById('deliveryModal');
+    if (modal) modal.classList.add('active');
+}
+
+function openPrivateLabelModal() {
+    const modal = document.getElementById('privateLabelModal');
+    if (modal) modal.classList.add('active');
+}
+
+function openHorecaModal() {
+    const modal = document.getElementById('horecaModal');
+    if (modal) modal.classList.add('active');
+}
+
+function openCabinetInfo() {
+    const modal = document.getElementById('cabinetModal');
+    if (modal) {
+        modal.classList.add('active');
+    } else {
+        alert('Личный кабинет оптовика: Мои заказы, Персональный прайс, Документы и реквизиты.');
+    }
+}
+
 // Atmospheric Dark Steam Background (Вариант 5)
 function toggleAtmosphericTheme() {
     const isDark = document.body.classList.toggle('theme-dark-steam');
@@ -1079,12 +1143,17 @@ function toggleAtmosphericTheme() {
 }
 
 function updateThemeBtn(isDark) {
-    const btn = document.getElementById('themeToggleBtn');
-    if (btn) {
-        btn.innerHTML = isDark 
-            ? '<span class="theme-icon">☕</span><span>Пар: Вкл</span>' 
-            : '<span class="theme-icon">☀️</span><span>Светлая</span>';
-    }
+    const btns = [
+        document.getElementById('themeToggleBtn'),
+        document.getElementById('drawerThemeToggleBtn')
+    ];
+    btns.forEach(btn => {
+        if (btn) {
+            btn.innerHTML = isDark 
+                ? '<span class="theme-icon">☕</span><span>Пар: Вкл</span>' 
+                : '<span class="theme-icon">☀️</span><span>Светлая</span>';
+        }
+    });
 }
 
 function initTheme() {
