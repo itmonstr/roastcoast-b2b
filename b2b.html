@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v10">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v11">
     <style>
         .brand-logo-mark {
             height: 38px;
@@ -17,14 +17,20 @@
             filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
         }
 
-        /* View Switching Rules */
-        #productTableWrapper {
+        /* View Switching Rules & Transparent Wrapper (No outer frame) */
+        #productTableWrapper, .product-table-wrapper {
             display: block !important;
+            background: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            overflow: visible !important;
         }
         #productGrid {
             display: none;
         }
-        body.view-cards #productTableWrapper {
+        body.view-cards #productTableWrapper, body.view-cards .product-table-wrapper {
             display: none !important;
         }
         body.view-cards #productGrid {
@@ -1805,6 +1811,6 @@
         </button>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v10"></script>
+    <script src="assets/b2b.js?v=20260912_v11"></script>
 </body>
 </html>

@@ -594,14 +594,15 @@ body {
     line-height: 26px;
 }
 
-/* Product Table (Table View) */
+/* Product Table Wrapper (Clean transparent container) */
 .product-table-wrapper {
     display: none;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    box-shadow: none;
+    padding: 0;
 }
 
 .product-table {
