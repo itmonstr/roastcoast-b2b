@@ -657,6 +657,7 @@ function renderCatalog() {
             }
 
             hasAnyRendered = true;
+            const sectionCard = document.createElement('div');
             const isExpanded = expandedCategories.has(`cat-card-${cat.id}`);
             sectionCard.className = 'category-section-card' + (isExpanded ? '' : ' collapsed');
             sectionCard.id = `cat-card-${cat.id}`;
