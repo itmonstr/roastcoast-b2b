@@ -457,6 +457,12 @@ const B2B_CATEGORIES = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.remove('view-cards');
+    const grid = document.getElementById('productGrid');
+    const tableWrap = document.getElementById('productTableWrapper');
+    if (grid) grid.style.display = 'none';
+    if (tableWrap) tableWrap.style.display = 'block';
+
     setupEventListeners();
     renderCatalog();
     updateCartUI();
@@ -489,6 +495,7 @@ function setupEventListeners() {
             currentView = 'cards';
             viewCardsBtn.classList.add('active');
             viewTableBtn.classList.remove('active');
+            document.body.classList.add('view-cards');
             const grid = document.getElementById('productGrid');
             const tableWrap = document.getElementById('productTableWrapper');
             if (grid) grid.style.display = 'grid';
@@ -499,6 +506,7 @@ function setupEventListeners() {
             currentView = 'table';
             viewTableBtn.classList.add('active');
             viewCardsBtn.classList.remove('active');
+            document.body.classList.remove('view-cards');
             const grid = document.getElementById('productGrid');
             const tableWrap = document.getElementById('productTableWrapper');
             if (grid) grid.style.display = 'none';
@@ -530,7 +538,7 @@ function setupEventListeners() {
 
 function getFilteredProducts() {
     const searchInput = document.getElementById('searchInput');
-    const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    const query = (searchInput && typeof searchInput.value === 'string') ? searchInput.value.toLowerCase().trim() : '';
     
     return allProducts.filter(p => {
         const titleMatch = p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query) || p.subtitle.toLowerCase().includes(query);
@@ -670,13 +678,17 @@ function renderCatalog() {
 
                 const isPopular = p.title.includes('Classico') || p.title.includes('Sweet Hills') || p.title.includes('Минас') || p.title.includes('Кения');
 
-                const btn1000 = qty1000 === 0 
-                    ? `<button type="button" class="pill-btn-add" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>`
-                    : `<div class="pill-qty-group">
-                         <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, -1)">–</button>
-                         <span class="pill-qty-val">${qty1000}</span>
-                         <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>
-                       </div>`;
+                const has1000 = p.options ? p.options.some(o => o.includes('1 000') || o.includes('1000')) : true;
+
+                const btn1000 = !has1000
+                    ? '<span style="color:#9CA3AF;">—</span>'
+                    : (qty1000 === 0 
+                        ? `<button type="button" class="pill-btn-add" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>`
+                        : `<div class="pill-qty-group">
+                             <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, -1)">–</button>
+                             <span class="pill-qty-val">${qty1000}</span>
+                             <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>
+                           </div>`);
 
                 const btn200 = qty200 === 0 
                     ? `<button type="button" class="pill-btn-add" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">+</button>`
@@ -704,7 +716,7 @@ function renderCatalog() {
                             </div>
                         </td>
                         <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
-                            ${b2b1000 > 0 ? b2b1000.toLocaleString('ru-RU') : '—'}
+                            ${has1000 && b2b1000 > 0 ? b2b1000.toLocaleString('ru-RU') : '—'}
                         </td>
                         <td style="text-align:center; width:80px;">
                             ${btn1000}
