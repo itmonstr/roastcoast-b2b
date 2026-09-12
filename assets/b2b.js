@@ -561,8 +561,17 @@ function parsePriceNum(priceStr) {
     return parseInt(clean, 10) || 0;
 }
 
-const collapsedCategories = new Set();
+// Initially all category sections are closed/collapsed
+let userToggledCategories = false;
+const collapsedCategories = new Set([
+    'cat-card-milk_blends',
+    'cat-card-decaf_lots',
+    'cat-card-filter_lots',
+    'cat-card-other_items'
+]);
+
 function toggleCategorySection(cardId) {
+    userToggledCategories = true;
     const card = document.getElementById(cardId);
     if (card) {
         card.classList.toggle('collapsed');
@@ -987,53 +996,6 @@ function closeModal() {
     if (modal) modal.classList.remove('active');
 }
 
-// Cup Cost & Margin Calculator Logic
-function initCalcModal() {
-    const openBtn = document.getElementById('openCalcModalBtn');
-    const closeBtn = document.getElementById('closeCalcModalBtn');
-    const modal = document.getElementById('calcModal');
-    if (!modal) return;
-
-    if (openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
-    if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-
-    const inputs = ['calcCoffeePrice', 'calcDose', 'calcEspressoSell', 'calcCapSell'];
-    inputs.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('input', recalcMargin);
-    });
-
-    recalcMargin();
-}
-
-function recalcMargin() {
-    const coffeePrice = parseFloat(document.getElementById('calcCoffeePrice')?.value || 1400);
-    const dose = parseFloat(document.getElementById('calcDose')?.value || 18);
-    const espressoSell = parseFloat(document.getElementById('calcEspressoSell')?.value || 150);
-    const capSell = parseFloat(document.getElementById('calcCapSell')?.value || 220);
-
-    const costPerGram = coffeePrice / 1000;
-    const espressoCost = costPerGram * dose;
-    const espressoMargin = espressoSell > 0 ? ((espressoSell - espressoCost) / espressoSell) * 100 : 0;
-
-    const milkCost = 12; // ~150ml milk = 12 RUB
-    const capCost = espressoCost + milkCost;
-
-    const cupsPerKg = 1000 / dose;
-    const profitPerCup = espressoSell - espressoCost;
-    const profitPerKg = profitPerCup * cupsPerKg;
-
-    const costEspressoEl = document.getElementById('calcCostEspressoText');
-    const marginEspressoEl = document.getElementById('calcMarginEspressoText');
-    const costCapEl = document.getElementById('calcCostCapText');
-    const profitPerKgEl = document.getElementById('calcProfitPerKgText');
-
-    if (costEspressoEl) costEspressoEl.textContent = `${espressoCost.toFixed(2)} ₽`;
-    if (marginEspressoEl) marginEspressoEl.textContent = `${espressoMargin.toFixed(1)}%`;
-    if (costCapEl) costCapEl.textContent = `${capCost.toFixed(2)} ₽`;
-    if (profitPerKgEl) profitPerKgEl.textContent = `${Math.round(profitPerKg).toLocaleString('ru-RU')} ₽`;
-}
-
 // Sample Pack Modal
 function initSampleModal() {
     const openBtn = document.getElementById('openSamplePackModalBtn');
@@ -1067,8 +1029,8 @@ function initQuickPreset() {
 
 // Initialize extra B2B features on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
-    initCalcModal();
-    initTheme();
+    initSampleModal();
+    initQuickPreset();
 });
 
 // Off-Canvas Navigation Drawer Controls
@@ -1101,11 +1063,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Modal open helpers
-function openCalcModal() {
-    const modal = document.getElementById('calcModal');
-    if (modal) modal.classList.add('active');
-}
-
 function openWholesaleTermsModal() {
     const modal = document.getElementById('wholesaleTermsModal');
     if (modal) modal.classList.add('active');
@@ -1133,38 +1090,5 @@ function openCabinetInfo() {
     } else {
         alert('Личный кабинет оптовика: Мои заказы, Персональный прайс, Документы и реквизиты.');
     }
-}
-
-// Atmospheric Dark Steam Background (Вариант 5)
-function toggleAtmosphericTheme() {
-    const isDark = document.body.classList.toggle('theme-dark-steam');
-    localStorage.setItem('roastcoast_theme', isDark ? 'dark-steam' : 'light');
-    updateThemeBtn(isDark);
-}
-
-function updateThemeBtn(isDark) {
-    const btns = [
-        document.getElementById('themeToggleBtn'),
-        document.getElementById('drawerThemeToggleBtn')
-    ];
-    btns.forEach(btn => {
-        if (btn) {
-            btn.innerHTML = isDark 
-                ? '<span class="theme-icon">☕</span><span>Пар: Вкл</span>' 
-                : '<span class="theme-icon">☀️</span><span>Светлая</span>';
-        }
-    });
-}
-
-function initTheme() {
-    const saved = localStorage.getItem('roastcoast_theme');
-    // Default to dark-steam as requested
-    const isDark = saved !== 'light';
-    if (isDark) {
-        document.body.classList.add('theme-dark-steam');
-    } else {
-        document.body.classList.remove('theme-dark-steam');
-    }
-    updateThemeBtn(isDark);
 }
 
