@@ -422,12 +422,39 @@ const EMBEDDED_PRODUCTS = [
 let allProducts = EMBEDDED_PRODUCTS;
 let cart = {}; // key: "prodTitle-option", val: { title, option, qty, unitPriceRetail, unitPriceB2B, weightKg }
 let currentCategory = 'all';
-let currentView = 'cards'; // 'cards' or 'table'
+let currentView = 'table'; // 'table' (списком) is active by default
 const B2B_DISCOUNT_PERCENT = 30; // 30% оптовая скидка от розницы
 const MIN_ORDER_KG = 10; // Мин. оптовый заказ 10 кг
 
 const SVG_MINUS = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1.5" y1="5" x2="8.5" y2="5"/></svg>';
 const SVG_PLUS = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="1.5" x2="5" y2="8.5"/><line x1="1.5" y1="5" x2="8.5" y2="5"/></svg>';
+
+const B2B_CATEGORIES = [
+    {
+        id: 'milk_blends',
+        title: 'СМЕСИ ДЛЯ МОЛОЧНЫХ НАПИТКОВ',
+        subtitle: 'КОФЕ ДЛЯ МОЛОЧНЫХ НАПИТКОВ',
+        match: (p) => (p.category === 'espresso' || p.badge === 'Эспрессо') && !p.title.toLowerCase().includes('декаф')
+    },
+    {
+        id: 'decaf_lots',
+        title: 'ДЕКАФЫ И ЛОУКАФЫ',
+        subtitle: 'ДЕКАФЫ И ЛОУКАФЫ',
+        match: (p) => p.title.toLowerCase().includes('декаф') || (p.badge && p.badge.toLowerCase().includes('декаф'))
+    },
+    {
+        id: 'filter_lots',
+        title: 'МОНОСОРТА И МИКРОЛОТЫ ДЛЯ ФИЛЬТРА',
+        subtitle: 'КОФЕ СВЕЖЕГО УРОЖАЯ',
+        match: (p) => (p.category === 'filter' || p.badge === 'Фильтр') && !p.title.toLowerCase().includes('декаф')
+    },
+    {
+        id: 'other_items',
+        title: 'КАКАО И СОПУТСТВУЮЩИЕ ТОВАРЫ',
+        subtitle: 'ДЛЯ БАРИСТА И КОФЕМАШИН',
+        match: (p) => p.category === 'other' || p.badge === 'Какао' || p.badge === 'Уход'
+    }
+];
 
 document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
@@ -453,7 +480,7 @@ function setupEventListeners() {
         });
     });
 
-    // View Toggles
+    // View Toggles: Списком (table) and Карточки (cards)
     const viewCardsBtn = document.getElementById('viewCardsBtn');
     const viewTableBtn = document.getElementById('viewTableBtn');
     
@@ -462,16 +489,20 @@ function setupEventListeners() {
             currentView = 'cards';
             viewCardsBtn.classList.add('active');
             viewTableBtn.classList.remove('active');
-            document.getElementById('productGrid').style.display = 'grid';
-            document.getElementById('productTableWrapper').style.display = 'none';
+            const grid = document.getElementById('productGrid');
+            const tableWrap = document.getElementById('productTableWrapper');
+            if (grid) grid.style.display = 'grid';
+            if (tableWrap) tableWrap.style.display = 'none';
         });
 
         viewTableBtn.addEventListener('click', () => {
             currentView = 'table';
             viewTableBtn.classList.add('active');
             viewCardsBtn.classList.remove('active');
-            document.getElementById('productGrid').style.display = 'none';
-            document.getElementById('productTableWrapper').style.display = 'block';
+            const grid = document.getElementById('productGrid');
+            const tableWrap = document.getElementById('productTableWrapper');
+            if (grid) grid.style.display = 'none';
+            if (tableWrap) tableWrap.style.display = 'block';
         });
     }
 
@@ -522,29 +553,30 @@ function parsePriceNum(priceStr) {
     return parseInt(clean, 10) || 0;
 }
 
+function toggleCategorySection(cardId) {
+    const card = document.getElementById(cardId);
+    if (card) {
+        card.classList.toggle('collapsed');
+    }
+}
+
 function renderCatalog() {
     const products = getFilteredProducts();
     
-    // 1. Render Grid Cards
+    // 1. Render Grid Cards (Alternative Cards View)
     const gridEl = document.getElementById('productGrid');
-    if (gridEl) gridEl.innerHTML = '';
-    
-    // 2. Render Table Rows
-    const tableBodyEl = document.getElementById('productTableBody');
-    if (tableBodyEl) tableBodyEl.innerHTML = '';
+    if (gridEl) {
+        gridEl.innerHTML = '';
+        products.forEach(p => {
+            const retail200 = parsePriceNum(p.price);
+            const b2b200 = Math.round(retail200 * (1 - B2B_DISCOUNT_PERCENT / 100));
+            const retail1000 = Math.round(retail200 * 3.4);
+            const b2b1000 = Math.round(retail1000 * (1 - B2B_DISCOUNT_PERCENT / 100));
+            const imgUrl = (p.images && p.images.length > 0) ? p.images[0] : 'https://roastcoast.ru/image/logo.svg';
+            const escapedTitle = p.title.replace(/'/g, "\\'");
 
-    products.forEach((p, idx) => {
-        const retailPrice = parsePriceNum(p.price);
-        const b2bPrice = Math.round(retailPrice * (1 - B2B_DISCOUNT_PERCENT / 100));
-        const imgUrl = (p.images && p.images.length > 0) ? p.images[0] : 'https://roastcoast.ru/image/logo.svg';
-        const weightOptions = p.options && p.options.length > 0 ? p.options : ['200 г', '1 000 г'];
-        const escapedTitle = p.title.replace(/'/g, "\'");
-
-        // --- Render Card ---
-        if (gridEl) {
             const card = document.createElement('div');
             card.className = 'product-card';
-            
             card.innerHTML = `
                 <div class="card-img-wrapper">
                     <span class="badge-roast">${p.badge}</span>
@@ -558,73 +590,166 @@ function renderCatalog() {
                     <div class="card-bottom-section">
                         <div class="card-price-row">
                             <div class="price-box">
-                                <span class="retail-price">${retailPrice > 0 ? retailPrice + ' ₽' : 'По запросу'}</span>
-                                <span class="b2b-price">${b2bPrice > 0 ? b2bPrice + ' ₽' : 'Опт'}</span>
+                                <span class="retail-price">${retail1000 > 0 ? retail1000 + ' ₽' : 'По запросу'}</span>
+                                <span class="b2b-price">${b2b1000 > 0 ? b2b1000 + ' ₽' : 'Опт'}</span>
                             </div>
                             <span class="b2b-discount-tag">-30% Опт</span>
                         </div>
 
                         <div class="options-matrix">
-                            ${weightOptions.map(opt => {
-                                const itemKey = `${p.title}-${opt}`;
-                                const qty = cart[itemKey] ? cart[itemKey].qty : 0;
-                                return `
-                                    <div class="option-row">
-                                        <span class="option-name">${opt}</span>
-                                        <div class="qty-control">
-                                            <button type="button" class="qty-btn qty-btn-minus" onclick="updateQty('${escapedTitle}', '${opt}', ${retailPrice}, ${b2bPrice}, -1)">${SVG_MINUS}</button>
-                                            <input type="text" class="qty-input" value="${qty}" readonly>
-                                            <button type="button" class="qty-btn qty-btn-plus" onclick="updateQty('${escapedTitle}', '${opt}', ${retailPrice}, ${b2bPrice}, 1)">${SVG_PLUS}</button>
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('')}
+                            <div class="option-row">
+                                <span class="option-name">1 000 г</span>
+                                <div class="qty-control">
+                                    <button type="button" class="qty-btn qty-btn-minus" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, -1)">${SVG_MINUS}</button>
+                                    <input type="text" class="qty-input" value="${cart[`${p.title}-1 000 г`] ? cart[`${p.title}-1 000 г`].qty : 0}" readonly>
+                                    <button type="button" class="qty-btn qty-btn-plus" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">${SVG_PLUS}</button>
+                                </div>
+                            </div>
+                            <div class="option-row">
+                                <span class="option-name">200 г</span>
+                                <div class="qty-control">
+                                    <button type="button" class="qty-btn qty-btn-minus" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, -1)">${SVG_MINUS}</button>
+                                    <input type="text" class="qty-input" value="${cart[`${p.title}-200 г`] ? cart[`${p.title}-200 г`].qty : 0}" readonly>
+                                    <button type="button" class="qty-btn qty-btn-plus" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">${SVG_PLUS}</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             `;
             gridEl.appendChild(card);
-        }
+        });
+    }
 
-        // --- Render Table Row (Gram weights stacked neatly in a vertical column) ---
-        if (tableBodyEl) {
-            const optionsHtml = weightOptions.map(opt => {
-                const itemKey = `${p.title}-${opt}`;
-                const qty = cart[itemKey] ? cart[itemKey].qty : 0;
-                return `
-                    <div class="table-option-row">
-                        <span class="table-opt-label">${opt}</span>
-                        <div class="qty-control">
-                            <button type="button" class="qty-btn qty-btn-minus" onclick="updateQty('${escapedTitle}', '${opt}', ${retailPrice}, ${b2bPrice}, -1)">${SVG_MINUS}</button>
-                            <input type="text" class="qty-input" value="${qty}" readonly>
-                            <button type="button" class="qty-btn qty-btn-plus" onclick="updateQty('${escapedTitle}', '${opt}', ${retailPrice}, ${b2bPrice}, 1)">${SVG_PLUS}</button>
+    // 2. Render Categorized List Sections (Default View matching screenshot)
+    const listWrapperEl = document.getElementById('productTableWrapper');
+    if (listWrapperEl) {
+        listWrapperEl.innerHTML = '';
+
+        let hasAnyRendered = false;
+
+        B2B_CATEGORIES.forEach(cat => {
+            const catProducts = products.filter(cat.match);
+            if (catProducts.length === 0) return;
+
+            hasAnyRendered = true;
+            const sectionCard = document.createElement('div');
+            sectionCard.className = 'category-section-card';
+            sectionCard.id = `cat-card-${cat.id}`;
+
+            // Category Header
+            const headerHtml = `
+                <div class="category-section-header" onclick="toggleCategorySection('cat-card-${cat.id}')">
+                    <div>
+                        <div class="cat-tag-info">
+                            <span>${cat.subtitle}</span>
+                            <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
                         </div>
+                        <h2 class="cat-h2-title">${cat.title}</h2>
                     </div>
+                    <div class="cat-toggle-action">
+                        <span>Развернуть все</span>
+                        <svg class="cat-chevron-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                </div>
+            `;
+
+            // Category Rows
+            const rowsHtml = catProducts.map(p => {
+                const retail200 = parsePriceNum(p.price);
+                const b2b200 = Math.round(retail200 * (1 - B2B_DISCOUNT_PERCENT / 100));
+                const retail1000 = Math.round(retail200 * 3.4);
+                const b2b1000 = Math.round(retail1000 * (1 - B2B_DISCOUNT_PERCENT / 100));
+                const imgUrl = (p.images && p.images.length > 0) ? p.images[0] : 'https://roastcoast.ru/image/logo.svg';
+                const escapedTitle = p.title.replace(/'/g, "\\'");
+
+                const key1000 = `${p.title}-1 000 г`;
+                const qty1000 = cart[key1000] ? cart[key1000].qty : 0;
+                const key200 = `${p.title}-200 г`;
+                const qty200 = cart[key200] ? cart[key200].qty : 0;
+
+                const isPopular = p.title.includes('Classico') || p.title.includes('Sweet Hills') || p.title.includes('Минас') || p.title.includes('Кения');
+
+                const btn1000 = qty1000 === 0 
+                    ? `<button type="button" class="pill-btn-add" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>`
+                    : `<div class="pill-qty-group">
+                         <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, -1)">–</button>
+                         <span class="pill-qty-val">${qty1000}</span>
+                         <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '1 000 г', ${retail1000}, ${b2b1000}, 1)">+</button>
+                       </div>`;
+
+                const btn200 = qty200 === 0 
+                    ? `<button type="button" class="pill-btn-add" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">+</button>`
+                    : `<div class="pill-qty-group">
+                         <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, -1)">–</button>
+                         <span class="pill-qty-val">${qty200}</span>
+                         <button type="button" class="pill-qty-btn" onclick="updateQty('${escapedTitle}', '200 г', ${retail200}, ${b2b200}, 1)">+</button>
+                       </div>`;
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="list-prod-info">
+                                <img src="${imgUrl}" class="list-prod-img" alt="${p.title}" loading="lazy" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
+                                <div>
+                                    <div class="list-prod-title">${p.title}</div>
+                                    <div class="list-prod-sub">${p.subtitle || 'Свежая обжарка • Севастополь'}</div>
+                                </div>
+                                <div class="list-meta-icons">
+                                    ${isPopular ? '<span class="flame-tag" title="Хит продаж">🔥</span>' : ''}
+                                    <button type="button" class="fav-heart-btn" onclick="this.classList.toggle('active'); event.stopPropagation();" title="В избранное">
+                                        <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                            ${b2b1000 > 0 ? b2b1000.toLocaleString('ru-RU') : '—'}
+                        </td>
+                        <td style="text-align:center; width:80px;">
+                            ${btn1000}
+                        </td>
+                        <td style="text-align:right; font-weight:800; font-size:0.95rem; color:#18181B; border-left:1px solid #E5E7EB; width:100px;">
+                            ${b2b200 > 0 ? b2b200.toLocaleString('ru-RU') : '—'}
+                        </td>
+                        <td style="text-align:center; width:80px;">
+                            ${btn200}
+                        </td>
+                    </tr>
                 `;
             }).join('');
 
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>
-                    <div style="display:flex; align-items:center; gap:12px;">
-                        <img src="${imgUrl}" class="table-thumb" alt="${p.title}" onerror="this.src='https://roastcoast.ru/image/logo.svg'">
-                        <div>
-                            <div style="font-weight:700; color:var(--color-fg); line-height:1.3;">${p.title}</div>
-                            <div style="font-size:0.75rem; color:var(--color-primary); font-weight:600;">${p.subtitle}</div>
-                        </div>
-                    </div>
-                </td>
-                <td style="color:var(--color-fg-subtle); text-decoration:line-through; text-align:right;">${retailPrice > 0 ? retailPrice + ' ₽' : '—'}</td>
-                <td style="font-weight:800; color:var(--color-primary); text-align:right;">${b2bPrice > 0 ? b2bPrice + ' ₽' : '—'}</td>
-                <td style="text-align:right;">
-                    <div class="table-options-stack">
-                        ${optionsHtml}
-                    </div>
-                </td>
+            sectionCard.innerHTML = `
+                ${headerHtml}
+                <div class="category-table-content">
+                    <table class="b2b-group-table">
+                        <thead>
+                            <tr class="th-row-1">
+                                <th rowspan="2" style="width:46%;">Наименование</th>
+                                <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 1 кг</th>
+                                <th colspan="2" style="text-align:center; border-left:1px solid #E5E7EB;">Упаковка 200 г</th>
+                            </tr>
+                            <tr class="th-row-2">
+                                <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
+                                <th style="text-align:center;">В зернах</th>
+                                <th style="text-align:right; border-left:1px solid #E5E7EB;">Цена, ₽</th>
+                                <th style="text-align:center;">В зернах</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rowsHtml}
+                        </tbody>
+                    </table>
+                </div>
             `;
-            tableBodyEl.appendChild(tr);
+
+            listWrapperEl.appendChild(sectionCard);
+        });
+
+        if (!hasAnyRendered) {
+            listWrapperEl.innerHTML = '<div style="text-align:center; padding:40px; background:#fff; border-radius:12px; border:1px solid var(--color-border); color:var(--color-fg-muted);">Товары по вашему запросу не найдены.</div>';
         }
-    });
+    }
 }
 
 function updateQty(title, opt, retailPrice, b2bPrice, delta) {
@@ -702,12 +827,14 @@ function updateCartUI() {
     const totalRetailPriceEl = document.getElementById('totalRetailPrice');
     const totalDiscountSumEl = document.getElementById('totalDiscountSum');
     const totalB2BPriceEl = document.getElementById('totalB2BPrice');
+    const sidebarBigSumEl = document.getElementById('sidebarBigSum');
 
     if (totalItemsCountEl) totalItemsCountEl.textContent = totalCount;
     if (totalWeightKgEl) totalWeightKgEl.textContent = `${totalWeight.toFixed(1)} кг`;
     if (totalRetailPriceEl) totalRetailPriceEl.textContent = `${totalRetail.toLocaleString('ru-RU')} ₽`;
     if (totalDiscountSumEl) totalDiscountSumEl.textContent = `-${totalDiscount.toLocaleString('ru-RU')} ₽`;
     if (totalB2BPriceEl) totalB2BPriceEl.textContent = `${totalB2B.toLocaleString('ru-RU')} ₽`;
+    if (sidebarBigSumEl) sidebarBigSumEl.textContent = `${totalB2B.toLocaleString('ru-RU')} ₽`;
 
     // Progress bar for wholesale tier
     const progressFill = document.getElementById('progressFill');

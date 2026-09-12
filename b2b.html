@@ -109,6 +109,350 @@
             .modal-actions-row { flex-direction: column !important; }
             .modal-actions-row button { width: 100% !important; }
         }
+
+        /* =======================================================
+           Categorized B2B List View (Matching Top Specialty Roasters)
+           ======================================================= */
+        .category-section-card {
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .category-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            cursor: pointer;
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--color-border);
+            user-select: none;
+            transition: background 0.15s ease;
+        }
+        .category-section-header:hover {
+            background: #FAF8F5;
+        }
+        .cat-tag-info {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--color-fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .cat-h2-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #18181B;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            margin: 0;
+        }
+        .cat-toggle-action {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #71717A;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .cat-chevron-icon {
+            transition: transform 0.25s ease;
+        }
+        .category-section-card.collapsed .cat-chevron-icon {
+            transform: rotate(-90deg);
+        }
+        .category-section-card.collapsed .category-table-content {
+            display: none;
+        }
+
+        /* Grouped List Table */
+        .b2b-group-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .b2b-group-table thead tr.th-row-1 th {
+            background: #F9FAFB;
+            color: #6B7280;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 10px 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .b2b-group-table thead tr.th-row-2 th {
+            background: #FCFDFD;
+            color: #9CA3AF;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .b2b-group-table tbody tr {
+            border-bottom: 1px solid #F3F4F6;
+            transition: background 0.12s ease;
+        }
+        .b2b-group-table tbody tr:hover {
+            background: #FAF8F5;
+        }
+        .b2b-group-table td {
+            padding: 12px 16px;
+            vertical-align: middle;
+        }
+        .list-prod-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .list-prod-img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            background: #F4F0E8;
+            border-radius: 8px;
+            padding: 3px;
+            border: 1px solid #E5E7EB;
+            flex-shrink: 0;
+        }
+        .list-prod-title {
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: #18181B;
+            line-height: 1.3;
+        }
+        .list-prod-sub {
+            font-size: 0.78rem;
+            color: #71717A;
+            margin-top: 2px;
+        }
+        .list-meta-icons {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #9CA3AF;
+        }
+        .fav-heart-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #D1D5DB;
+            transition: color 0.15s;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+        }
+        .fav-heart-btn:hover, .fav-heart-btn.active {
+            color: #EF4444;
+        }
+        .flame-tag {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        /* Pill Buttons for 1kg and 200g */
+        .pill-btn-add {
+            background: #F4F4F5;
+            border: 1px solid #E4E4E7;
+            border-radius: 6px;
+            width: 48px;
+            height: 32px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #18181B;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pill-btn-add:hover {
+            background: #E4E4E7;
+            border-color: #D4D4D8;
+            transform: scale(1.03);
+        }
+        .pill-qty-group {
+            display: inline-flex;
+            align-items: center;
+            background: #18181B;
+            color: #FFFFFF;
+            border-radius: 6px;
+            padding: 2px 4px;
+            gap: 2px;
+        }
+        .pill-qty-btn {
+            background: transparent;
+            border: none;
+            color: #FFFFFF;
+            width: 22px;
+            height: 26px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.15s;
+        }
+        .pill-qty-btn:hover {
+            opacity: 0.7;
+        }
+        .pill-qty-val {
+            font-size: 0.88rem;
+            font-weight: 800;
+            min-width: 20px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        /* Sidebar Styling (Matches user screenshot) */
+        .sidebar-discount-header {
+            font-size: 0.82rem;
+            color: var(--color-fg-muted);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        .sidebar-big-total {
+            font-size: 2.3rem;
+            font-weight: 900;
+            color: #18181B;
+            letter-spacing: -0.02em;
+            margin-bottom: 14px;
+        }
+        .btn-checkout-black {
+            background: #18181B;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.15s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .btn-checkout-black:hover {
+            background: #27272A;
+        }
+        .btn-sample-box-black {
+            background: #18181B;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            width: 100%;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .btn-sample-box-black:hover {
+            background: #27272A;
+        }
+        .btn-clear-cart-pill {
+            background: #F4F4F5;
+            color: #52525B;
+            border: 1px solid #E4E4E7;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            width: 100%;
+            margin-top: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.15s;
+        }
+        .btn-clear-cart-pill:hover {
+            background: #E4E4E7;
+            color: #18181B;
+        }
+
+        /* Gradient Promo Ticket */
+        .promo-ticket-badge {
+            background: linear-gradient(135deg, #A7F3D0 0%, #FBCFE8 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            color: #18181B;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .promo-ticket-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #27272A;
+            margin-bottom: 2px;
+        }
+        .promo-ticket-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #0F172A;
+            line-height: 1;
+        }
+
+        /* Support Help Card */
+        .support-card-box {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 14px;
+        }
+        .support-card-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            color: var(--color-fg);
+            margin-bottom: 4px;
+        }
+        .support-card-sub {
+            font-size: 0.8rem;
+            color: var(--color-fg-muted);
+            margin-bottom: 12px;
+        }
+        .support-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .support-pill-btn {
+            background: #F4F4F5;
+            border: 1px solid #E4E4E7;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.82rem;
+            letter-spacing: 0.05em;
+            color: #18181B;
+            text-decoration: none;
+            transition: all 0.15s;
+            display: block;
+        }
+        .support-pill-btn:hover {
+            background: #E4E4E7;
+        }
     </style>
 </head>
 <body>
@@ -189,95 +533,105 @@
                 </div>
 
                 <div class="view-toggle">
-                    <button class="view-btn active" id="viewCardsBtn" title="Вид карточками">
+                    <button class="view-btn active" id="viewTableBtn" title="Вид списком">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/></svg>
+                        Списком
+                    </button>
+                    <button class="view-btn" id="viewCardsBtn" title="Вид карточками">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"/></svg>
                         Карточки
-                    </button>
-                    <button class="view-btn" id="viewTableBtn" title="Вид оптовой таблицей">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/></svg>
-                        Матрица
                     </button>
                 </div>
             </div>
 
-            <!-- Products View: Cards Grid -->
-            <div class="product-grid" id="productGrid">
-                <!-- Dynamically rendered by assets/b2b.js -->
+            <!-- Products View: Categorized List (Default view matching B2B portal) -->
+            <div class="product-table-wrapper" id="productTableWrapper" style="display:block;">
+                <!-- Dynamically rendered by assets/b2b.js as grouped category tables -->
             </div>
 
-            <!-- Products View: Table Matrix -->
-            <div class="product-table-wrapper" id="productTableWrapper">
-                <table class="product-table">
-                    <thead>
-                        <tr>
-                            <th>Наименование и сорт</th>
-                            <th style="width: 120px; text-align: right;">Розничная</th>
-                            <th style="width: 130px; text-align: right;">Опт (-30%)</th>
-                            <th style="width: 220px; text-align: right;">Фасовка и заказ (шт.)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productTableBody">
-                        <!-- Dynamically rendered by assets/b2b.js -->
-                    </tbody>
-                </table>
+            <!-- Products View: Cards Grid (Alternative view) -->
+            <div class="product-grid" id="productGrid" style="display:none;">
+                <!-- Dynamically rendered by assets/b2b.js -->
             </div>
 
         </main>
 
-        <!-- Right Column: B2B Order Widget -->
+        <!-- Right Column: B2B Order Widget matching screenshot -->
         <aside class="sidebar-cart">
-            <div class="cart-header">
-                <div class="cart-title">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                    Оптовая корзина
-                </div>
-                <button class="clear-cart-btn" id="clearCartBtn">Очистить</button>
+            <div class="sidebar-discount-header">
+                Цены в каталоге указаны с учетом фиксированной скидки 30%. <a href="#" onclick="alert('Условия скидок: 30% базовая оптовая скидка от розничного прайса при минимальном заказе от 10 кг.'); return false;" style="color:#2563EB; font-weight:700; text-decoration:none;">Настроить</a>
             </div>
 
-            <!-- Selected items list -->
-            <div class="cart-items-list" id="cartItemsList">
-                <div style="color:var(--color-fg-muted); text-align:center; padding:32px 0; font-size:0.9rem;">
-                    Выберите товары и количество в каталоге
+            <div class="sidebar-big-total" id="sidebarBigSum">0 ₽</div>
+
+            <button class="btn-checkout-black" id="checkoutBtn" disabled style="opacity:0.5; cursor:not-allowed;">
+                ОФОРМИТЬ ЗАКАЗ
+            </button>
+
+            <button class="btn-sample-box-black" id="sidebarSampleBtn" onclick="alert('Заказ Сэмпл-бокса: 4 образца свежей обжарки по 100г с доставкой СДЭК для каппинга.');">
+                SAMPLE BOX
+            </button>
+
+            <button class="btn-clear-cart-pill" id="clearCartBtn">
+                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                Очистить корзину
+            </button>
+
+            <!-- Selected items list (compact) -->
+            <div class="cart-items-list" id="cartItemsList" style="margin-top:12px;">
+                <div style="color:var(--color-fg-muted); text-align:center; padding:18px 0; font-size:0.85rem;">
+                    Корзина пуста. Выберите нужные сорта и фасовки
                 </div>
             </div>
 
-            <!-- Summary -->
-            <div class="cart-summary">
+            <!-- Summary info -->
+            <div class="cart-summary" style="margin-top:12px;">
                 <div class="summary-row">
-                    <span>Позиций в заказе:</span>
+                    <span>Позиций:</span>
                     <strong id="totalItemsCount" style="color:var(--color-fg);">0</strong>
                 </div>
-
                 <div class="summary-row">
                     <span>Общий вес:</span>
                     <strong id="totalWeightKg" style="color:var(--color-fg);">0.0 кг</strong>
                 </div>
-
                 <div class="summary-row">
-                    <span>Сумма по розничному прайсу:</span>
+                    <span>Розничная цена:</span>
                     <span id="totalRetailPrice" style="text-decoration:line-through;">0 ₽</span>
                 </div>
-
                 <div class="summary-row">
-                    <span>Оптовая экономия (-30%):</span>
+                    <span>Экономия (-30%):</span>
                     <strong id="totalDiscountSum" style="color:var(--color-emerald);">0 ₽</strong>
                 </div>
-
-                <div class="summary-row total">
-                    <span>Итого к оплате:</span>
-                    <span class="total-price" id="totalB2BPrice">0 ₽</span>
+                <div class="summary-row total" style="display:none;">
+                    <span id="totalB2BPrice">0 ₽</span>
                 </div>
             </div>
 
-            <button class="btn-checkout" id="checkoutBtn" disabled style="opacity:0.5; cursor:not-allowed;">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                Сформировать счёт на оплату
-            </button>
+            <!-- Gradient Promo Ticket -->
+            <div class="promo-ticket-badge">
+                <div class="promo-ticket-label">Скидка на первый заказ</div>
+                <div class="promo-ticket-value">30%</div>
+            </div>
 
-            <a href="roastcoast_products.csv" download="Прайс_лист_RoastCoast_B2B.csv" class="btn-secondary-action">
-                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span>Скачать Оптовый Прайс-лист (Excel)</span>
+            <a href="roastcoast_products.csv" download="Прайс_лист_RoastCoast_B2B.csv" class="sidebar-pdf-link" style="display:flex; align-items:center; gap:8px; color:var(--color-fg); font-size:0.82rem; font-weight:700; text-decoration:none; margin-top:8px;">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>Скачать прайс-лист в Excel</span>
             </a>
+            <div style="font-size:0.72rem; color:var(--color-fg-muted); margin-top:4px;">Цены до 16:00 по МСК 18 сентября 2026</div>
+
+            <!-- Support Help Card -->
+            <div class="support-card-box">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="color:var(--color-primary);"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                    <span class="support-card-title">НАЙДЕМ РЕШЕНИЕ ЛЮБОГО ВОПРОСА</span>
+                </div>
+                <div class="support-card-sub">Ваш менеджер ответит в чате</div>
+                <div class="support-btn-group">
+                    <a href="https://t.me/roastcoastcoffee" target="_blank" class="support-pill-btn">TELEGRAM</a>
+                    <a href="https://wa.me/79782300080" target="_blank" class="support-pill-btn">WHATSAPP</a>
+                    <a href="tel:+79782300080" class="support-pill-btn">MAX</a>
+                </div>
+            </div>
         </aside>
 
     </div>
