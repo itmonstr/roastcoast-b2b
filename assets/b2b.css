@@ -1670,10 +1670,10 @@ body {
     color: var(--color-fg-muted);
 }
 
-/* Simulation Trigger Card */
+/* Simulation Trigger Card (Solid B2B styling without gradients) */
 .simulation-trigger-card {
-    background: linear-gradient(135deg, rgba(169,84,30,0.08) 0%, rgba(231,182,92,0.14) 100%);
-    border: 1px solid rgba(169,84,30,0.25);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
     border-radius: 10px;
     padding: 14px 18px;
     display: flex;
@@ -1684,16 +1684,16 @@ body {
 }
 
 .btn-simulate-pay {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    background: #059669;
     color: #fff;
-    border: none;
+    border: 1px solid #047857;
     padding: 12px 20px;
     border-radius: 8px;
-    font-weight: 800;
+    font-weight: 700;
     font-size: 0.9rem;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
-    transition: all 0.2s ease;
+    box-shadow: none;
+    transition: background-color 0.2s ease;
     white-space: nowrap;
     display: inline-flex;
     align-items: center;
@@ -1701,8 +1701,9 @@ body {
 }
 
 .btn-simulate-pay:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(5, 150, 105, 0.45);
+    background: #047857;
+    box-shadow: none;
+    transform: none;
 }
 
 /* Success & ERP Processing Screen */
@@ -1720,18 +1721,18 @@ body {
 }
 
 .success-check-badge {
-    width: 68px;
-    height: 68px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    background: #059669;
     color: #fff;
-    font-size: 2.2rem;
+    font-size: 2rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 14px;
-    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
-    animation: popBadge 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: none;
+    animation: popBadge 0.3s ease;
 }
 
 @keyframes popBadge {

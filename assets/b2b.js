@@ -1149,9 +1149,9 @@ function updateBuyerCompanyCard(company) {
 
     if (nameEl) nameEl.textContent = company.name;
     if (detailsEl) detailsEl.innerHTML = `ИНН: <strong>${company.inn}</strong> &bull; КПП: <strong>${company.kpp}</strong> &bull; ОГРН: <strong>${company.ogrn}</strong>`;
-    if (addrEl) addrEl.textContent = `📍 Юр. адрес: ${company.address}`;
-    if (edoEl) edoEl.textContent = `✓ ЭДО: ${company.edo}`;
-    if (delivEl) delivEl.innerHTML = `🚚 Доставка: <strong>${company.delivery}</strong>`;
+    if (addrEl) addrEl.textContent = `Юр. адрес: ${company.address}`;
+    if (edoEl) edoEl.textContent = `ЭДО: ${company.edo}`;
+    if (delivEl) delivEl.innerHTML = `Доставка: <strong>${company.delivery}</strong>`;
 }
 
 function switchPaymentTab(tabName) {
@@ -1210,7 +1210,7 @@ function simulateSuccessfulPayment() {
     const simBtn = document.getElementById('simulatePaymentBtn');
     if (simBtn) {
         simBtn.disabled = true;
-        simBtn.innerHTML = '<span>⏳ Проверка банком...</span>';
+        simBtn.innerHTML = '<span>Проверка банком...</span>';
     }
 
     setTimeout(() => {
@@ -1233,7 +1233,7 @@ function simulateSuccessfulPayment() {
 
         if (simBtn) {
             simBtn.disabled = false;
-            simBtn.innerHTML = '<span>⚡ Симулировать оплату в банке</span>';
+            simBtn.innerHTML = '<span>Подтвердить оплату (тест)</span>';
         }
     }, 650);
 }
@@ -1397,7 +1397,7 @@ function initQuickPreset() {
         updateCartQty('Гватемала Финка Сан Антонио', '1 000 г', 5);
 
         renderCart();
-        alert('⚡ Типовой заказ кофейни (25 кг) успешно добавлен в корзину!\nПрогресс-бар заполнен, оптовая скидка -30% рассчитана.');
+        alert('Типовой заказ кофейни (25 кг) успешно добавлен в корзину!\nПрогресс-бар заполнен, оптовая скидка -30% рассчитана.');
     });
 }
 

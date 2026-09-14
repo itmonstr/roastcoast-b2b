@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/b2b.css?v=20260912_v27">
+    <link rel="stylesheet" href="assets/b2b.css?v=20260914_clean1">
     <style>
         html, body {
             overflow-x: hidden !important;
@@ -3136,27 +3136,27 @@
                     <div class="inn-input-group">
                         <input type="text" id="buyerInnInput" class="inn-input-field" placeholder="Введите ИНН организации (10 цифр) или ИП (12 цифр)" value="7703401545" maxlength="12">
                         <button type="button" id="buyerInnSearchBtn" class="inn-search-btn">
-                            🔍 Найти в ЕГРЮЛ
+                            Найти в ЕГРЮЛ
                         </button>
                     </div>
 
                     <div class="inn-presets-wrap">
-                        <span class="inn-preset-label">⚡ Примеры для теста:</span>
+                        <span class="inn-preset-label">Тестовые компании:</span>
                         <button type="button" class="inn-preset-chip" onclick="applyPresetCompany('7703401545')">
-                            🏭 Алюминиевая Ассоциация (7703401545)
+                            Алюминиевая Ассоциация (7703401545)
                         </button>
                         <button type="button" class="inn-preset-chip" onclick="applyPresetCompany('7704229718')">
-                            ☕ ООО «Кофемания» (7704229718)
+                            ООО «Кофемания» (7704229718)
                         </button>
                         <button type="button" class="inn-preset-chip" onclick="applyPresetCompany('7801234567')">
-                            ☕ ООО «Кофейня на Невском»
+                            ООО «Кофейня на Невском»
                         </button>
                         <button type="button" class="inn-preset-chip" onclick="applyPresetCompany('781298451000')">
-                            👤 ИП Смирнов А.В. (Севастополь)
+                            ИП Смирнов А.В. (Севастополь)
                         </button>
                     </div>
                     <div style="font-size:0.75rem; color:var(--color-fg-muted); margin-bottom:12px; line-height:1.4;">
-                        💡 <em>В этом демонстрационном прототипе предзагружены точные данные из ЕГРЮЛ для тестовых ИНН. На боевом сервере подключается бесплатный сервис <strong>DaData API</strong> (10 000 запросов в день), который подтягивает 100% любых действующих компаний и ИП РФ.</em>
+                        <em>В демонстрационном режиме предзагружены данные из ЕГРЮЛ для тестовых ИНН. При интеграции сервис DaData API автоматически подтягивает реквизиты любых действующих организаций и ИП РФ.</em>
                     </div>
 
                     <div class="company-result-card" id="companyResultCard">
@@ -3166,17 +3166,17 @@
                                 ИНН: <strong>7703401545</strong> &bull; КПП: <strong>770301001</strong> &bull; ОГРН: <strong>1157700018222</strong>
                             </div>
                             <div style="margin-top:6px; font-size:0.8rem; color:var(--color-fg);" id="buyerCardAddress">
-                                📍 Юр. адрес: 123100, г. Москва, наб. Краснопресненская, д. 8, эт. 9, ком. 904
+                                Юр. адрес: 123100, г. Москва, наб. Краснопресненская, д. 8, эт. 9, ком. 904
                             </div>
                         </div>
                         <div style="display:flex; flex-direction:column; justify-content:space-between; border-left:1px dashed var(--color-border); padding-left:14px;">
                             <div>
                                 <span class="company-badge-edo" id="buyerCardEdo">
-                                    ✓ ЭДО: 1С-ЭДО / Диадок (ID: 2BM-7703401545)
+                                    ЭДО: 1С-ЭДО / Диадок (ID: 2BM-7703401545)
                                 </span>
                             </div>
                             <div style="font-size:0.78rem; color:var(--color-fg-muted); margin-top:6px;" id="buyerCardDelivery">
-                                🚚 Доставка: <strong>СДЭК До двери / г. Москва, ул. 1905 года, д. 10</strong>
+                                Доставка: <strong>СДЭК До двери / г. Москва, ул. 1905 года, д. 10</strong>
                             </div>
                         </div>
                     </div>
@@ -3215,15 +3215,15 @@
                 <div class="checkout-step-block">
                     <div class="checkout-step-title">
                         <span class="checkout-step-num">3</span>
-                        <span>Выберите способ оплаты: B2B QR-код или Платёжное поручение</span>
+                        <span>Способ оплаты: B2B QR-код или Платёжное поручение</span>
                     </div>
 
                     <div class="payment-tabs-nav">
                         <button type="button" class="payment-tab-btn active" id="tabBtnQr" onclick="switchPaymentTab('qr')">
-                            📱 Оплата по B2B QR-коду (Бизнес-банк онлайн)
+                            Оплата по B2B QR-коду (Банк онлайн)
                         </button>
                         <button type="button" class="payment-tab-btn" id="tabBtnPdf" onclick="switchPaymentTab('pdf')">
-                            📄 Безналичное платёжное поручение (Счёт / 1С / Банк)
+                            Платёжное поручение (Безналичный расчёт / 1С)
                         </button>
                     </div>
 
@@ -3260,18 +3260,18 @@
                             </div>
                         </div>
 
-                        <!-- Payment Simulation Block -->
+                        <!-- Payment Testing Block -->
                         <div class="simulation-trigger-card">
                             <div>
-                                <div style="font-weight:800; font-size:0.92rem; color:var(--color-fg); display:flex; align-items:center; gap:6px;">
-                                    <span>⚡ Тестирование мгновенной оплаты:</span>
+                                <div style="font-weight:700; font-size:0.92rem; color:var(--color-fg);">
+                                    <span>Тестовая проверка оплаты:</span>
                                 </div>
                                 <div style="font-size:0.8rem; color:var(--color-fg-muted); margin-top:2px;">
-                                    Нажмите кнопку, чтобы симулировать успешную транзакцию и увидеть автоматизацию в МойСклад + 1С-ЭДО + СДЭК:
+                                    Проверка зачисления платежа, списания остатков в МойСклад, формирования ЭДО и накладной СДЭК:
                                 </div>
                             </div>
                             <button type="button" class="btn-simulate-pay" id="simulatePaymentBtn" onclick="simulateSuccessfulPayment()">
-                                <span>⚡ Симулировать оплату по QR-коду</span>
+                                <span>Подтвердить оплату (тест)</span>
                             </button>
                         </div>
                     </div>
@@ -3283,29 +3283,29 @@
                                 Классический безналичный расчёт с расчётного счёта вашей организации на расчётный счёт ООО «РостКост». Вы можете <strong>скачать готовый файл платёжного поручения</strong> для быстрой загрузки в любой банк РФ без ручного набора цифр, либо распечатать официальный счёт в PDF. Заказ ставится в резерв в МойСклад на 3 рабочих дня.
                             </div>
                             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
-                                <button type="button" onclick="downloadPaymentOrderTxt()" style="background:linear-gradient(135deg, #059669 0%, #047857 100%); color:#fff; border:none; padding:12px 18px; border-radius:8px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 3px 12px rgba(5,150,105,0.35);">
-                                    📥 Скачать файл платёжки (.txt для 1С/банка)
+                                <button type="button" onclick="downloadPaymentOrderTxt()" style="background:#059669; color:#fff; border:1px solid #047857; padding:12px 18px; border-radius:8px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+                                    Скачать файл платёжки (.txt для 1С / Банка)
                                 </button>
                                 <button type="button" id="printInvoiceBtn" style="background:var(--color-primary); color:#fff; border:none; padding:12px 18px; border-radius:8px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
-                                    🖨 Распечатать / Скачать счёт в PDF
+                                    Печать / Счёт в PDF
                                 </button>
                                 <button type="button" onclick="simulateOrderReservation()" style="background:var(--color-surface-2); color:var(--color-fg); border:1px solid var(--color-border); padding:12px 18px; border-radius:8px; font-weight:700; cursor:pointer;">
-                                    ✓ Зарезервировать в МойСклад на 3 дня
+                                    Зарезервировать в МойСклад на 3 дня
                                 </button>
                             </div>
 
-                            <!-- Simulation for Payment Order -->
+                            <!-- Testing for Payment Order -->
                             <div class="simulation-trigger-card" style="margin-top:10px;">
                                 <div>
-                                    <div style="font-weight:800; font-size:0.92rem; color:var(--color-fg); display:flex; align-items:center; gap:6px;">
-                                        <span>⚡ Симуляция безналичного платежа:</span>
+                                    <div style="font-weight:700; font-size:0.92rem; color:var(--color-fg);">
+                                        <span>Тестовое подтверждение безналичного платежа:</span>
                                     </div>
                                     <div style="font-size:0.8rem; color:var(--color-fg-muted); margin-top:2px;">
-                                        Проверьте, как после отправки платёжного поручения робот МойСклад сопоставляет платёж по номеру счёта и отправляет кофе в обжарку:
+                                        Проверка сопоставления банковской выписки по номеру счёта и передачи заказа в производство:
                                     </div>
                                 </div>
                                 <button type="button" class="btn-simulate-pay" onclick="simulateSuccessfulPayment()">
-                                    <span>⚡ Симулировать зачисление платёжки</span>
+                                    <span>Подтвердить зачисление (тест)</span>
                                 </button>
                             </div>
                         </div>
@@ -3318,7 +3318,7 @@
             <div id="orderSuccessScreen">
                 <div class="success-check-badge">✓</div>
                 <h3 style="font-size:1.4rem; font-weight:800; color:var(--color-fg); margin:0 0 6px 0;">
-                    Оплата успешно зафиксирована!
+                    Оплата успешно зафиксирована
                 </h3>
                 <p style="color:var(--color-fg-muted); font-size:0.9rem; margin:0 0 16px 0;">
                     Заказ <strong>№ <span id="successOrderNum">RC-94812</span></strong> на сумму <strong><span id="successOrderSum">0 ₽</span></strong> запущен в производство
@@ -3336,7 +3336,7 @@
                     <div class="erp-pipeline-step">
                         <div class="erp-step-icon">✓</div>
                         <div class="erp-step-content">
-                            <strong>МойСклад ERP (Статус: 🟢 ОПЛАЧЕН / В РЕЗЕРВЕ):</strong>
+                            <strong>МойСклад ERP (Статус: ОПЛАЧЕН / В РЕЗЕРВЕ):</strong>
                             <span>Сырьё зелёного зерна списано, наряд передан старшему обжарщику в цех. Отгрузка запланирована на следующий рабочий день.</span>
                         </div>
                     </div>
@@ -3360,10 +3360,10 @@
 
                 <div style="display:flex; justify-content:center; gap:12px; margin-top:20px; flex-wrap:wrap;">
                     <button type="button" onclick="window.print()" style="background:var(--color-surface-2); color:var(--color-fg); border:none; padding:12px 20px; border-radius:8px; font-weight:700; cursor:pointer;">
-                        📥 Скачать квитанцию и счёт
+                        Скачать квитанцию и счёт
                     </button>
                     <button type="button" onclick="resetAndCloseSuccessModal()" style="background:var(--color-primary); color:#fff; border:none; padding:12px 24px; border-radius:8px; font-weight:700; cursor:pointer;">
-                        ✕ Завершить и вернуться в каталог
+                        Завершить и вернуться в каталог
                     </button>
                 </div>
             </div>
@@ -3550,6 +3550,6 @@
     </div>
 
     <script src="assets/qrcode.min.js"></script>
-    <script src="assets/b2b.js?v=20260914_v2"></script>
+    <script src="assets/b2b.js?v=20260914_clean1"></script>
 </body>
 </html>
