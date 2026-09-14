@@ -530,16 +530,27 @@ function setupEventListeners() {
         });
     }
 
-    // Invoice Modal
+    // Invoice Modal & B2B Checkout
     const checkoutBtn = document.getElementById('checkoutBtn');
     const mobileCheckoutBtn = document.getElementById('mobileCheckoutBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const printInvoiceBtn = document.getElementById('printInvoiceBtn');
+    const buyerInnSearchBtn = document.getElementById('buyerInnSearchBtn');
+    const buyerInnInput = document.getElementById('buyerInnInput');
 
     if (checkoutBtn) checkoutBtn.addEventListener('click', openInvoiceModal);
     if (mobileCheckoutBtn) mobileCheckoutBtn.addEventListener('click', openInvoiceModal);
     if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
     if (printInvoiceBtn) printInvoiceBtn.addEventListener('click', () => window.print());
+    if (buyerInnSearchBtn) buyerInnSearchBtn.addEventListener('click', () => handleInnSearch());
+    if (buyerInnInput) {
+        buyerInnInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleInnSearch();
+            }
+        });
+    }
 }
 
 function getFilteredProducts() {
@@ -1040,10 +1051,278 @@ function updateCartUI() {
     }
 }
 
+// ==========================================================================
+// B2B INVOICE & CHECKOUT WORKFLOW (INN LOOKUP, GOST QR, ERP PIPELINE)
+// ==========================================================================
+
+const B2B_COMPANY_PRESETS = {
+    '7703401545': {
+        name: 'Алюминиевая Ассоциация (Ассоциация производителей, поставщиков и потребителей алюминия)',
+        inn: '7703401545',
+        kpp: '770301001',
+        ogrn: '1157700018222',
+        address: '123100, г. Москва, наб. Краснопресненская, д. 8, эт. 9, ком. 904',
+        delivery: 'СДЭК До двери / г. Москва, ул. 1905 года, д. 10',
+        edo: '1С-ЭДО / Диадок (ID: 2BM-7703401545)'
+    },
+    '7801234567': {
+        name: 'ООО «Кофейня на Невском»',
+        inn: '7801234567',
+        kpp: '780101001',
+        ogrn: '1197847012345',
+        address: 'г. Санкт-Петербург, Невский пр-кт, д. 24, лит. А',
+        delivery: 'СДЭК До двери / ПВЗ Невский 28',
+        edo: '1С-ЭДО / Диадок (УПД день в день)'
+    },
+    '7724918230': {
+        name: 'ООО «Кофейная Компания»',
+        inn: '7724918230',
+        kpp: '772401001',
+        ogrn: '1157746819230',
+        address: 'г. Москва, ул. Новый Арбат, д. 12',
+        delivery: 'СДЭК До двери / ПВЗ Новый Арбат 16',
+        edo: 'СБИС (Тензор) (ID: 2BE-7724918230)'
+    },
+    '7704229718': {
+        name: 'ООО «Кофемания»',
+        inn: '7704229718',
+        kpp: '770401001',
+        ogrn: '1027739188040',
+        address: 'г. Москва, ул. Большая Никитская, д. 13/6',
+        delivery: 'СДЭК До двери / ПВЗ ул. Большая Никитская, 20',
+        edo: '1С-ЭДО (Калуга Астрал)'
+    },
+    '781298451000': {
+        name: 'ИП Смирнов Александр Васильевич (Espresso Bar)',
+        inn: '781298451000',
+        kpp: '— (ИП)',
+        ogrn: 'ОГРНИП 321784700098765',
+        address: 'г. Севастополь, ул. Большая Морская, д. 15',
+        delivery: 'СДЭК Самовывоз / ПВЗ Большая Морская 21',
+        edo: '1С-ЭДО (Калуга Астрал)'
+    }
+};
+
+let currentBuyerCompany = B2B_COMPANY_PRESETS['7801234567'];
+let currentInvoiceNumber = 'RC-94812';
+let currentInvoiceSum = 0;
+let qrCodeInstance = null;
+
+function applyPresetCompany(inn) {
+    const input = document.getElementById('buyerInnInput');
+    if (input) input.value = inn;
+    handleInnSearch(inn);
+}
+window.applyPresetCompany = applyPresetCompany;
+
+function handleInnSearch(forcedInn) {
+    const input = document.getElementById('buyerInnInput');
+    const inn = (forcedInn || (input ? input.value : '')).trim();
+    if (!inn) return;
+
+    let company = B2B_COMPANY_PRESETS[inn];
+    if (!company) {
+        // Dynamic fallback generator for any entered INN
+        company = {
+            name: (inn.length === 12) ? `ИП Предприниматель (ИНН ${inn})` : `ООО «Кофейный Партнёр» (ИНН ${inn})`,
+            inn: inn,
+            kpp: (inn.length === 12) ? '— (ИП)' : '770101001',
+            ogrn: 'ОГРН 120' + inn.slice(0, 8),
+            address: 'г. Россия, юридический адрес организации контрагента',
+            delivery: 'СДЭК До терминала / До двери',
+            edo: '1С-ЭДО (Автоматическая выгрузка УПД)'
+        };
+    }
+
+    currentBuyerCompany = company;
+    updateBuyerCompanyCard(company);
+    updateB2BQrCode();
+}
+window.handleInnSearch = handleInnSearch;
+
+function updateBuyerCompanyCard(company) {
+    const nameEl = document.getElementById('buyerCardName');
+    const detailsEl = document.getElementById('buyerCardDetails');
+    const addrEl = document.getElementById('buyerCardAddress');
+    const edoEl = document.getElementById('buyerCardEdo');
+    const delivEl = document.getElementById('buyerCardDelivery');
+
+    if (nameEl) nameEl.textContent = company.name;
+    if (detailsEl) detailsEl.innerHTML = `ИНН: <strong>${company.inn}</strong> &bull; КПП: <strong>${company.kpp}</strong> &bull; ОГРН: <strong>${company.ogrn}</strong>`;
+    if (addrEl) addrEl.textContent = `📍 Юр. адрес: ${company.address}`;
+    if (edoEl) edoEl.textContent = `✓ ЭДО: ${company.edo}`;
+    if (delivEl) delivEl.innerHTML = `🚚 Доставка: <strong>${company.delivery}</strong>`;
+}
+
+function switchPaymentTab(tabName) {
+    const tabBtnQr = document.getElementById('tabBtnQr');
+    const tabBtnPdf = document.getElementById('tabBtnPdf');
+    const tabContentQr = document.getElementById('tabContentQr');
+    const tabContentPdf = document.getElementById('tabContentPdf');
+
+    if (tabName === 'qr') {
+        if (tabBtnQr) tabBtnQr.classList.add('active');
+        if (tabBtnPdf) tabBtnPdf.classList.remove('active');
+        if (tabContentQr) tabContentQr.classList.add('active');
+        if (tabContentPdf) tabContentPdf.classList.remove('active');
+        updateB2BQrCode();
+    } else {
+        if (tabBtnQr) tabBtnQr.classList.remove('active');
+        if (tabBtnPdf) tabBtnPdf.classList.add('active');
+        if (tabContentQr) tabContentQr.classList.remove('active');
+        if (tabContentPdf) tabContentPdf.classList.add('active');
+    }
+}
+window.switchPaymentTab = switchPaymentTab;
+
+function updateB2BQrCode() {
+    const container = document.getElementById('b2bQrCodeContainer');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    // Standard Russian Banking QR Code String (GOST R 56042-2014 / SBP B2B)
+    const sumInKopecks = Math.round(currentInvoiceSum * 100);
+    const buyerName = (currentBuyerCompany && currentBuyerCompany.name) ? currentBuyerCompany.name : 'Покупатель B2B';
+    const purpose = `Оплата по счету ${currentInvoiceNumber} за свежеобжаренный кофе для ${buyerName} без НДС`;
+
+    const qrData = `ST00012|Name=ООО "РОСТКОСТ"|PersonalAcc=40702810000000012345|BankName=РНКБ БАНК (ПАО)|BIC=043510607|CorrespAcc=30101810335100000607|PayeeINN=9201529124|KPP=920101001|Sum=${sumInKopecks}|Purpose=${purpose}`;
+
+    try {
+        if (typeof QRCode !== 'undefined') {
+            qrCodeInstance = new QRCode(container, {
+                text: qrData,
+                width: 170,
+                height: 170,
+                colorDark: "#1f1813",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        } else {
+            container.innerHTML = `<div style="font-size:0.75rem; color:var(--color-fg-muted); text-align:center; padding:20px;">[QR-код: ${currentInvoiceNumber}]</div>`;
+        }
+    } catch (e) {
+        console.warn('QR Code generation notice:', e);
+    }
+}
+
+function simulateSuccessfulPayment() {
+    const simBtn = document.getElementById('simulatePaymentBtn');
+    if (simBtn) {
+        simBtn.disabled = true;
+        simBtn.innerHTML = '<span>⏳ Проверка банком...</span>';
+    }
+
+    setTimeout(() => {
+        const mainView = document.getElementById('invoiceMainView');
+        const successScreen = document.getElementById('orderSuccessScreen');
+        if (mainView) mainView.style.display = 'none';
+        if (successScreen) successScreen.classList.add('active');
+
+        const successOrderNum = document.getElementById('successOrderNum');
+        const successOrderSum = document.getElementById('successOrderSum');
+        const successTrackNum = document.getElementById('successTrackNum');
+        const successEdoDetails = document.getElementById('successEdoDetails');
+
+        if (successOrderNum) successOrderNum.textContent = currentInvoiceNumber;
+        if (successOrderSum) successOrderSum.textContent = `${currentInvoiceSum.toLocaleString('ru-RU')} ₽`;
+        if (successTrackNum) successTrackNum.textContent = `RC-SDEK-${Math.floor(100000 + Math.random() * 900000)}`;
+        if (successEdoDetails && currentBuyerCompany) {
+            successEdoDetails.textContent = `Электронный УПД автоматически передан через ${currentBuyerCompany.edo} для ${currentBuyerCompany.name} (ИНН: ${currentBuyerCompany.inn}). Подписан КЭП RoastCoast.`;
+        }
+
+        if (simBtn) {
+            simBtn.disabled = false;
+            simBtn.innerHTML = '<span>⚡ Симулировать оплату в банке</span>';
+        }
+    }, 650);
+}
+window.simulateSuccessfulPayment = simulateSuccessfulPayment;
+
+function simulateOrderReservation() {
+    alert(`Заказ ${currentInvoiceNumber} на сумму ${currentInvoiceSum.toLocaleString('ru-RU')} ₽ успешно переведён в статус «РЕЗЕРВ (3 дня)» в МойСклад!\nСчёт сформирован. Ожидается безналичный платёж от ${currentBuyerCompany.name}.`);
+}
+window.simulateOrderReservation = simulateOrderReservation;
+
+function downloadPaymentOrderTxt() {
+    const sumFormatted = Number(currentInvoiceSum).toFixed(2);
+    const dateFormatted = new Date().toLocaleDateString('ru-RU');
+    const invoiceNum = currentInvoiceNumber || 'RC-94812';
+    const numDigits = invoiceNum.replace(/\D/g, '') || '94812';
+    const buyerName = (currentBuyerCompany && currentBuyerCompany.name) ? currentBuyerCompany.name : 'ООО «Кофейня на Невском»';
+    const buyerInn = (currentBuyerCompany && currentBuyerCompany.inn) ? currentBuyerCompany.inn : '7801234567';
+    const buyerKpp = (currentBuyerCompany && currentBuyerCompany.kpp && currentBuyerCompany.kpp !== '— (ИП)') ? currentBuyerCompany.kpp : '';
+
+    const content = [
+        '1CClientBankExchange',
+        'ВерсияФормата=1.03',
+        'Кодировка=Windows',
+        'Отправитель=RoastCoast B2B Portal',
+        `ДатаСоздания=${dateFormatted}`,
+        'ВремяСоздания=12:00:00',
+        `ДатаНачала=${dateFormatted}`,
+        `ДатаКонца=${dateFormatted}`,
+        'РасчСчет=40702810000000012345',
+        'СекцияДокумент=Платежное поручение',
+        `Номер=${numDigits}`,
+        `Дата=${dateFormatted}`,
+        `Сумма=${sumFormatted}`,
+        `Плательщик=${buyerName}`,
+        `ПлательщикИНН=${buyerInn}`,
+        `ПлательщикКПП=${buyerKpp}`,
+        'Получатель=ООО "РОСТКОСТ"',
+        'ПолучательИНН=9201529124',
+        'ПолучательКПП=920101001',
+        'ПолучательРасчСчет=40702810000000012345',
+        'ПолучательБанк1=РНКБ БАНК (ПАО)',
+        'ПолучательБИК=043510607',
+        'ПолучательКорсчет=30101810335100000607',
+        'ВидОплаты=01',
+        'Очередность=5',
+        `НазначениеПлатежа=Оплата по счету ${invoiceNum} от ${dateFormatted} за свежеобжаренный кофе без НДС`,
+        'КонецДокумента',
+        'КонецФайла'
+    ].join('\r\n');
+
+    const blob = new Blob([content], { type: 'text/plain;charset=windows-1251' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Platizhka_${invoiceNum}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+window.downloadPaymentOrderTxt = downloadPaymentOrderTxt;
+
+function resetAndCloseSuccessModal() {
+    closeModal();
+    // Clear cart and update UI
+    cart = {};
+    if (typeof updateCartUI === 'function') updateCartUI();
+    if (typeof renderCatalog === 'function') renderCatalog();
+
+    // Reset views for next time
+    setTimeout(() => {
+        const mainView = document.getElementById('invoiceMainView');
+        const successScreen = document.getElementById('orderSuccessScreen');
+        if (mainView) mainView.style.display = 'block';
+        if (successScreen) successScreen.classList.remove('active');
+    }, 300);
+}
+window.resetAndCloseSuccessModal = resetAndCloseSuccessModal;
+
 function openInvoiceModal() {
     const modal = document.getElementById('invoiceModal');
     if (!modal) return;
     
+    // Reset view states
+    const mainView = document.getElementById('invoiceMainView');
+    const successScreen = document.getElementById('orderSuccessScreen');
+    if (mainView) mainView.style.display = 'block';
+    if (successScreen) successScreen.classList.remove('active');
+
     modal.classList.add('active');
 
     const invoiceTableBody = document.getElementById('modalInvoiceTableBody');
@@ -1068,10 +1347,21 @@ function openInvoiceModal() {
             invoiceTableBody.appendChild(tr);
         });
 
+        currentInvoiceSum = sumB2B;
+        currentInvoiceNumber = `RC-${Math.floor(10000 + Math.random() * 90000)}`;
+
         const dateStr = new Date().toLocaleDateString('ru-RU');
-        document.getElementById('invoiceDate').textContent = dateStr;
-        document.getElementById('invoiceNumber').textContent = `RC-${Math.floor(10000 + Math.random() * 90000)}`;
-        document.getElementById('modalTotalSum').textContent = `${sumB2B.toLocaleString('ru-RU')} ₽`;
+        const dateEl = document.getElementById('invoiceDate');
+        const numEl = document.getElementById('invoiceNumber');
+        const totalEl = document.getElementById('modalTotalSum');
+
+        if (dateEl) dateEl.textContent = dateStr;
+        if (numEl) numEl.textContent = currentInvoiceNumber;
+        if (totalEl) totalEl.textContent = `${sumB2B.toLocaleString('ru-RU')} ₽`;
+
+        // Initialize company and QR
+        handleInnSearch();
+        updateB2BQrCode();
     }
 }
 

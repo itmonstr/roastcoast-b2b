@@ -1240,7 +1240,79 @@
         body.theme-dark-steam .modal-content {
             background: #1C1613 !important;
             color: #EDE8E1 !important;
+            border: 1px solid rgba(212, 165, 116, 0.35) !important;
+        }
+        body.theme-dark-steam .invoice-title {
+            color: #FFFFFF !important;
+            font-size: 1.45rem !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.02em !important;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6) !important;
+        }
+        body.theme-dark-steam .invoice-company-details {
+            color: #D6C9BA !important;
+        }
+        body.theme-dark-steam .checkout-step-title {
+            color: #FFFFFF !important;
+        }
+        body.theme-dark-steam .checkout-step-block {
+            background: rgba(26, 20, 16, 0.95) !important;
+            border: 1px solid rgba(212, 165, 116, 0.28) !important;
+        }
+        body.theme-dark-steam .company-card-name {
+            color: #FFFFFF !important;
+        }
+        body.theme-dark-steam .company-result-card {
+            background: rgba(18, 14, 11, 0.98) !important;
             border: 1px solid rgba(212, 165, 116, 0.3) !important;
+            border-left: 4px solid #10B981 !important;
+            color: #EDE8E1 !important;
+        }
+        body.theme-dark-steam .inn-input-field {
+            background: #140F0C !important;
+            color: #FFFFFF !important;
+            border-color: rgba(212, 165, 116, 0.35) !important;
+        }
+        body.theme-dark-steam .inn-preset-chip {
+            background: rgba(36, 28, 22, 0.95) !important;
+            color: #EDE8E1 !important;
+            border-color: rgba(212, 165, 116, 0.35) !important;
+        }
+        body.theme-dark-steam .payment-tabs-nav {
+            background: #140F0C !important;
+            border: 1px solid rgba(212, 165, 116, 0.3) !important;
+        }
+        body.theme-dark-steam .payment-tab-btn {
+            color: #D4A574 !important;
+        }
+        body.theme-dark-steam .payment-tab-btn.active {
+            background: rgba(212, 165, 116, 0.25) !important;
+            color: #FFFFFF !important;
+            border: 1px solid rgba(212, 165, 116, 0.6) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+        }
+        body.theme-dark-steam .qr-payment-container {
+            background: rgba(22, 17, 13, 0.98) !important;
+            border-color: rgba(212, 165, 116, 0.3) !important;
+            color: #EDE8E1 !important;
+        }
+        body.theme-dark-steam .qr-guide-step {
+            color: #EDE8E1 !important;
+        }
+        body.theme-dark-steam .simulation-trigger-card {
+            background: rgba(38, 26, 18, 0.9) !important;
+            border: 1px solid rgba(212, 165, 116, 0.4) !important;
+            color: #EDE8E1 !important;
+        }
+        body.theme-dark-steam .erp-pipeline-list {
+            background: #140F0C !important;
+            border-color: rgba(212, 165, 116, 0.25) !important;
+        }
+        body.theme-dark-steam .erp-pipeline-step {
+            color: #EDE8E1 !important;
+        }
+        body.theme-dark-steam .erp-step-content strong {
+            color: #FFFFFF !important;
         }
         body.theme-dark-steam .invoice-parties {
             background: rgba(26, 20, 16, 0.95) !important;
@@ -3029,73 +3101,276 @@
 
     </div>
 
-    <!-- Invoice Modal -->
+    <!-- Invoice & B2B Checkout Modal -->
     <div class="modal-overlay" id="invoiceModal">
         <div class="modal-content">
             <button class="modal-close" id="closeModalBtn">&times;</button>
             
-            <div class="invoice-header">
-                <div style="display:flex; align-items:center; gap:12px;">
-                    <img src="assets/roastcoast-mark.svg" style="height:44px; width:auto;" alt="RoastCoast">
-                    <div>
-                        <div class="invoice-title">СЧЁТ НА ОПЛАТУ</div>
-                        <div style="font-weight:700; color:var(--color-primary); font-size:1.1rem; margin-top:2px;">№ <span id="invoiceNumber">RC-94812</span> от <span id="invoiceDate">11.09.2026</span></div>
+            <!-- Standard Checkout View -->
+            <div id="invoiceMainView">
+                <div class="invoice-header">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <img src="assets/roastcoast-mark.svg" style="height:44px; width:auto;" alt="RoastCoast">
+                        <div>
+                            <div class="invoice-title" style="color: #FFFFFF !important; font-size: 1.5rem; font-weight: 800; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">СЧЁТ НА ОПЛАТУ (B2B ЗАКАЗ)</div>
+                            <div style="font-weight:700; color:var(--color-primary); font-size:1.05rem; margin-top:2px;">
+                                Заказ № <span id="invoiceNumber">RC-94812</span> от <span id="invoiceDate">14.09.2026</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invoice-company-details">
+                        <strong>Поставщик:</strong> ООО «РостКост»<br>
+                        ИНН: 9201529124 / КПП: 920101001<br>
+                        Р/С: 40702810000000012345 в РНКБ БАНК (ПАО)<br>
+                        БИК: 043510607 / Корр.счёт: 30101810335100000607
                     </div>
                 </div>
-                <div class="invoice-company-details">
-                    <strong>Поставщик:</strong> ООО «РостКост»<br>
-                    ИНН 9201529124 / КПП 920101001<br>
-                    Севастополь, ул. Правды, 28<br>
-                    Тел: +7 (978) 230-00-80
+
+                <!-- STEP 1: Company Requisites (INN Autofill) -->
+                <div class="checkout-step-block">
+                    <div class="checkout-step-title">
+                        <span class="checkout-step-num">1</span>
+                        <span>Реквизиты плательщика (Автозаполнение по ИНН / ЕГРЮЛ)</span>
+                    </div>
+
+                    <div class="inn-input-group">
+                        <input type="text" id="buyerInnInput" class="inn-input-field" placeholder="Введите ИНН организации (10 цифр) или ИП (12 цифр)" value="7703401545" maxlength="12">
+                        <button type="button" id="buyerInnSearchBtn" class="inn-search-btn">
+                            🔍 Найти в ЕГРЮЛ
+                        </button>
+                    </div>
+
+                    <div class="inn-presets-wrap">
+                        <span class="inn-preset-label">⚡ Примеры для теста:</span>
+                        <button type="button" class="inn-preset-chip" onclick="applyPresetCompany('7703401545')">
+                            🏭 Алюминиевая Ассоциация (7703401545)
+                        </button>
+                        <button type="button" class="inn-preset-chip" onclick="applyPresetCompany('7704229718')">
+                            ☕ ООО «Кофемания» (7704229718)
+                        </button>
+                        <button type="button" class="inn-preset-chip" onclick="applyPresetCompany('7801234567')">
+                            ☕ ООО «Кофейня на Невском»
+                        </button>
+                        <button type="button" class="inn-preset-chip" onclick="applyPresetCompany('781298451000')">
+                            👤 ИП Смирнов А.В. (Севастополь)
+                        </button>
+                    </div>
+                    <div style="font-size:0.75rem; color:var(--color-fg-muted); margin-bottom:12px; line-height:1.4;">
+                        💡 <em>В этом демонстрационном прототипе предзагружены точные данные из ЕГРЮЛ для тестовых ИНН. На боевом сервере подключается бесплатный сервис <strong>DaData API</strong> (10 000 запросов в день), который подтягивает 100% любых действующих компаний и ИП РФ.</em>
+                    </div>
+
+                    <div class="company-result-card" id="companyResultCard">
+                        <div>
+                            <div class="company-card-name" id="buyerCardName">Алюминиевая Ассоциация</div>
+                            <div style="color:var(--color-fg-muted); font-size:0.8rem; line-height:1.4;" id="buyerCardDetails">
+                                ИНН: <strong>7703401545</strong> &bull; КПП: <strong>770301001</strong> &bull; ОГРН: <strong>1157700018222</strong>
+                            </div>
+                            <div style="margin-top:6px; font-size:0.8rem; color:var(--color-fg);" id="buyerCardAddress">
+                                📍 Юр. адрес: 123100, г. Москва, наб. Краснопресненская, д. 8, эт. 9, ком. 904
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; border-left:1px dashed var(--color-border); padding-left:14px;">
+                            <div>
+                                <span class="company-badge-edo" id="buyerCardEdo">
+                                    ✓ ЭДО: 1С-ЭДО / Диадок (ID: 2BM-7703401545)
+                                </span>
+                            </div>
+                            <div style="font-size:0.78rem; color:var(--color-fg-muted); margin-top:6px;" id="buyerCardDelivery">
+                                🚚 Доставка: <strong>СДЭК До двери / г. Москва, ул. 1905 года, д. 10</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Order Items Table -->
+                <div class="checkout-step-block">
+                    <div class="checkout-step-title">
+                        <span class="checkout-step-num">2</span>
+                        <span>Состав оптового заказа</span>
+                    </div>
+
+                    <div class="invoice-table-scroll-wrapper" style="overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; margin-bottom: 12px;">
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Сорт кофе / Фасовка / Помол</th>
+                                    <th>Кол-во</th>
+                                    <th>Оптовая цена</th>
+                                    <th>Сумма</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalInvoiceTableBody">
+                                <!-- Rendered by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="invoice-total">
+                        Итого к оплате: <span id="modalTotalSum">0 ₽</span>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Payment Method Tabs (QR vs Payment Order) -->
+                <div class="checkout-step-block">
+                    <div class="checkout-step-title">
+                        <span class="checkout-step-num">3</span>
+                        <span>Выберите способ оплаты: B2B QR-код или Платёжное поручение</span>
+                    </div>
+
+                    <div class="payment-tabs-nav">
+                        <button type="button" class="payment-tab-btn active" id="tabBtnQr" onclick="switchPaymentTab('qr')">
+                            📱 Оплата по B2B QR-коду (Бизнес-банк онлайн)
+                        </button>
+                        <button type="button" class="payment-tab-btn" id="tabBtnPdf" onclick="switchPaymentTab('pdf')">
+                            📄 Безналичное платёжное поручение (Счёт / 1С / Банк)
+                        </button>
+                    </div>
+
+                    <!-- TAB 1: QR Payment (Active) -->
+                    <div class="payment-tab-content active" id="tabContentQr">
+                        <div class="qr-payment-container">
+                            <div class="qr-code-frame">
+                                <div id="b2bQrCodeContainer"></div>
+                                <div class="qr-code-label">ГОСТ / СБП B2B</div>
+                            </div>
+                            <div class="qr-guide-box">
+                                <div class="qr-guide-step">
+                                    <span class="qr-guide-icon">1.</span>
+                                    <span>Откройте приложение любого бизнес-банка на смартфоне (<strong>СберБизнес, Т-Бизнес, Точка, ВТБ, Альфа, РНКБ</strong>).</span>
+                                </div>
+                                <div class="qr-guide-step">
+                                    <span class="qr-guide-icon">2.</span>
+                                    <span>Наведите камеру или выберите <strong>«Оплата по QR-коду»</strong>.</span>
+                                </div>
+                                <div class="qr-guide-step">
+                                    <span class="qr-guide-icon">3.</span>
+                                    <span>Все реквизиты ООО «РостКост», точная сумма счёта и назначение платежа подставятся автоматически.</span>
+                                </div>
+
+                                <div class="qr-supported-banks">
+                                    <span style="font-size:0.74rem; font-weight:700; color:var(--color-fg-muted);">Поддерживается:</span>
+                                    <span class="bank-pill">СберБизнес</span>
+                                    <span class="bank-pill">Т-Бизнес</span>
+                                    <span class="bank-pill">Точка</span>
+                                    <span class="bank-pill">Альфа</span>
+                                    <span class="bank-pill">ВТБ</span>
+                                    <span class="bank-pill">РНКБ</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Simulation Block -->
+                        <div class="simulation-trigger-card">
+                            <div>
+                                <div style="font-weight:800; font-size:0.92rem; color:var(--color-fg); display:flex; align-items:center; gap:6px;">
+                                    <span>⚡ Тестирование мгновенной оплаты:</span>
+                                </div>
+                                <div style="font-size:0.8rem; color:var(--color-fg-muted); margin-top:2px;">
+                                    Нажмите кнопку, чтобы симулировать успешную транзакцию и увидеть автоматизацию в МойСклад + 1С-ЭДО + СДЭК:
+                                </div>
+                            </div>
+                            <button type="button" class="btn-simulate-pay" id="simulatePaymentBtn" onclick="simulateSuccessfulPayment()">
+                                <span>⚡ Симулировать оплату по QR-коду</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: PDF & Payment Order File (TXT / 1C) -->
+                    <div class="payment-tab-content" id="tabContentPdf">
+                        <div style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:10px; padding:18px;">
+                            <div style="font-size:0.88rem; color:var(--color-fg); line-height:1.5; margin-bottom:14px;">
+                                Классический безналичный расчёт с расчётного счёта вашей организации на расчётный счёт ООО «РостКост». Вы можете <strong>скачать готовый файл платёжного поручения</strong> для быстрой загрузки в любой банк РФ без ручного набора цифр, либо распечатать официальный счёт в PDF. Заказ ставится в резерв в МойСклад на 3 рабочих дня.
+                            </div>
+                            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+                                <button type="button" onclick="downloadPaymentOrderTxt()" style="background:linear-gradient(135deg, #059669 0%, #047857 100%); color:#fff; border:none; padding:12px 18px; border-radius:8px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 3px 12px rgba(5,150,105,0.35);">
+                                    📥 Скачать файл платёжки (.txt для 1С/банка)
+                                </button>
+                                <button type="button" id="printInvoiceBtn" style="background:var(--color-primary); color:#fff; border:none; padding:12px 18px; border-radius:8px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
+                                    🖨 Распечатать / Скачать счёт в PDF
+                                </button>
+                                <button type="button" onclick="simulateOrderReservation()" style="background:var(--color-surface-2); color:var(--color-fg); border:1px solid var(--color-border); padding:12px 18px; border-radius:8px; font-weight:700; cursor:pointer;">
+                                    ✓ Зарезервировать в МойСклад на 3 дня
+                                </button>
+                            </div>
+
+                            <!-- Simulation for Payment Order -->
+                            <div class="simulation-trigger-card" style="margin-top:10px;">
+                                <div>
+                                    <div style="font-weight:800; font-size:0.92rem; color:var(--color-fg); display:flex; align-items:center; gap:6px;">
+                                        <span>⚡ Симуляция безналичного платежа:</span>
+                                    </div>
+                                    <div style="font-size:0.8rem; color:var(--color-fg-muted); margin-top:2px;">
+                                        Проверьте, как после отправки платёжного поручения робот МойСклад сопоставляет платёж по номеру счёта и отправляет кофе в обжарку:
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-simulate-pay" onclick="simulateSuccessfulPayment()">
+                                    <span>⚡ Симулировать зачисление платёжки</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- SUCCESS & ERP PIPELINE SCREEN -->
+            <div id="orderSuccessScreen">
+                <div class="success-check-badge">✓</div>
+                <h3 style="font-size:1.4rem; font-weight:800; color:var(--color-fg); margin:0 0 6px 0;">
+                    Оплата успешно зафиксирована!
+                </h3>
+                <p style="color:var(--color-fg-muted); font-size:0.9rem; margin:0 0 16px 0;">
+                    Заказ <strong>№ <span id="successOrderNum">RC-94812</span></strong> на сумму <strong><span id="successOrderSum">0 ₽</span></strong> запущен в производство
+                </p>
+
+                <div class="erp-pipeline-list">
+                    <div class="erp-pipeline-step">
+                        <div class="erp-step-icon">✓</div>
+                        <div class="erp-step-content">
+                            <strong>Банк-клиент (РНКБ / СБП B2B):</strong>
+                            <span>Платёж получен на расчётный счёт ООО «РостКост». Электронный кассовый чек/п/п сформирован.</span>
+                        </div>
+                    </div>
+
+                    <div class="erp-pipeline-step">
+                        <div class="erp-step-icon">✓</div>
+                        <div class="erp-step-content">
+                            <strong>МойСклад ERP (Статус: 🟢 ОПЛАЧЕН / В РЕЗЕРВЕ):</strong>
+                            <span>Сырьё зелёного зерна списано, наряд передан старшему обжарщику в цех. Отгрузка запланирована на следующий рабочий день.</span>
+                        </div>
+                    </div>
+
+                    <div class="erp-pipeline-step">
+                        <div class="erp-step-icon">✓</div>
+                        <div class="erp-step-content">
+                            <strong>1С-ЭДО / Диадок (Электронный документооборот):</strong>
+                            <span id="successEdoDetails">Электронный УПД (Универсальный передаточный документ) сформирован, подписан КЭП поставщика и отправлен контрагенту.</span>
+                        </div>
+                    </div>
+
+                    <div class="erp-pipeline-step">
+                        <div class="erp-step-icon">✓</div>
+                        <div class="erp-step-content">
+                            <strong>Интеграция СДЭК (Логистика):</strong>
+                            <span>Накладная СДЭК зарегистрирована. Трек-номер: <strong style="color:var(--color-primary);" id="successTrackNum">RC-SDEK-948123</strong>.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:center; gap:12px; margin-top:20px; flex-wrap:wrap;">
+                    <button type="button" onclick="window.print()" style="background:var(--color-surface-2); color:var(--color-fg); border:none; padding:12px 20px; border-radius:8px; font-weight:700; cursor:pointer;">
+                        📥 Скачать квитанцию и счёт
+                    </button>
+                    <button type="button" onclick="resetAndCloseSuccessModal()" style="background:var(--color-primary); color:#fff; border:none; padding:12px 24px; border-radius:8px; font-weight:700; cursor:pointer;">
+                        ✕ Завершить и вернуться в каталог
+                    </button>
                 </div>
             </div>
 
-            <div class="invoice-parties">
-                <div>
-                    <strong>Покупатель (B2B):</strong><br>
-                    ООО «Кофейная Компания»<br>
-                    ИНН: 7724918230 / КПП: 772401001<br>
-                    Договор поставки № RC-B2B/2026
-                </div>
-                <div>
-                    <strong>Условия оплаты:</strong><br>
-                    Безналичный расчёт<br>
-                    Отсрочка платежа: 14 календарных дней<br>
-                    Доставка: СДЭК по всей России
-                </div>
-            </div>
-
-            <div class="invoice-table-scroll-wrapper" style="overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; margin-bottom: 20px;">
-                <table class="invoice-table">
-                    <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Наименование товара / Фасовка</th>
-                            <th>Кол-во</th>
-                            <th>Оптовая цена</th>
-                            <th>Сумма</th>
-                        </tr>
-                    </thead>
-                    <tbody id="modalInvoiceTableBody">
-                        <!-- Rendered by JS -->
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="invoice-total">
-                Всего к оплате: <span id="modalTotalSum">0 ₽</span>
-            </div>
-
-            <div style="margin-top:32px; display:flex; justify-content:flex-end; gap:12px;" class="modal-actions-row">
-                <button onclick="alert('Заказ успешно отправлен в МойСклад! Менеджер свяжется с вами для подтверждения.')" style="background:var(--color-primary); color:var(--color-surface); border:none; padding:12px 24px; border-radius:8px; font-weight:700; cursor:pointer;">
-                    ✓ Подтвердить и отправить в МойСклад
-                </button>
-                <button id="printInvoiceBtn" style="background:var(--color-surface-2); color:var(--color-fg); border:none; padding:12px 20px; border-radius:8px; font-weight:700; cursor:pointer;">
-                    🖨 Печать Счёта
-                </button>
-            </div>
         </div>
     </div>
+
 
     <!-- Wholesale Terms Modal -->
     <div class="modal-overlay" id="wholesaleTermsModal">
@@ -3274,6 +3549,7 @@
         </a>
     </div>
 
-    <script src="assets/b2b.js?v=20260912_v27"></script>
+    <script src="assets/qrcode.min.js"></script>
+    <script src="assets/b2b.js?v=20260914_v2"></script>
 </body>
 </html>
